@@ -43,7 +43,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         btn_grade10.setOnClickListener{
-            Navigation.findNavController(it).navigate(R.id.next_action)
+            Navigation.findNavController(it).navigate(R.id.subject_action)
         }
     }
 
