@@ -1,0 +1,38 @@
+{
+  "sinhala": {
+    "name": "සිංහල",
+    "lines": 1
+  },
+  "english": {
+    "name": "ඉංග්\u200Dරීසි",
+    "lines": 1
+  },
+  "commerce": {
+    "name": "ව්\u200Dයාපාර\nඅධ්\u200Dයයනය",
+    "lines": 2
+  },
+  "geography": {
+    "name": "භූගෝල\nවිද්\u200Dයාව",
+    "lines": 2
+  },
+  "entrepreneurship": {
+    "name": "ව්\u200Dයවසායකත්ව\nඅධ්\u200Dයයනය",
+    "lines": 2
+  },
+  "history": {
+    "name": "ඉතිහාසය",
+    "lines": 1
+  },
+  "ict": {
+    "name": "තොරතුරු\nතාක්ෂණය",
+    "lines": 2
+  },
+  "maths": {
+    "name": "ගණිතය",
+    "lines": 1
+  },
+  "science": {
+    "name": "විද්\u200Dයාව",
+    "lines": 1
+  }
+}
