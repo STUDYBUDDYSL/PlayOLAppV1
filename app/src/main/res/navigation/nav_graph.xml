@@ -27,5 +27,9 @@
         android:id="@+id/subjectFragment"
         android:name="com.taloslogy.playolapp.SubjectFragment"
         android:label="fragment_subject"
-        tools:layout="@layout/fragment_subject" />
+        tools:layout="@layout/fragment_subject" >
+        <argument
+            android:name="subject"
+            app:argType="string" />
+    </fragment>
 </navigation>

@@ -95,7 +95,8 @@ class GradeFragment : Fragment() {
                         nb.layoutParams = cParams
 
                         nb.btn.setOnClickListener {
-                            Navigation.findNavController(it).navigate(R.id.select_subject)
+                            val action = GradeFragmentDirections.selectSubject(files[i].name)
+                            Navigation.findNavController(it).navigate(action)
                         }
 
                         row.addView(nb)
