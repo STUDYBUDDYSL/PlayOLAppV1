@@ -51,7 +51,6 @@ class GradeFragment : Fragment() {
 
         val files = getFilesFromPath("/storage/5E71-DBAD/Courses/Grade 10")
 
-//        generateTable(files)
         thread { generateTable(files) }
     }
 
@@ -109,7 +108,6 @@ class GradeFragment : Fragment() {
                     y++
                 }
                 // Add the completed row to table
-//                table_view.addView(row, lParams)
                 requireActivity().runOnUiThread { table_view?.addView(row, lParams) }
             }
         }
