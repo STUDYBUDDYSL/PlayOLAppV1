@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_grade.*
 import kotlinx.android.synthetic.main.nice_button1.view.*
 import kotlinx.coroutines.runBlocking
@@ -93,6 +94,11 @@ class GradeFragment : Fragment() {
                         nb.btn.text = jsonObject.getJSONObject(files[i].name).getString("name")
                         nb.btn.maxLines = jsonObject.getJSONObject(files[i].name).getInt("lines")
                         nb.layoutParams = cParams
+
+                        nb.btn.setOnClickListener {
+                            Navigation.findNavController(it).navigate(R.id.select_subject)
+                        }
+
                         row.addView(nb)
                     }
                     else {
@@ -104,7 +110,7 @@ class GradeFragment : Fragment() {
                 }
                 // Add the completed row to table
 //                table_view.addView(row, lParams)
-                requireActivity().runOnUiThread { table_view.addView(row, lParams) }
+                requireActivity().runOnUiThread { table_view?.addView(row, lParams) }
             }
         }
     }
