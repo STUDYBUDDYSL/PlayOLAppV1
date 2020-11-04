@@ -8,8 +8,10 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fragment_grade.*
 import kotlinx.android.synthetic.main.nice_button1.view.*
+import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import java.io.File
+import kotlin.concurrent.thread
 import kotlin.math.ceil
 
 // TODO: Rename parameter arguments, choose names that match
@@ -46,9 +48,16 @@ class GradeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val files = getFilesFromPath("/storage/5E71-DBAD/Courses/Grade 10")
+
+//        generateTable(files)
+        thread { generateTable(files) }
+    }
+
+    private fun generateTable(files: List<File>) {
+
         val json = readFileText("fileNames.json")
         val jsonObject = JSONObject(json)
-        val files = getFilesFromPath("/storage/5E71-DBAD/Courses/Grade 10")
 
         if (files.isNotEmpty()) {
             // Create layout params for the table rows and children
@@ -94,7 +103,8 @@ class GradeFragment : Fragment() {
                     y++
                 }
                 // Add the completed row to table
-                table_view.addView(row, lParams)
+//                table_view.addView(row, lParams)
+                requireActivity().runOnUiThread { table_view.addView(row, lParams) }
             }
         }
     }
