@@ -27,11 +27,12 @@
             android:text="10 ශ්‍රේණිය"
             android:textColor="@color/colorWhite"
             android:background="@drawable/rounded_corners"
-            android:textSize="25sp"
+            android:textSize="28sp"
+            android:fontFamily="@font/basuru"
             android:textStyle="bold"
             android:paddingHorizontal="45dp"
             android:layout_marginTop="50dp"
-            android:paddingVertical="2sp"/>
+            android:paddingVertical="5sp"/>
 
         <TableLayout
             android:id="@+id/table_view"

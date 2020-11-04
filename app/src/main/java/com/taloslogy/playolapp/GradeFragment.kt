@@ -17,6 +17,8 @@ import kotlin.math.ceil
 
 class GradeFragment : Fragment() {
 
+    val fUtils = FileUtils()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -28,14 +30,14 @@ class GradeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val files = getFilesFromPath("/storage/5E71-DBAD/Courses/Grade 10")
+        val files = fUtils.getFilesFromPath("/storage/5E71-DBAD/Courses/Grade 10")
 
         thread { generateTable(files) }
     }
 
     private fun generateTable(files: List<File>) {
 
-        val json = readFileText("fileNames.json")
+        val json = fUtils.readFileText("fileNames.json", requireActivity())
         val jsonObject = JSONObject(json)
 
         if (files.isNotEmpty()) {
@@ -91,17 +93,5 @@ class GradeFragment : Fragment() {
                 requireActivity().runOnUiThread { table_view?.addView(row, lParams) }
             }
         }
-    }
-
-    private fun getFilesFromPath(path: String, showHiddenFiles: Boolean = false, onlyFolders: Boolean = true): List<File> {
-        val files = File(path).listFiles() ?: return emptyList()
-        return files
-            .filter { showHiddenFiles || !it.name.startsWith(".") }
-            .filter { !onlyFolders || it.isDirectory }
-            .toList()
-    }
-
-    private fun readFileText(fileName: String): String {
-        return requireActivity().assets.open(fileName).bufferedReader().use { it.readText() }
     }
 }
