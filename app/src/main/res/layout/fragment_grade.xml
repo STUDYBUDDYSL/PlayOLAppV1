@@ -20,17 +20,24 @@
             android:scaleType="fitCenter"
             android:contentDescription="@string/cool_image_button" />
 
-        <ScrollView
+        <TextView
+            android:id="@+id/grade_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10 ශ්‍රේණිය"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/rounded_corners"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:paddingHorizontal="45dp"
+            android:layout_marginTop="50dp"
+            android:paddingVertical="2sp"/>
+
+        <TableLayout
+            android:id="@+id/table_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TableLayout
-                android:id="@+id/table_view"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="20dp"/>
-
-        </ScrollView>
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"/>
 
     </LinearLayout>
 
