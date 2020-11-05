@@ -3,12 +3,63 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SubjectFragment">
+    tools:context=".fragments.SubjectFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical"
+        android:background="@drawable/background">
+
+        <ImageView
+            android:layout_width="120dp"
+            android:layout_height="80dp"
+            android:background="@drawable/main_logo"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:scaleType="fitCenter"
+            android:contentDescription="@string/cool_image_button" />
+
+        <EditText
+            android:id="@+id/search_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/fully_rounded"
+            android:ems="5"
+            android:inputType="text"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="20dp"
+            android:layout_gravity="end"
+            android:paddingVertical="2dp"
+            android:paddingHorizontal="10dp"
+            android:drawableEnd="@android:drawable/ic_menu_search"
+            android:drawableTint="@color/colorWhite"
+            android:textColor="@color/colorWhite"/>
+
+        <TextView
+            android:id="@+id/subject_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorWhite"
+            android:textSize="28sp"
+            android:fontFamily="@font/basuru"
+            android:textStyle="bold"
+            android:textFontWeight="1000"
+            android:paddingHorizontal="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
+            android:paddingVertical="5sp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/my_recycler_view"
+            android:scrollbars="vertical"
+            style="@style/ScrollBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginVertical="5dp"
+            android:layout_marginHorizontal="20dp" />
+
+
+    </LinearLayout>
 
 </FrameLayout>
