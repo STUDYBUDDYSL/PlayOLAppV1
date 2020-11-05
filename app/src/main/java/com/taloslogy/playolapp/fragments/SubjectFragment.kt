@@ -41,6 +41,7 @@ class SubjectFragment : Fragment() {
         val sName = jsonObject.getJSONObject(subName!!).getString("name")
         subject_name.text = sName.replace('\n', ' ')
 
+        // TODO change path here..
         val files = fileUtils.getFilesFromPath("/storage/5E71-DBAD/$subName/ed",
             onlyFolders = false
         )
