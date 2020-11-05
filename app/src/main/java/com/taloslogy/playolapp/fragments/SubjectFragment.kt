@@ -46,15 +46,15 @@ class SubjectFragment : Fragment() {
             onlyFolders = false
         )
 
-        thread { generateLessons(files) }
+        thread { generateLessons(files, subName) }
     }
 
-    private fun generateLessons(files: List<File>) {
+    private fun generateLessons(files: List<File>, subject: String) {
         val myDataset: Array<String> = if (files.isNotEmpty())
             files.map{ it.name }.toTypedArray() else emptyArray()
 
         viewManager = LinearLayoutManager(activity)
-        viewAdapter = LessonAdapter(myDataset)
+        viewAdapter = LessonAdapter(myDataset, subject)
 
         requireActivity().runOnUiThread {
             my_recycler_view?.apply {
