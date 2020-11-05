@@ -4,9 +4,9 @@
     android:viewportWidth="24"
     android:width="50dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <path android:fillColor="#FFFFFF"
+    <path android:fillColor="@color/playColor"
         android:pathData="M5,3l14,9l-14,9l0,-18z"
-        android:strokeColor="#FFFFFF"
+        android:strokeColor="@color/playColor"
         android:strokeLineCap="round"
         android:strokeLineJoin="round"
         android:strokeWidth="1.5"/>
