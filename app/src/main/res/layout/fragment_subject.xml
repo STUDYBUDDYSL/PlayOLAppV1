@@ -32,7 +32,7 @@
             android:layout_gravity="end"
             android:paddingVertical="2dp"
             android:paddingHorizontal="10dp"
-            android:drawableEnd="@android:drawable/ic_menu_search"
+            android:drawableEnd="@drawable/ic_search"
             android:drawableTint="@color/colorWhite"
             android:textColor="@color/colorWhite"/>
 
