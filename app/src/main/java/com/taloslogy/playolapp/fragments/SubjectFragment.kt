@@ -12,12 +12,16 @@ import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.utils.FileUtils
 import kotlinx.android.synthetic.main.fragment_subject.*
 import org.json.JSONObject
+import java.io.File
+import kotlin.concurrent.thread
 
 class SubjectFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
+
+    private var fileUtils: FileUtils = FileUtils()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -30,32 +34,40 @@ class SubjectFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val json = FileUtils()
-            .readFileText("fileNames.json", requireActivity())
+        val json = fileUtils.readFileText("fileNames.json", requireActivity())
         val jsonObject = JSONObject(json)
 
-        val subName = arguments?.let { SubjectFragmentArgs.fromBundle(
-            it
-        ).subject }
+        val subName = arguments?.let { SubjectFragmentArgs.fromBundle(it).subject }
         val sName = jsonObject.getJSONObject(subName!!).getString("name")
         subject_name.text = sName.replace('\n', ' ')
 
-        val myDataset = Array<String>(20) { "it = $it" }
+        val files = fileUtils.getFilesFromPath("/storage/5E71-DBAD/$subName/ed",
+            onlyFolders = false
+        )
+
+        thread { generateLessons(files) }
+    }
+
+    private fun generateLessons(files: List<File>) {
+        val myDataset: Array<String> = if (files.isNotEmpty())
+            files.map{ it.name }.toTypedArray() else emptyArray()
 
         viewManager = LinearLayoutManager(activity)
         viewAdapter = LessonAdapter(myDataset)
 
-        my_recycler_view.apply {
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
-            setHasFixedSize(true)
+        requireActivity().runOnUiThread {
+            my_recycler_view?.apply {
+                // use this setting to improve performance if you know that changes
+                // in content do not change the layout size of the RecyclerView
+                setHasFixedSize(true)
 
-            // use a linear layout manager
-            layoutManager = viewManager
+                // use a linear layout manager
+                layoutManager = viewManager
 
-            // specify an viewAdapter (see also next example)
-            adapter = viewAdapter
+                // specify an viewAdapter (see also next example)
+                adapter = viewAdapter
 
+            }
         }
     }
 
