@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,19 +21,47 @@
             android:scaleType="fitCenter"
             android:contentDescription="@string/cool_image_button" />
 
-        <TextView
-            android:id="@+id/lesson_number"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorWhite"
-            android:background="@drawable/rounded_corners"
-            android:textSize="28sp"
-            android:fontFamily="@font/basuru"
-            android:textStyle="bold"
-            android:paddingHorizontal="45dp"
-            android:layout_marginTop="50dp"
-            android:paddingVertical="5sp"/>
+            android:background="@drawable/rounded_corners_blue"
+            android:layout_marginTop="30dp"
+            android:layout_marginEnd="20dp">
 
+            <TextView
+                android:id="@+id/lesson_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rounded_corners"
+                android:fontFamily="@font/next_art_bold"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="3sp"
+                android:textColor="@color/colorWhite"
+                android:textSize="36sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/lesson_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/ganganee"
+                android:maxLines="1"
+                android:paddingVertical="10sp"
+                android:paddingHorizontal="15dp"
+                android:textColor="@color/colorWhite"
+                android:textSize="22sp"
+                app:layout_constraintStart_toEndOf="@+id/lesson_number"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_marginVertical="40dp"
+            android:background="@color/colorPrimary"/>
 
     </LinearLayout>
 

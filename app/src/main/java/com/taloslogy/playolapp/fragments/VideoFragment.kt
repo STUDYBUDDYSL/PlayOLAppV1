@@ -22,7 +22,9 @@ class VideoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val position = arguments?.let { VideoFragmentArgs.fromBundle(it).lessonNumber }
+        val name = arguments?.let { VideoFragmentArgs.fromBundle(it).lessonName }
         lesson_number.text = (position!! + 1).toString()
+        lesson_name.text = name!!
     }
 
 }
