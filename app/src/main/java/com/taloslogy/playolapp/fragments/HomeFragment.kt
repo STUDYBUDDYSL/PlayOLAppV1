@@ -1,4 +1,4 @@
-package com.taloslogy.playolapp
+package com.taloslogy.playolapp.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
+import com.taloslogy.playolapp.R
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {

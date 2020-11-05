@@ -1,4 +1,4 @@
-package com.taloslogy.playolapp
+package com.taloslogy.playolapp.utils
 
 import androidx.fragment.app.FragmentActivity
 import java.io.File

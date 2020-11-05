@@ -1,4 +1,4 @@
-package com.taloslogy.playolapp
+package com.taloslogy.playolapp.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,9 +7,10 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import com.taloslogy.playolapp.R
+import com.taloslogy.playolapp.utils.FileUtils
 import kotlinx.android.synthetic.main.fragment_grade.*
 import kotlinx.android.synthetic.main.nice_button1.view.*
-import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 import java.io.File
 import kotlin.concurrent.thread
@@ -76,7 +77,10 @@ class GradeFragment : Fragment() {
                         nb.layoutParams = cParams
 
                         nb.btn.setOnClickListener {
-                            val action = GradeFragmentDirections.selectSubject(files[i].name)
+                            val action =
+                                GradeFragmentDirections.selectSubject(
+                                    files[i].name
+                                )
                             Navigation.findNavController(it).navigate(action)
                         }
 

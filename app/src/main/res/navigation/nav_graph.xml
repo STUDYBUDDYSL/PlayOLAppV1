@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.taloslogy.playolapp.HomeFragment"
+        android:name="com.taloslogy.playolapp.fragments.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/gradeFragment"
-        android:name="com.taloslogy.playolapp.GradeFragment"
+        android:name="com.taloslogy.playolapp.fragments.GradeFragment"
         android:label="fragment_grade"
         tools:layout="@layout/fragment_grade" >
         <action
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/subjectFragment"
-        android:name="com.taloslogy.playolapp.SubjectFragment"
+        android:name="com.taloslogy.playolapp.fragments.SubjectFragment"
         android:label="fragment_subject"
         tools:layout="@layout/fragment_subject" >
         <argument
