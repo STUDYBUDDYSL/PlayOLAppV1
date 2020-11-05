@@ -31,5 +31,20 @@
         <argument
             android:name="subject"
             app:argType="string" />
+        <action
+            android:id="@+id/action_lesson"
+            app:destination="@id/videoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/videoFragment"
+        android:name="com.taloslogy.playolapp.fragments.VideoFragment"
+        android:label="fragment_video"
+        tools:layout="@layout/fragment_video" >
+        <argument
+            android:name="lessonName"
+            app:argType="string" />
+        <argument
+            android:name="lessonNumber"
+            app:argType="integer" />
     </fragment>
 </navigation>
