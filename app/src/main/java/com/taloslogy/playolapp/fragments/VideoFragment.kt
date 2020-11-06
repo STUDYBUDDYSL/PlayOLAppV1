@@ -1,14 +1,21 @@
 package com.taloslogy.playolapp.fragments
 
+import android.content.pm.ActivityInfo
+import android.content.res.Configuration
 import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.MarginLayoutParams
+import android.view.WindowManager
+import android.widget.LinearLayout
 import android.widget.MediaController
+import androidx.activity.OnBackPressedCallback
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.utils.Decryptor
 import kotlinx.android.synthetic.main.fragment_video.*
@@ -18,6 +25,30 @@ import java.io.IOException
 import kotlin.concurrent.thread
 
 class VideoFragment : Fragment(), MediaPlayer.OnPreparedListener {
+
+    private var isPrepared = false
+    private var isFullScreen = false
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        requireActivity()
+            .onBackPressedDispatcher
+            .addCallback(this, object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    // Do custom work here
+                    if(isFullScreen) {
+                        isFullScreen = false
+                        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
+                    }
+                    else{
+                        isEnabled = false
+                        requireActivity().onBackPressed()
+                    }
+                }
+            }
+            )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +67,42 @@ class VideoFragment : Fragment(), MediaPlayer.OnPreparedListener {
         lesson_number.text = (position!! + 1).toString()
         lesson_name.text = name!!
 
-        thread { decryptVideo() }
+        thread { if(!isPrepared) decryptVideo() }
+
+        play_pause_btn.setOnClickListener {
+            if(isPrepared){
+                if(videoView.isPlaying) {
+                    play_pause_btn.background = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_play_icon)
+                    setMargins(play_pause_btn, 7, 4, 3, 4)
+                    videoView.pause()
+                }
+                else {
+                    play_pause_btn.background = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_pause)
+                    setMargins(play_pause_btn, 5, 4, 5, 4)
+                    videoView.start()
+                }
+            }
+        }
+
+        fullscreen_btn.setOnClickListener {
+            if(isPrepared){
+                isFullScreen = true
+                enterFullScreen()
+            }
+        }
+    }
+
+    private fun enterFullScreen() {
+        requireActivity().window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
+        requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+        requireActivity().window.setFlags(
+            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON,
+            WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON
+        )
+
     }
 
     private fun decryptVideo() {
@@ -72,13 +138,13 @@ class VideoFragment : Fragment(), MediaPlayer.OnPreparedListener {
             videoView?.setMediaController(controller)
             videoView?.setVideoPath(path)
             videoView?.requestFocus()
-            videoView?.start()
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
         }
     }
 
     override fun onPrepared(player: MediaPlayer?) {
+        isPrepared = true
         videoView?.setBackgroundColor(Color.TRANSPARENT)
     }
 
@@ -91,6 +157,69 @@ class VideoFragment : Fragment(), MediaPlayer.OnPreparedListener {
         out.flush()
         out.close()
         return temp.absolutePath
+    }
+
+    private fun setMargins(
+        view: View,
+        left: Int,
+        top: Int,
+        right: Int,
+        bottom: Int
+    ) {
+        if (view.layoutParams is MarginLayoutParams) {
+            val p = view.layoutParams as MarginLayoutParams
+            p.setMargins(left, top, right, bottom)
+            view.requestLayout()
+        }
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+
+        if(newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE){
+            top_image.visibility = View.GONE
+            subject_content.visibility = View.GONE
+            media_controls.visibility = View.GONE
+
+            val params = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.FILL_PARENT,
+                LinearLayout.LayoutParams.FILL_PARENT
+            )
+            video_content.layoutParams = params
+        }
+        else {
+            top_image.visibility = View.VISIBLE
+            subject_content.visibility = View.VISIBLE
+            media_controls.visibility = View.VISIBLE
+
+            val params = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                getPxFromDp(350f)
+            )
+            video_content.layoutParams = params
+            setMargins(video_content, 0, 40, 0, 40)
+            setButtonControls()
+        }
+
+    }
+
+    private fun setButtonControls() {
+        if(videoView.isPlaying) {
+            play_pause_btn.background = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_pause)
+            setMargins(play_pause_btn, 5, 4, 5, 4)
+        }
+        else {
+            play_pause_btn.background = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_play_icon)
+            setMargins(play_pause_btn, 7, 4, 3, 4)
+        }
+    }
+
+    private fun getPxFromDp(dp: Float): Int {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dp,
+            resources.displayMetrics
+        ).toInt()
     }
 
 }
