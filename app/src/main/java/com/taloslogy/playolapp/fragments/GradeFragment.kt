@@ -31,8 +31,8 @@ class GradeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // TODO change path here to get from arguments
-        val files = fUtils.getFilesFromPath("/storage/5E71-DBAD/Courses/Grade 10")
+        val grade = arguments?.let { GradeFragmentArgs.fromBundle(it).selectedGrade }
+        val files = fUtils.getFilesFromPath("/storage/5E71-DBAD/Courses/$grade")
 
         thread { generateTable(files) }
     }

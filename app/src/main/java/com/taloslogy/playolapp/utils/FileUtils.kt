@@ -5,7 +5,7 @@ import java.io.File
 
 class FileUtils {
 
-    public fun getFilesFromPath(path: String, showHiddenFiles: Boolean = false, onlyFolders: Boolean = true): List<File> {
+    fun getFilesFromPath(path: String, showHiddenFiles: Boolean = false, onlyFolders: Boolean = true): List<File> {
         val files = File(path).listFiles() ?: return emptyList()
         return files
             .filter { showHiddenFiles || !it.name.startsWith(".") }
@@ -13,8 +13,12 @@ class FileUtils {
             .toList()
     }
 
-    public fun readFileText(fileName: String, context: FragmentActivity): String {
+    fun readFileText(fileName: String, context: FragmentActivity): String {
         return context.assets.open(fileName).bufferedReader().use { it.readText() }
+    }
+
+    fun checkGradeExists(grade: String): Boolean {
+        return File("/storage/5E71-DBAD/Courses/$grade").exists()
     }
 
 }
