@@ -46,12 +46,19 @@ class SubjectFragment : Fragment() {
             onlyFolders = false
         )
 
-        thread { generateLessons(files, subName) }
+        thread { generateLessons(files, subName, jsonObject) }
     }
 
-    private fun generateLessons(files: List<File>, subject: String) {
+    private fun generateLessons(files: List<File>, subject: String, fileNames: JSONObject) {
         val myDataset: Array<String> = if (files.isNotEmpty())
-            files.map{ it.name }.toTypedArray() else emptyArray()
+            files.map{
+                if(fileNames.has(it.name.dropLast(4))){
+                    fileNames.getString(it.name.dropLast(4))
+                }
+                else{
+                    it.name
+                }
+            }.toTypedArray() else emptyArray()
 
         viewManager = LinearLayoutManager(activity)
         viewAdapter = LessonAdapter(myDataset, subject)
