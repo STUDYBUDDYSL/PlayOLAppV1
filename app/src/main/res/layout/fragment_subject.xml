@@ -9,7 +9,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@drawable/background">
+        android:background="@drawable/background"
+        android:clickable="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
 
         <ImageView
             android:layout_width="120dp"
@@ -29,6 +32,7 @@
             android:inputType="text"
             android:layout_marginTop="40dp"
             android:layout_marginEnd="20dp"
+            android:layout_marginStart="20dp"
             android:layout_gravity="end"
             android:paddingVertical="2dp"
             android:paddingHorizontal="10dp"

@@ -47,6 +47,15 @@ class SubjectFragment : Fragment() {
         )
 
         thread { generateLessons(files, subName, jsonObject) }
+
+        search_text.setOnFocusChangeListener { v, b ->
+            if(!b && search_text.text.toString().isEmpty()){
+                search_text.setEms(5)
+            }
+            else {
+                search_text.setEms(20)
+            }
+        }
     }
 
     private fun generateLessons(files: List<File>, subject: String, fileNames: JSONObject) {
