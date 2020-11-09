@@ -1,12 +1,73 @@
 package com.taloslogy.playolapp
 
-import androidx.appcompat.app.AppCompatActivity
+import android.Manifest
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+
 
 class MainActivity : AppCompatActivity() {
+
+    private val permissionRequestCode = 200
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        if (checkPermission()) {
+            //Runs normally
+        } else {
+            requestPermission()
+        }
+    }
+
+    private fun checkPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestPermission() {
+        ActivityCompat.requestPermissions(
+            this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+            permissionRequestCode
+        )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            permissionRequestCode -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // app continues
+            } else {
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED
+                ) {
+                    showMessageOKCancel("You need to allow access permissions for app usage",
+                        DialogInterface.OnClickListener { _, _ ->
+                            requestPermission()
+                        })
+                }
+            }
+        }
+    }
+
+    private fun showMessageOKCancel(
+        message: String,
+        okListener: DialogInterface.OnClickListener
+    ) {
+        AlertDialog.Builder(this@MainActivity)
+            .setMessage(message)
+            .setPositiveButton("OK", okListener)
+            .setNegativeButton("Cancel", null)
+            .create()
+            .show()
     }
 }
