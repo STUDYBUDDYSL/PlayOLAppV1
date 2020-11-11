@@ -38,17 +38,20 @@ class SubjectFragment : Fragment() {
         val jsonObject = JSONObject(json)
 
         val subName = arguments?.let { SubjectFragmentArgs.fromBundle(it).subject }
-        val sName = jsonObject.getJSONObject(subName!!).getString("name")
+        val sName = jsonObject.getJSONObject(subName!!.split('/').last()).getString("name")
         subject_name.text = sName.replace('\n', ' ')
 
         // TODO change path here..
-        val files = fileUtils.getFilesFromPath("/storage/5E71-DBAD/$subName/ed",
+//        val files = fileUtils.getFilesFromPath("/storage/5E71-DBAD/$subName/ed",
+//            onlyFolders = false
+//        )
+        val files = fileUtils.getFilesFromPath("/storage/5E71-DBAD/Courses/$subName",
             onlyFolders = false
         )
 
-        thread { generateLessons(files, subName, jsonObject) }
+        thread { generateLessons(files, "/storage/5E71-DBAD/Courses/$subName", jsonObject) }
 
-        search_text.setOnFocusChangeListener { v, b ->
+        search_text.setOnFocusChangeListener { _, b ->
             if(!b && search_text.text.toString().isEmpty()){
                 search_text.setEms(5)
             }
@@ -58,11 +61,11 @@ class SubjectFragment : Fragment() {
         }
     }
 
-    private fun generateLessons(files: List<File>, subject: String, fileNames: JSONObject) {
+    private fun generateLessons(files: List<File>, path: String, fileNames: JSONObject) {
         val myDataset: Array<String> = if (files.isNotEmpty())
             files.map{
-                if(fileNames.has(it.name.dropLast(4))){
-                    fileNames.getString(it.name.dropLast(4))
+                if(fileNames.has(it.name.dropLast(10))){
+                    fileNames.getString(it.name.dropLast(10))
                 }
                 else{
                     it.name
@@ -70,7 +73,7 @@ class SubjectFragment : Fragment() {
             }.toTypedArray() else emptyArray()
 
         viewManager = LinearLayoutManager(activity)
-        viewAdapter = LessonAdapter(myDataset, subject)
+        viewAdapter = LessonAdapter(myDataset, path)
 
         requireActivity().runOnUiThread {
             my_recycler_view?.apply {

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.fragments.SubjectFragmentDirections
 
-class LessonAdapter(private val myDataset: Array<String>, private val subject: String) :
+class LessonAdapter(private val myDataset: Array<String>, private val path: String) :
     RecyclerView.Adapter<LessonAdapter.MyViewHolder>() {
 
     class MyViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
@@ -27,7 +27,7 @@ class LessonAdapter(private val myDataset: Array<String>, private val subject: S
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.textView.text = myDataset[position]
         holder.textView.setOnClickListener {
-            val action = SubjectFragmentDirections.actionLesson(myDataset[position],position, subject)
+            val action = SubjectFragmentDirections.actionLesson(myDataset[position],position, path)
             Navigation.findNavController(it).navigate(action)
         }
     }

@@ -13,21 +13,27 @@ import android.view.ViewGroup.MarginLayoutParams
 import android.view.WindowManager
 import android.widget.LinearLayout
 import android.widget.MediaController
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.utils.Decryptor
+import com.taloslogy.playolapp.utils.FileUtils
 import kotlinx.android.synthetic.main.fragment_video.*
+import org.json.JSONObject
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
 import kotlin.concurrent.thread
 
-class VideoFragment : Fragment(), MediaPlayer.OnPreparedListener {
+class VideoFragment : Fragment(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
 
     private var isPrepared = false
     private var isFullScreen = false
+    private val fileUtils: FileUtils = FileUtils()
+
+    private var position: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,13 +67,15 @@ class VideoFragment : Fragment(), MediaPlayer.OnPreparedListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val position = arguments?.let { VideoFragmentArgs.fromBundle(it).lessonNumber }
+        position = arguments?.let { VideoFragmentArgs.fromBundle(it).lessonNumber }
         val name = arguments?.let { VideoFragmentArgs.fromBundle(it).lessonName }
-        val subject = arguments?.let { VideoFragmentArgs.fromBundle(it).subject }
-        lesson_number.text = (position!! + 1).toString()
-        lesson_name.text = name!!
+        val path = arguments?.let { VideoFragmentArgs.fromBundle(it).subject }
 
-        thread { if(!isPrepared) decryptVideo() }
+        val files = fileUtils.getFilesFromPath(path!!, onlyFolders = false)
+        val json = fileUtils.readFileText("fileNames.json", requireActivity())
+        val jsonObject = JSONObject(json)
+
+        thread { if(!isPrepared) decryptVideo(files, path, jsonObject) }
 
         play_pause_btn.setOnClickListener {
             if(isPrepared){
@@ -90,6 +98,40 @@ class VideoFragment : Fragment(), MediaPlayer.OnPreparedListener {
                 enterFullScreen()
             }
         }
+
+        back_btn.setOnClickListener {
+            if(isPrepared){
+                if(position!! != 0){
+                    isPrepared = false
+                    play_pause_btn.background = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_play_icon)
+                    setMargins(play_pause_btn, 7, 4, 3, 4)
+                    videoView?.stopPlayback()
+                    videoView?.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+                    position = position!! - 1
+                    thread { decryptVideo(files, path, jsonObject) }
+                }
+                else{
+                    Toast.makeText(activity, "This is the first video!", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        next_btn.setOnClickListener {
+            if(isPrepared){
+                if(position!! != files.size-1){
+                    isPrepared = false
+                    play_pause_btn.background = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_play_icon)
+                    setMargins(play_pause_btn, 7, 4, 3, 4)
+                    videoView?.stopPlayback()
+                    videoView?.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+                    position = position!! + 1
+                    thread { decryptVideo(files, path, jsonObject) }
+                }
+                else{
+                    Toast.makeText(activity, "This is the last video!", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     private fun enterFullScreen() {
@@ -105,8 +147,16 @@ class VideoFragment : Fragment(), MediaPlayer.OnPreparedListener {
 
     }
 
-    private fun decryptVideo() {
-        val keyFile = File("/storage/5E71-DBAD/key.talos")
+    private fun decryptVideo(files: List<File>, videoPath: String, fileNames: JSONObject) {
+
+        val name = files[position!!].name
+
+        activity?.runOnUiThread {
+            lesson_number.text = (position!! + 1).toString()
+            lesson_name.text = fileNames.getString(name.dropLast(10))
+        }
+
+        val keyFile = File("/storage/5E71-DBAD/Courses/key.talos")
         val decryptedVal = Decryptor().decryptKey(keyFile)
         val decryptKeys = String(decryptedVal!!, Charsets.UTF_8)
         val passphrase = decryptKeys.split('\n').first().trim()
@@ -123,7 +173,7 @@ class VideoFragment : Fragment(), MediaPlayer.OnPreparedListener {
         val pp = pass1 + pChunk.first() + pass2 + pChunk.last()
         val ivv = iv1 + ivChunk.first() + iv2 + ivChunk.last()
 
-        val file = File("/storage/5E71-DBAD/science-11-t1-06-130kgt.mp4.talos")
+        val file = File("$videoPath/$name")
         val decrypted = Decryptor().decryptVideoFile(pp, ivv, file)
         val path = getDataSource(decrypted)
 
@@ -133,6 +183,7 @@ class VideoFragment : Fragment(), MediaPlayer.OnPreparedListener {
     private fun playVideo(path: String?) {
         try {
             videoView?.setOnPreparedListener { onPrepared(it) }
+            videoView?.setOnCompletionListener { onCompletion(it) }
             val controller = MediaController(activity)
             controller.setAnchorView(videoView)
             videoView?.setMediaController(controller)
@@ -146,6 +197,14 @@ class VideoFragment : Fragment(), MediaPlayer.OnPreparedListener {
     override fun onPrepared(player: MediaPlayer?) {
         isPrepared = true
         videoView?.setBackgroundColor(Color.TRANSPARENT)
+        player?.start()
+        play_pause_btn?.background = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_pause)
+        setMargins(play_pause_btn!!, 5, 4, 5, 4)
+    }
+
+    override fun onCompletion(player: MediaPlayer?) {
+        play_pause_btn.background = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_play_icon)
+        setMargins(play_pause_btn, 7, 4, 3, 4)
     }
 
     @Throws(IOException::class)

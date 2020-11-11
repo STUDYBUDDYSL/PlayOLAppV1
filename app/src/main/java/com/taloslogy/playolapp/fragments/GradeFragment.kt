@@ -34,10 +34,10 @@ class GradeFragment : Fragment() {
         val grade = arguments?.let { GradeFragmentArgs.fromBundle(it).selectedGrade }
         val files = fUtils.getFilesFromPath("/storage/5E71-DBAD/Courses/$grade")
 
-        thread { generateTable(files) }
+        thread { generateTable(files, grade) }
     }
 
-    private fun generateTable(files: List<File>) {
+    private fun generateTable(files: List<File>, grade: String?) {
 
         val json = fUtils.readFileText("fileNames.json", requireActivity())
         val jsonObject = JSONObject(json)
@@ -80,7 +80,7 @@ class GradeFragment : Fragment() {
                         nb.btn.setOnClickListener {
                             val action =
                                 GradeFragmentDirections.selectSubject(
-                                    files[i].name
+                                    "$grade/${files[i].name}"
                                 )
                             Navigation.findNavController(it).navigate(action)
                         }
