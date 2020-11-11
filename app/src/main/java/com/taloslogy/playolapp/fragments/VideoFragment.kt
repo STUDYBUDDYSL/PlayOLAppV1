@@ -32,6 +32,7 @@ class VideoFragment : Fragment(), MediaPlayer.OnPreparedListener, MediaPlayer.On
     private var isPrepared = false
     private var isFullScreen = false
     private val fileUtils: FileUtils = FileUtils()
+    private lateinit var playFile: File
 
     private var position: Int? = null
 
@@ -107,6 +108,7 @@ class VideoFragment : Fragment(), MediaPlayer.OnPreparedListener, MediaPlayer.On
                     setMargins(play_pause_btn, 7, 4, 3, 4)
                     videoView?.stopPlayback()
                     videoView?.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+                    playFile.delete()
                     position = position!! - 1
                     thread { decryptVideo(files, path, jsonObject) }
                 }
@@ -124,6 +126,7 @@ class VideoFragment : Fragment(), MediaPlayer.OnPreparedListener, MediaPlayer.On
                     setMargins(play_pause_btn, 7, 4, 3, 4)
                     videoView?.stopPlayback()
                     videoView?.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+                    playFile.delete()
                     position = position!! + 1
                     thread { decryptVideo(files, path, jsonObject) }
                 }
@@ -175,19 +178,19 @@ class VideoFragment : Fragment(), MediaPlayer.OnPreparedListener, MediaPlayer.On
 
         val file = File("$videoPath/$name")
         val decrypted = Decryptor().decryptVideoFile(pp, ivv, file)
-        val path = getDataSource(decrypted)
+        getDataSource(decrypted)
 
-        activity?.runOnUiThread { playVideo(path) }
+        activity?.runOnUiThread { playVideo() }
     }
 
-    private fun playVideo(path: String?) {
+    private fun playVideo() {
         try {
             videoView?.setOnPreparedListener { onPrepared(it) }
             videoView?.setOnCompletionListener { onCompletion(it) }
             val controller = MediaController(activity)
             controller.setAnchorView(videoView)
             videoView?.setMediaController(controller)
-            videoView?.setVideoPath(path)
+            videoView?.setVideoPath(playFile.absolutePath)
             videoView?.requestFocus()
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
@@ -208,14 +211,12 @@ class VideoFragment : Fragment(), MediaPlayer.OnPreparedListener, MediaPlayer.On
     }
 
     @Throws(IOException::class)
-    private fun getDataSource(array: ByteArray?): String? {
-        val temp = File.createTempFile("test", ".mp4")
-        temp.deleteOnExit()
-        val out = FileOutputStream(temp)
+    private fun getDataSource(array: ByteArray?) {
+        playFile = File.createTempFile("test", ".mp4")
+        val out = FileOutputStream(playFile)
         out.write(array)
         out.flush()
         out.close()
-        return temp.absolutePath
     }
 
     private fun setMargins(
@@ -279,6 +280,12 @@ class VideoFragment : Fragment(), MediaPlayer.OnPreparedListener, MediaPlayer.On
             dp,
             resources.displayMetrics
         ).toInt()
+    }
+
+    override fun onDestroy() {
+        videoView?.stopPlayback()
+        playFile.delete()
+        super.onDestroy()
     }
 
 }
