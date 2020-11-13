@@ -27,10 +27,13 @@ import java.io.FileOutputStream
 import java.io.IOException
 import kotlin.concurrent.thread
 
-class VideoFragment : Fragment(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener {
+class VideoFragment : Fragment(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener,
+MediaPlayer.OnErrorListener {
 
     private var isPrepared = false
     private var isFullScreen = false
+    private var isPaused = false
+
     private val fileUtils: FileUtils = FileUtils()
     private lateinit var playFile: File
 
@@ -187,6 +190,7 @@ class VideoFragment : Fragment(), MediaPlayer.OnPreparedListener, MediaPlayer.On
         try {
             videoView?.setOnPreparedListener { onPrepared(it) }
             videoView?.setOnCompletionListener { onCompletion(it) }
+            videoView?.setOnErrorListener { mp, i, j -> onError(mp, i,j) }
             val controller = MediaController(activity)
             controller.setAnchorView(videoView)
             videoView?.setMediaController(controller)
@@ -208,6 +212,10 @@ class VideoFragment : Fragment(), MediaPlayer.OnPreparedListener, MediaPlayer.On
     override fun onCompletion(player: MediaPlayer?) {
         play_pause_btn.background = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_play_icon)
         setMargins(play_pause_btn, 7, 4, 3, 4)
+    }
+
+    override fun onError(player: MediaPlayer?, p1: Int, p2: Int): Boolean {
+        return true
     }
 
     @Throws(IOException::class)
@@ -286,6 +294,34 @@ class VideoFragment : Fragment(), MediaPlayer.OnPreparedListener, MediaPlayer.On
         videoView?.stopPlayback()
         playFile.delete()
         super.onDestroy()
+    }
+
+    override fun onPause() {
+        isPaused = true
+        videoView?.stopPlayback()
+        playFile.delete()
+        super.onPause()
+    }
+
+    override fun onResume() {
+        if(isPaused){
+            isPaused = false
+            isPrepared = false
+            play_pause_btn.background = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_play_icon)
+            setMargins(play_pause_btn, 7, 4, 3, 4)
+            videoView?.stopPlayback()
+            videoView?.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+
+            position = arguments?.let { VideoFragmentArgs.fromBundle(it).lessonNumber }
+            val path = arguments?.let { VideoFragmentArgs.fromBundle(it).subject }
+
+            val files = fileUtils.getFilesFromPath(path!!, onlyFolders = false)
+            val json = fileUtils.readFileText("fileNames.json", requireActivity())
+            val jsonObject = JSONObject(json)
+
+            thread { decryptVideo(files, path, jsonObject) }
+        }
+        super.onResume()
     }
 
 }
