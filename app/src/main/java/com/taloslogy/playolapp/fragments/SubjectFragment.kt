@@ -1,6 +1,8 @@
 package com.taloslogy.playolapp.fragments
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,6 +22,8 @@ class SubjectFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
+    private lateinit var myDataset: ArrayList<String>
+    private lateinit var totalSet: ArrayList<String>
 
     private var fileUtils: FileUtils = FileUtils()
 
@@ -59,19 +63,41 @@ class SubjectFragment : Fragment() {
                 search_text.setEms(20)
             }
         }
+
+        search_text.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {}
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                if(s.isNotEmpty()){
+                    val filtered =  if (totalSet.isNotEmpty())
+                        totalSet.filter { name -> name.contains(s) } else arrayListOf()
+                    myDataset.clear()
+                    myDataset.addAll(filtered)
+                    viewAdapter.notifyDataSetChanged()
+                }
+                else {
+                    myDataset.clear()
+                    myDataset.addAll(totalSet)
+                    viewAdapter.notifyDataSetChanged()
+                }
+            }
+        })
     }
 
     private fun generateLessons(files: List<File>, path: String, fileNames: JSONObject) {
-        val myDataset: Array<String> = if (files.isNotEmpty())
-            files.map{
+        totalSet =  if (files.isNotEmpty())
+            ArrayList(files.map{
                 if(fileNames.has(it.name.dropLast(10))){
                     fileNames.getString(it.name.dropLast(10))
                 }
                 else{
                     it.name
                 }
-            }.toTypedArray() else emptyArray()
+            }) else arrayListOf()
 
+        myDataset = ArrayList(totalSet.toMutableList())
         viewManager = LinearLayoutManager(activity)
         viewAdapter = LessonAdapter(myDataset, path)
 

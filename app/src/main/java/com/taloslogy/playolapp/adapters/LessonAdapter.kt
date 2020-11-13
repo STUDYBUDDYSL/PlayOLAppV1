@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.fragments.SubjectFragmentDirections
 
-class LessonAdapter(private val myDataset: Array<String>, private val path: String) :
+class LessonAdapter(private val myDataset: ArrayList<String>, private val path: String) :
     RecyclerView.Adapter<LessonAdapter.MyViewHolder>() {
 
     class MyViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
