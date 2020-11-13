@@ -1,2 +1,3 @@
+include ':protobuf'
 include ':app'
 rootProject.name = "PlayOLApp"
