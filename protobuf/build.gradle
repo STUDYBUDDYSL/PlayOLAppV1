@@ -5,6 +5,10 @@ sourceSets {
     main.java.srcDirs += "${protobuf.generatedFilesBaseDir}/main/javalite"
 }
 
+processResources {
+    exclude('**/*.proto')
+}
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.google.protobuf:protobuf-lite:3.0.1'
