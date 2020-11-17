@@ -47,7 +47,6 @@
                 android:id="@+id/lesson_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/ganganee"
                 android:maxLines="1"
                 android:paddingVertical="10sp"
                 android:paddingHorizontal="10dp"
