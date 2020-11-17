@@ -159,7 +159,8 @@ MediaPlayer.OnErrorListener {
 
         activity?.runOnUiThread {
             lesson_number.text = (position!! + 1).toString()
-            lesson_name.text = fileNames.getString(name.dropLast(10))
+            lesson_name.text = if (fileNames.has(name.dropLast(10)))
+                fileNames.getString(name.dropLast(10)) else name.dropLast(10)
         }
 
         val keyFile = File("/storage/5E71-DBAD/Courses/key.talos")
