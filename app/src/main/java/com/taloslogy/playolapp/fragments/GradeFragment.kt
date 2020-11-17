@@ -35,6 +35,8 @@ class GradeFragment : Fragment() {
         val grade = arguments?.let { GradeFragmentArgs.fromBundle(it).selectedGrade }
         val files = fUtils.getFilesFromPath("${StringUtils.getCoursePath}/$grade")
 
+        grade_id.text = if(grade!!.contains("10")) "10 ශ්\u200Dරේණිය" else "11 ශ්\u200Dරේණිය"
+
         thread { generateTable(files, grade) }
     }
 

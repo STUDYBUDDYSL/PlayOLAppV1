@@ -24,7 +24,6 @@
             android:id="@+id/grade_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="10 ශ්‍රේණිය"
             android:textColor="@color/colorWhite"
             android:background="@drawable/rounded_corners"
             android:textSize="28sp"
