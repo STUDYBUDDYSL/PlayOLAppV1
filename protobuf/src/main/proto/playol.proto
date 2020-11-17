@@ -1,0 +1,27 @@
+syntax = "proto2";
+
+package playolapp;
+
+option java_package = "com.taloslogy.playolapp";
+option java_outer_classname = "PlayOLProto";
+
+message BaseResponse {
+    required int32 ErrCode = 1;
+    optional string errmsg = 2;
+}
+
+message InitRequest {
+    required BaseResponse BaseResponse = 1;
+    optional bytes RespFieldFilter = 2;
+    optional bytes Challenge = 3;
+    enum EmPlatformType {
+        EPT_IOS = 1;
+        EPT_ANDRIOD = 2;
+    }
+    optional EmPlatformType PlatformType = 12 [default = EPT_ANDRIOD];
+}
+
+message AuthResponse {
+    required InitRequest InitRequest = 1;
+    required bytes AesSessionKey = 2;
+}
