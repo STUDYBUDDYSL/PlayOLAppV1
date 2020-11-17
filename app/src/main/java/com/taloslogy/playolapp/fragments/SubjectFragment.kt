@@ -87,7 +87,12 @@ class SubjectFragment : Fragment() {
         totalSet =  if (files.isNotEmpty())
             ArrayList(files.map{
                 if(fileNames.has(it.name.dropLast(10))){
-                    fileNames.getString(it.name.dropLast(10))
+                    if(fileNames.getString(it.name.dropLast(10)).isNotEmpty()){
+                        fileNames.getString(it.name.dropLast(10))
+                    }
+                    else {
+                        it.name.dropLast(10)
+                    }
                 }
                 else{
                     it.name

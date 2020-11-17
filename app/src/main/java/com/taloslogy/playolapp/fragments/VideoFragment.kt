@@ -164,7 +164,10 @@ MediaPlayer.OnErrorListener {
         activity?.runOnUiThread {
             lesson_number.text = (position!! + 1).toString()
             lesson_name.text = if (fileNames.has(name.dropLast(10)))
-                fileNames.getString(name.dropLast(10)) else name.dropLast(10)
+                if(fileNames.getString(name.dropLast(10)).isNotEmpty())
+                    fileNames.getString(name.dropLast(10))
+                else name.dropLast(10)
+            else name.dropLast(10)
         }
 
         val keyFile = File("${StringUtils.getCoursePath}/${StringUtils.getKeyFileName}")
