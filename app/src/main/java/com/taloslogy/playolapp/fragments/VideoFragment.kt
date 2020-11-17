@@ -161,6 +161,11 @@ MediaPlayer.OnErrorListener {
 
     private fun decryptVideo(files: List<File>, videoPath: String, fileNames: JSONObject) {
 
+        activity?.runOnUiThread {
+            videoView?.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+            decrypt_loader?.visibility = View.VISIBLE
+        }
+
         val name = files[position!!].name
 
         activity?.runOnUiThread {
@@ -193,7 +198,10 @@ MediaPlayer.OnErrorListener {
         val decrypted = Decryptor().decryptVideoFile(pp, ivv, file)
         getDataSource(decrypted)
 
-        activity?.runOnUiThread { playVideo() }
+        activity?.runOnUiThread {
+            playVideo()
+            decrypt_loader?.visibility = View.GONE
+        }
     }
 
     private fun playVideo() {
