@@ -17,7 +17,9 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.taloslogy.playolapp.BuildConfig
 import com.taloslogy.playolapp.R
+import com.taloslogy.playolapp.utils.ByteMagic
 import com.taloslogy.playolapp.utils.Decryptor
 import com.taloslogy.playolapp.utils.FileUtils
 import com.taloslogy.playolapp.utils.StringUtils
@@ -176,10 +178,10 @@ MediaPlayer.OnErrorListener {
         val passphrase = decryptKeys.split('\n').first().trim()
         val iv = decryptKeys.split('\n').last()
 
-        val pass1 = "wrmffxYB"
-        val pass2 = "GPVSIrun"
-        val iv1 = "d=Z~"
-        val iv2 = "fGe+"
+        val pass1 = ByteMagic(resources.getString(R.string.ssk1)).str
+        val iv1 = ByteMagic(BuildConfig.SSIV2).str
+        val pass2 = ByteMagic(BuildConfig.SSK2).str
+        val iv2 = ByteMagic(resources.getString(R.string.ssiv1)).str
 
         val pChunk = passphrase.chunked(8)
         val ivChunk = iv.chunked(4)
