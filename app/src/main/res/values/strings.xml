@@ -11,4 +11,7 @@
     <string name="first_video_toast">This is the first video!</string>
     <string name="last_video_toast">This is the last video!</string>
 
+    <string name="ssk1">017038012004015000026013125142159157167068063068035013145002029020168165160150147173132106</string>
+    <string name="ssiv1">017038012004015000026013125142159157167068063068035013145002029014147110150057</string>
+
 </resources>

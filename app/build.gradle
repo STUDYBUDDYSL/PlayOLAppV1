@@ -18,6 +18,8 @@ android {
 
         buildConfigField "String", "KEY_SPEC", "\"AES\""
         buildConfigField "String", "CIPHER_SPEC", "\"AES/CBC/PKCS5Padding\""
+        buildConfigField "String", "SSK2", "\"017038012004015000026013125142159157167068063068035013145002029020108123131127112165166160\""
+        buildConfigField "String", "SSIV2", "\"017038012004015000026013125142159157167068063068035013145002029014145078137180\""
     }
 
     buildTypes {
