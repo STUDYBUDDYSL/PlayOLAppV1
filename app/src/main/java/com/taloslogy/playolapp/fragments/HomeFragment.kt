@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.navigation.Navigation
 import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.utils.FileUtils
+import com.taloslogy.playolapp.utils.StringUtils
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
@@ -27,22 +28,26 @@ class HomeFragment : Fragment() {
         val fileUtils = FileUtils()
 
         btn_grade10.setOnClickListener{
-            if(fileUtils.checkGradeExists("Grade 10")){
-                val action = HomeFragmentDirections.selectGrade("Grade 10")
+            if(fileUtils.checkGradeExists(StringUtils.getGrade10Name)){
+                val action = HomeFragmentDirections.selectGrade(StringUtils.getGrade10Name)
                 Navigation.findNavController(it).navigate(action)
             }
             else {
-                Toast.makeText(activity, "Incorrect SDcard is used. Please check and try again!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity,
+                    requireActivity().getText(R.string.incorrect_grade_toast),
+                    Toast.LENGTH_SHORT).show()
             }
         }
 
         btn_grade11.setOnClickListener{
-            if(fileUtils.checkGradeExists("Grade 11")){
-                val action = HomeFragmentDirections.selectGrade("Grade 11")
+            if(fileUtils.checkGradeExists(StringUtils.getGrade11Name)){
+                val action = HomeFragmentDirections.selectGrade(StringUtils.getGrade11Name)
                 Navigation.findNavController(it).navigate(action)
             }
             else {
-                Toast.makeText(activity, "Incorrect SDcard is used. Please check and try again!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity,
+                    requireActivity().getText(R.string.incorrect_grade_toast),
+                    Toast.LENGTH_SHORT).show()
             }
         }
     }

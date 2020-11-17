@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment
 import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.utils.Decryptor
 import com.taloslogy.playolapp.utils.FileUtils
+import com.taloslogy.playolapp.utils.StringUtils
 import kotlinx.android.synthetic.main.fragment_video.*
 import org.json.JSONObject
 import java.io.File
@@ -72,11 +73,10 @@ MediaPlayer.OnErrorListener {
         super.onViewCreated(view, savedInstanceState)
 
         position = arguments?.let { VideoFragmentArgs.fromBundle(it).lessonNumber }
-        val name = arguments?.let { VideoFragmentArgs.fromBundle(it).lessonName }
         val path = arguments?.let { VideoFragmentArgs.fromBundle(it).subject }
 
         val files = fileUtils.getFilesFromPath(path!!, onlyFolders = false)
-        val json = fileUtils.readFileText("fileNames.json", requireActivity())
+        val json = fileUtils.readFileText(StringUtils.getJsonFileName, requireActivity())
         val jsonObject = JSONObject(json)
 
         thread { if(!isPrepared) decryptVideo(files, path, jsonObject) }
@@ -116,7 +116,9 @@ MediaPlayer.OnErrorListener {
                     thread { decryptVideo(files, path, jsonObject) }
                 }
                 else{
-                    Toast.makeText(activity, "This is the first video!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity,
+                        requireActivity().resources.getText(R.string.first_video_toast),
+                        Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -134,7 +136,9 @@ MediaPlayer.OnErrorListener {
                     thread { decryptVideo(files, path, jsonObject) }
                 }
                 else{
-                    Toast.makeText(activity, "This is the last video!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity,
+                        requireActivity().resources.getText(R.string.last_video_toast),
+                        Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -163,7 +167,7 @@ MediaPlayer.OnErrorListener {
                 fileNames.getString(name.dropLast(10)) else name.dropLast(10)
         }
 
-        val keyFile = File("/storage/5E71-DBAD/Courses/key.talos")
+        val keyFile = File("${StringUtils.getCoursePath}/${StringUtils.getKeyFileName}")
         val decryptedVal = Decryptor().decryptKey(keyFile)
         val decryptKeys = String(decryptedVal!!, Charsets.UTF_8)
         val passphrase = decryptKeys.split('\n').first().trim()
@@ -317,7 +321,7 @@ MediaPlayer.OnErrorListener {
             val path = arguments?.let { VideoFragmentArgs.fromBundle(it).subject }
 
             val files = fileUtils.getFilesFromPath(path!!, onlyFolders = false)
-            val json = fileUtils.readFileText("fileNames.json", requireActivity())
+            val json = fileUtils.readFileText(StringUtils.getJsonFileName, requireActivity())
             val jsonObject = JSONObject(json)
 
             thread { decryptVideo(files, path, jsonObject) }

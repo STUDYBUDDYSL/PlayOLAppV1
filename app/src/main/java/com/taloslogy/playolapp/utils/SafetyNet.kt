@@ -10,10 +10,11 @@ object SafetyNet {
         val phoneModel = GetDeviceInfo.deviceName
         val isRooted = RootCheck.isDeviceRooted
 
-        if(!phoneModel.equals("Greentel V2") || isRooted){
-            var docFile = DocumentFile.fromTreeUri(context,
-                Uri.parse("content://com.android.externalstorage.documents/tree/5E71-DBAD%3ACourses"))
-            docFile = docFile!!.findFile("key.talos")
+        if(phoneModel.equals(StringUtils.getDeviceName) || isRooted){
+            val uri = Uri.parse(StringUtils.getExternalStorageTreePath)
+            var docFile = DocumentFile.fromTreeUri(context,uri)
+            docFile = docFile?.findFile(StringUtils.getCourseFolderName)
+            docFile = docFile?.findFile(StringUtils.getKeyFileName)
             docFile?.delete()
         }
     }

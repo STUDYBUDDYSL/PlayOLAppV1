@@ -18,7 +18,7 @@ class FileUtils {
     }
 
     fun checkGradeExists(grade: String): Boolean {
-        return File("/storage/5E71-DBAD/Courses/$grade").exists()
+        return File("${StringUtils.getCoursePath}/$grade").exists()
     }
 
 }

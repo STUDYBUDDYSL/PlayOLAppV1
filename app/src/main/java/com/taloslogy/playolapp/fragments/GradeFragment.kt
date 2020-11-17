@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.utils.FileUtils
+import com.taloslogy.playolapp.utils.StringUtils
 import kotlinx.android.synthetic.main.fragment_grade.*
 import kotlinx.android.synthetic.main.nice_button1.view.*
 import org.json.JSONObject
@@ -18,7 +19,7 @@ import kotlin.math.ceil
 
 class GradeFragment : Fragment() {
 
-    val fUtils = FileUtils()
+    private val fUtils = FileUtils()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,14 +33,14 @@ class GradeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val grade = arguments?.let { GradeFragmentArgs.fromBundle(it).selectedGrade }
-        val files = fUtils.getFilesFromPath("/storage/5E71-DBAD/Courses/$grade")
+        val files = fUtils.getFilesFromPath("${StringUtils.getCoursePath}/$grade")
 
         thread { generateTable(files, grade) }
     }
 
     private fun generateTable(files: List<File>, grade: String?) {
 
-        val json = fUtils.readFileText("fileNames.json", requireActivity())
+        val json = fUtils.readFileText(StringUtils.getJsonFileName, requireActivity())
         val jsonObject = JSONObject(json)
 
         if (files.isNotEmpty()) {

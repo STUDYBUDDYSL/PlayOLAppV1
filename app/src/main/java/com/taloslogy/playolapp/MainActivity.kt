@@ -12,10 +12,9 @@ import androidx.core.content.ContextCompat
 import com.taloslogy.playolapp.utils.SafetyNet
 import kotlin.concurrent.thread
 
+const val PERMISSION_REQUEST_CODE = 200
 
 class MainActivity : AppCompatActivity() {
-
-    private val permissionRequestCode = 200
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.AppTheme)
@@ -37,7 +36,7 @@ class MainActivity : AppCompatActivity() {
     private fun requestPermission() {
         ActivityCompat.requestPermissions(
             this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-            permissionRequestCode
+            PERMISSION_REQUEST_CODE
         )
     }
 
@@ -47,13 +46,13 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         when (requestCode) {
-            permissionRequestCode -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            PERMISSION_REQUEST_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 thread { SafetyNet.runSafetyNet(this) }
             } else {
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     != PackageManager.PERMISSION_GRANTED
                 ) {
-                    showMessageOKCancel("You need to allow access permissions for app usage",
+                    showMessageOKCancel(resources.getString(R.string.permission_message),
                         DialogInterface.OnClickListener { _, _ ->
                             requestPermission()
                         })
@@ -68,8 +67,8 @@ class MainActivity : AppCompatActivity() {
     ) {
         AlertDialog.Builder(this@MainActivity)
             .setMessage(message)
-            .setPositiveButton("OK", okListener)
-            .setNegativeButton("Cancel", null)
+            .setPositiveButton(resources.getString(R.string.ok_text), okListener)
+            .setNegativeButton(resources.getString(R.string.cancel_text), null)
             .create()
             .show()
     }

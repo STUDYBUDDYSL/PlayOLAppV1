@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.taloslogy.playolapp.adapters.LessonAdapter
 import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.utils.FileUtils
+import com.taloslogy.playolapp.utils.StringUtils
 import kotlinx.android.synthetic.main.fragment_subject.*
 import org.json.JSONObject
 import java.io.File
@@ -38,22 +39,18 @@ class SubjectFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val json = fileUtils.readFileText("fileNames.json", requireActivity())
+        val json = fileUtils.readFileText(StringUtils.getJsonFileName, requireActivity())
         val jsonObject = JSONObject(json)
 
         val subName = arguments?.let { SubjectFragmentArgs.fromBundle(it).subject }
         val sName = jsonObject.getJSONObject(subName!!.split('/').last()).getString("name")
         subject_name.text = sName.replace('\n', ' ')
 
-        // TODO change path here..
-//        val files = fileUtils.getFilesFromPath("/storage/5E71-DBAD/$subName/ed",
-//            onlyFolders = false
-//        )
-        val files = fileUtils.getFilesFromPath("/storage/5E71-DBAD/Courses/$subName",
+        val files = fileUtils.getFilesFromPath("${StringUtils.getCoursePath}/$subName",
             onlyFolders = false
         )
 
-        thread { generateLessons(files, "/storage/5E71-DBAD/Courses/$subName", jsonObject) }
+        thread { generateLessons(files, "${StringUtils.getCoursePath}/$subName", jsonObject) }
 
         search_text.setOnFocusChangeListener { _, b ->
             if(!b && search_text.text.toString().isEmpty()){
