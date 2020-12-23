@@ -6,11 +6,11 @@ object StringUtils {
 
     val getGrade11Name:String get() = "Grade 11"
 
-    val getDeviceName:String get() = "Greentel V2"
+    val getDeviceName:String get() = "Incar A8"
 
-    val getCoursePath:String get() = "/storage/5E71-DBAD/Courses"
+    val getCoursePath:String get() = "/storage/sdcard0/Courses"
 
-    val getExternalStorageTreePath:String get() = "content://com.android.externalstorage.documents/tree/5E71-DBAD%3A"
+    val getExternalStorageTreePath:String get() = "content://com.android.externalstorage.documents/tree/sdcard0%3A"
 
     val getCourseFolderName:String get() = "Courses"
 
