@@ -57,7 +57,7 @@ class SubjectFragment : Fragment() {
                 search_text.setEms(5)
             }
             else {
-                search_text.setEms(20)
+                search_text.setEms(30)
             }
         }
 

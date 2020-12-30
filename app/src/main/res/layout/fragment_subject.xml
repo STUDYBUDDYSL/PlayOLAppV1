@@ -15,8 +15,8 @@
         android:focusableInTouchMode="true">
 
         <ImageView
-            android:layout_width="120dp"
-            android:layout_height="80dp"
+            android:layout_width="140dp"
+            android:layout_height="100dp"
             android:background="@drawable/main_logo"
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
@@ -38,7 +38,8 @@
             android:paddingHorizontal="10dp"
             android:drawableEnd="@drawable/ic_search"
             android:drawableTint="@color/colorWhite"
-            android:textColor="@color/colorWhite"/>
+            android:textColor="@color/colorWhite"
+            android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/subject_name"

@@ -280,7 +280,7 @@ MediaPlayer.OnErrorListener {
 
             val params = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
-                getPxFromDp(350f)
+                getPxFromDp(450f)
             )
             video_content.layoutParams = params
             setMargins(video_content, 0, 40, 0, 40)
