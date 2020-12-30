@@ -3,6 +3,7 @@ package com.taloslogy.playolapp.utils
 import androidx.fragment.app.FragmentActivity
 import java.io.File
 
+/** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class FileUtils {
 
     fun getFilesFromPath(path: String, showHiddenFiles: Boolean = false, onlyFolders: Boolean = true): List<File> {

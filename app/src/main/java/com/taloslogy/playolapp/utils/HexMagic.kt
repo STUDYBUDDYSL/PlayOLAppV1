@@ -3,6 +3,7 @@ package com.taloslogy.playolapp.utils
 import com.google.protobuf.ByteString
 import com.taloslogy.playolapp.PlayOLProto
 
+/** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class HexMagic(str: String) {
 
     var keyPart = ""

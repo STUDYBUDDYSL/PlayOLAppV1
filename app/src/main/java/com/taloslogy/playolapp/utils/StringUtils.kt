@@ -1,5 +1,6 @@
 package com.taloslogy.playolapp.utils
 
+/** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 object StringUtils {
 
     val getGrade10Name:String get() = "Grade 10"

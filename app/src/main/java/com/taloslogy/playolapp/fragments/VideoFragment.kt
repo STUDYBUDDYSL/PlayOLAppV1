@@ -30,6 +30,7 @@ import java.io.FileOutputStream
 import java.io.IOException
 import kotlin.concurrent.thread
 
+/** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class VideoFragment : Fragment(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener,
 MediaPlayer.OnErrorListener {
 

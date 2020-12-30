@@ -2,6 +2,7 @@ package com.taloslogy.playolapp.utils
 
 import android.os.Build
 
+/** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 object GetDeviceInfo {
 
     val deviceName: String? get() {

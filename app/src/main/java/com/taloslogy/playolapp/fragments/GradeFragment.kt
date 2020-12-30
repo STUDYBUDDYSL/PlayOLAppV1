@@ -17,6 +17,7 @@ import java.io.File
 import kotlin.concurrent.thread
 import kotlin.math.ceil
 
+/** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class GradeFragment : Fragment() {
 
     private val fUtils = FileUtils()

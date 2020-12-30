@@ -18,6 +18,7 @@ import org.json.JSONObject
 import java.io.File
 import kotlin.concurrent.thread
 
+/** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class SubjectFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView

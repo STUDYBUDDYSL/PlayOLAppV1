@@ -14,6 +14,7 @@ import kotlin.concurrent.thread
 
 const val PERMISSION_REQUEST_CODE = 200
 
+/** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

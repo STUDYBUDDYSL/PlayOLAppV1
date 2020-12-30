@@ -13,6 +13,7 @@ const val AES_IV = "017035012004015000026013125142159157167068063068035010145002
 
 const val PART_KEY = "08d40f121863624257654e6473674d39555a747430695765476466733308d40f120c782b61584a7e4b415d2a7d66"
 
+/** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class Decryptor {
 
     fun decryptKey(file: File): ByteArray? {

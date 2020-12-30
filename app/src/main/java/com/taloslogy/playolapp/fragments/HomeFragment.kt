@@ -12,6 +12,7 @@ import com.taloslogy.playolapp.utils.FileUtils
 import com.taloslogy.playolapp.utils.StringUtils
 import kotlinx.android.synthetic.main.fragment_home.*
 
+/** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class HomeFragment : Fragment() {
 
     override fun onCreateView(
