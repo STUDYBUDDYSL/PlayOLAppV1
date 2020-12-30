@@ -3,7 +3,7 @@ package com.taloslogy.playolapp.utils
 import com.google.protobuf.ByteString
 import com.taloslogy.playolapp.PlayOLProto
 
-class HexMagic(private val str: String) {
+class HexMagic(str: String) {
 
     var keyPart = ""
     var ivPart = ""
