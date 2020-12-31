@@ -47,11 +47,11 @@ class SubjectFragment : Fragment() {
         val sName = jsonObject.getJSONObject(subName!!.split('/').last()).getString("name")
         subject_name.text = sName.replace('\n', ' ')
 
-        val files = fileUtils.getFilesFromPath("${StringUtils.getCoursePath}/$subName",
+        val files = fileUtils.getFilesFromPath("${StringUtils.getCoursePath}/$subName/ed",
             onlyFolders = false
         )
 
-        thread { generateLessons(files, "${StringUtils.getCoursePath}/$subName", jsonObject) }
+        thread { generateLessons(files, "${StringUtils.getCoursePath}/$subName/ed", jsonObject) }
 
         search_text.setOnFocusChangeListener { _, b ->
             if(!b && search_text.text.toString().isEmpty()){

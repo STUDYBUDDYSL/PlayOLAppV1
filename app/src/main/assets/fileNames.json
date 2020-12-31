@@ -1,45 +1,45 @@
 {
-  "Sinhala": {
+  "sinhala": {
     "name": "සිංහල",
     "lines": 1
   },
-  "English": {
+  "english": {
     "name": "ඉංග්\u200Dරීසි",
     "lines": 1
   },
-  "Commerce": {
+  "commerce": {
     "name": "ව්\u200Dයාපාර\nඅධ්\u200Dයයනය",
     "lines": 2
   },
-  "Geography": {
+  "geography": {
     "name": "භූගෝල\nවිද්\u200Dයාව",
     "lines": 2
   },
-  "Entrepreneurship": {
+  "entrepreneurship": {
     "name": "ව්\u200Dයවසායකත්ව\nඅධ්\u200Dයයනය",
     "lines": 2
   },
-  "Enterpreneurship": {
+  "enterpreneurship": {
     "name": "ව්\u200Dයවසායකත්ව\nඅධ්\u200Dයයනය",
     "lines": 2
   },
-  "History": {
+  "history": {
     "name": "ඉතිහාසය",
     "lines": 1
   },
-  "Ict": {
+  "ict": {
     "name": "තොරතුරු\nතාක්ෂණය",
     "lines": 2
   },
-  "Maths": {
+  "maths": {
     "name": "ගණිතය",
     "lines": 1
   },
-  "Science": {
+  "science": {
     "name": "විද්\u200Dයාව",
     "lines": 1
   },
-  "Sample": {
+  "sample": {
     "name": "පරීක්ශණ",
     "lines": 1
   },
