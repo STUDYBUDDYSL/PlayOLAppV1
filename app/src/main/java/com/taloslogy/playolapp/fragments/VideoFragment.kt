@@ -237,13 +237,20 @@ MediaPlayer.OnErrorListener {
         return true
     }
 
-    @Throws(IOException::class)
     private fun getDataSource(array: ByteArray?) {
-        playFile = File.createTempFile("test", ".mp4")
-        val out = FileOutputStream(playFile)
-        out.write(array)
-        out.flush()
-        out.close()
+        try{
+            if(activity?.cacheDir?.exists() == false){
+                activity?.cacheDir?.mkdir()
+            }
+            playFile = File.createTempFile("test", ".mp4")
+            val out = FileOutputStream(playFile)
+            out.write(array)
+            out.flush()
+            out.close()
+        }
+        catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
     }
 
     private fun setMargins(
@@ -311,14 +318,18 @@ MediaPlayer.OnErrorListener {
 
     override fun onDestroy() {
         videoView?.stopPlayback()
-        playFile.delete()
+        if(this::playFile.isInitialized)
+            playFile.delete()
+        activity?.cacheDir?.deleteRecursively()
         super.onDestroy()
     }
 
     override fun onPause() {
         isPaused = true
         videoView?.stopPlayback()
-        playFile.delete()
+        if(this::playFile.isInitialized)
+            playFile.delete()
+        activity?.cacheDir?.deleteRecursively()
         super.onPause()
     }
 
