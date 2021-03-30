@@ -7,8 +7,6 @@ object StringUtils {
 
     val getGrade11Name:String get() = "Grade 11"
 
-    val getDeviceName:String get() = "Incar A8"
-
     val getCoursePath:String get() = "/storage/sdcard0/Courses"
 
     val getExternalStorageTreePath:String get() = "content://com.android.externalstorage.documents/tree/sdcard0%3A"

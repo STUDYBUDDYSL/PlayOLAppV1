@@ -18,13 +18,15 @@ class Decryptor {
 
     fun decryptKey(file: File): ByteArray? {
         try {
-            val aesKey = ByteMagic(AES_KEY).str
-            val aesIv = ByteMagic(AES_IV).str
+//            val aesKey = ByteMagic(AES_KEY).str
+//            val aesIv = ByteMagic(AES_IV).str
+//
+//            val hexMagic = HexMagic(PART_KEY)
 
-            val hexMagic = HexMagic(PART_KEY)
-
-            val keyBytes = addBytesEvery4(hexMagic.keyPart, aesKey.toByteArray())
-            val ivBytes = addBytesEvery4(hexMagic.ivPart, aesIv.toByteArray())
+//            val keyBytes = addBytesEvery4(hexMagic.keyPart, aesKey.toByteArray())
+//            val ivBytes = addBytesEvery4(hexMagic.ivPart, aesIv.toByteArray())
+            val keyBytes = byteArrayOf(0x6f, 0x63, 0x62, 0x42, 0x77, 0x57, 0x65, 0x4e, 0x58, 0x64, 0x73, 0x67, 0x68, 0x4d, 0x39, 0x55, 0x6c, 0x5a, 0x74, 0x74, 0x4e, 0x30, 0x69, 0x57, 0x6c, 0x65, 0x47, 0x64, 0x52, 0x66, 0x73, 0x33)
+            val ivBytes = byteArrayOf(0x24, 0x78, 0x2b, 0x61, 0x74, 0x58, 0x4a, 0x7e, 0x64, 0x4b, 0x41, 0x5d, 0x2e, 0x2a, 0x7d, 0x66)
             val sks = SecretKeySpec(keyBytes, BuildConfig.KEY_SPEC)
             val iv = IvParameterSpec(ivBytes)
             val cipher = Cipher.getInstance(BuildConfig.CIPHER_SPEC)

@@ -29,10 +29,8 @@ class HexMagic(str: String) {
         val byteArray2 = str16ToByteArray(str.substring(58))
         val p2 = PlayOLProto.BaseResponse.parseFrom(byteArray2).errmsg
 
-        if(au.toStringUtf8() == StringUtils.getDeviceName){
-            keyPart = getStringFromBytes(p1)
-            ivPart = getStringFromBytes(p2)
-        }
+        keyPart = getStringFromBytes(p1)
+        ivPart = getStringFromBytes(p2)
     }
 
     private fun str16ToByteArray(str: String): ByteArray {

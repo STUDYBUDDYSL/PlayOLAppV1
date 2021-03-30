@@ -25,9 +25,7 @@ class ByteMagic(var str: String) {
         authResponse.toByteArray()
 
         val p1 = PlayOLProto.AuthResponse.parseFrom(byteArray).aesSessionKey
-        if(au.toStringUtf8() == StringUtils.getDeviceName){
-            str = p1.toStringUtf8()
-        }
+        str = p1.toStringUtf8()
     }
 
     private fun <T> concatenate(vararg lists: List<T>): List<T> {
