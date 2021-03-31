@@ -1,4 +1,4 @@
-package com.taloslogy.playolapp.fragments
+package com.taloslogy.playolapp.views
 
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
@@ -17,9 +17,7 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.taloslogy.playolapp.BuildConfig
 import com.taloslogy.playolapp.R
-import com.taloslogy.playolapp.utils.ByteMagic
 import com.taloslogy.playolapp.utils.Decryptor
 import com.taloslogy.playolapp.utils.FileUtils
 import com.taloslogy.playolapp.utils.StringUtils
@@ -27,7 +25,6 @@ import kotlinx.android.synthetic.main.fragment_video.*
 import org.json.JSONObject
 import java.io.File
 import java.io.FileOutputStream
-import java.io.IOException
 import kotlin.concurrent.thread
 
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */

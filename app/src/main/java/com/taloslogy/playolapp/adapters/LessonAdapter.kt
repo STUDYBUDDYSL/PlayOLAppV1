@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.taloslogy.playolapp.R
-import com.taloslogy.playolapp.fragments.SubjectFragmentDirections
+import com.taloslogy.playolapp.views.SubjectFragmentDirections
 
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class LessonAdapter(private val myDataset: ArrayList<String>, private val path: String) :

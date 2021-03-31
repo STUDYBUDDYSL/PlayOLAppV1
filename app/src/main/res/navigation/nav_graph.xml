@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.taloslogy.playolapp.fragments.HomeFragment"
+        android:name="com.taloslogy.playolapp.views.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/gradeFragment"
-        android:name="com.taloslogy.playolapp.fragments.GradeFragment"
+        android:name="com.taloslogy.playolapp.views.GradeFragment"
         android:label="fragment_grade"
         tools:layout="@layout/fragment_grade" >
         <action
@@ -31,7 +31,7 @@
     </fragment>
     <fragment
         android:id="@+id/subjectFragment"
-        android:name="com.taloslogy.playolapp.fragments.SubjectFragment"
+        android:name="com.taloslogy.playolapp.views.SubjectFragment"
         android:label="fragment_subject"
         tools:layout="@layout/fragment_subject" >
         <argument
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/videoFragment"
-        android:name="com.taloslogy.playolapp.fragments.VideoFragment"
+        android:name="com.taloslogy.playolapp.views.VideoFragment"
         android:label="fragment_video"
         tools:layout="@layout/fragment_video" >
         <argument
@@ -58,7 +58,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.taloslogy.playolapp.fragments.LoginFragment"
+        android:name="com.taloslogy.playolapp.views.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" />
 </navigation>

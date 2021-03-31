@@ -1,4 +1,4 @@
-package com.taloslogy.playolapp.fragments
+package com.taloslogy.playolapp.views
 
 import android.os.Bundle
 import android.view.LayoutInflater
