@@ -13,6 +13,9 @@
         <action
             android:id="@+id/select_grade"
             app:destination="@id/gradeFragment" />
+        <action
+            android:id="@+id/action_login"
+            app:destination="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/gradeFragment"
@@ -53,4 +56,9 @@
             android:name="subject"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.taloslogy.playolapp.fragments.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" />
 </navigation>
