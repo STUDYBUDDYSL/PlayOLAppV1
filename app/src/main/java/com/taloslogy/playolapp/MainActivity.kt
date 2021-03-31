@@ -9,7 +9,9 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.taloslogy.playolapp.utils.SafetyNet
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlin.concurrent.thread
 
 const val PERMISSION_REQUEST_CODE = 200
@@ -29,6 +31,8 @@ class MainActivity : AppCompatActivity() {
             requestPermission()
         }
     }
+
+    override fun onSupportNavigateUp() = findNavController(nav_host_fragment).navigateUp()
 
     private fun checkPermission(): Boolean {
         return ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
