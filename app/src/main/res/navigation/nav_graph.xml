@@ -5,6 +5,8 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/homeFragment">
 
+    <include app:graph="@navigation/login_flow_graph" />
+
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.taloslogy.playolapp.views.HomeFragment"
@@ -15,7 +17,7 @@
             app:destination="@id/gradeFragment" />
         <action
             android:id="@+id/action_login"
-            app:destination="@id/loginFragment" />
+            app:destination="@id/login_flow_graph" />
     </fragment>
     <fragment
         android:id="@+id/gradeFragment"
@@ -56,9 +58,4 @@
             android:name="subject"
             app:argType="string" />
     </fragment>
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.taloslogy.playolapp.views.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" />
 </navigation>

@@ -5,13 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.taloslogy.playolapp.R
-import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_user_detail.*
 
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
-class LoginFragment : Fragment() {
+class UserDetailFragment : Fragment() {
 
     companion object {
         const val LOGIN_SUCCESSFUL = "LOGIN_SUCCESSFUL"
@@ -22,7 +21,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_login, container, false)
+        return inflater.inflate(R.layout.fragment_user_detail, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -30,10 +29,10 @@ class LoginFragment : Fragment() {
 
         val navController = findNavController()
         val savedStateHandle = navController.previousBackStackEntry!!.savedStateHandle
-//        savedStateHandle.set(LOGIN_SUCCESSFUL, false)
 
-        btn_student_detail.setOnClickListener {
-            navController.navigate(R.id.action_user_details)
+        btn_complete_login.setOnClickListener {
+            savedStateHandle.set(LOGIN_SUCCESSFUL, true)
+            navController.navigate(R.id.action_login_done)
         }
     }
 
