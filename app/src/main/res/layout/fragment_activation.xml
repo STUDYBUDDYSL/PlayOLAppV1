@@ -3,13 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.UserDetailFragment">
+    tools:context=".views.ActivationFragment">
 
     <Button
-        android:id="@+id/btn_update_user"
+        android:id="@+id/btn_activate"
         android:layout_width="200dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:text="Update Details"/>
+        android:text="Activate code"/>
 
 </FrameLayout>

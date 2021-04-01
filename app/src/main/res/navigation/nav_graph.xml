@@ -3,9 +3,22 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/splashFragment">
 
-    <include app:graph="@navigation/login_flow_graph" />
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.taloslogy.playolapp.views.SplashFragment"
+        android:label="fragment_splash"
+        tools:layout="@layout/fragment_splash" >
+        <action
+            android:id="@+id/action_login"
+            app:destination="@id/login_graph"/>
+        <action
+            android:id="@+id/action_home"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/splashFragment"
+            app:popUpToInclusive="true"/>
+    </fragment>
 
     <fragment
         android:id="@+id/homeFragment"
@@ -15,9 +28,6 @@
         <action
             android:id="@+id/select_grade"
             app:destination="@id/gradeFragment" />
-        <action
-            android:id="@+id/action_login"
-            app:destination="@id/login_flow_graph" />
     </fragment>
     <fragment
         android:id="@+id/gradeFragment"
@@ -58,4 +68,5 @@
             android:name="subject"
             app:argType="string" />
     </fragment>
+    <include app:graph="@navigation/login_graph" />
 </navigation>
