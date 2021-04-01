@@ -22,7 +22,7 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btn_sign_in.setOnClickListener {
+        google_sign_in.setOnClickListener {
             findNavController().navigate(R.id.action_userDetails)
         }
     }
