@@ -6,6 +6,11 @@
     tools:context=".views.ActivationFragment">
 
     <Button
+        android:id="@+id/btn_qr_scan"
+        android:layout_width="20dp"
+        android:layout_height="20dp"/>
+
+    <Button
         android:id="@+id/btn_activate"
         android:layout_width="200dp"
         android:layout_height="100dp"

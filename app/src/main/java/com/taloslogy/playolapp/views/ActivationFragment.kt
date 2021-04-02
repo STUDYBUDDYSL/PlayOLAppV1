@@ -27,8 +27,8 @@ class ActivationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         btn_activate.setOnClickListener {
-            userViewModel.loginComplete()
-            findNavController().navigate(R.id.action_loginComplete)
+            //userViewModel.loginComplete()
+            findNavController().navigate(R.id.action_qr_scan)
         }
     }
 
