@@ -1,4 +1,4 @@
-package com.taloslogy.playolapp.view_models.subscriptions
+package com.taloslogy.playolapp.view_models
 
 import android.util.Log
 import androidx.lifecycle.LiveData

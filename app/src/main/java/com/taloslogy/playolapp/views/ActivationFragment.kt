@@ -1,7 +1,6 @@
 package com.taloslogy.playolapp.views
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.taloslogy.playolapp.view_models.UserViewModel
 import com.taloslogy.playolapp.R
-import com.taloslogy.playolapp.view_models.subscriptions.SubscriptionViewModel
+import com.taloslogy.playolapp.view_models.SubscriptionViewModel
 import kotlinx.android.synthetic.main.fragment_activation.*
 
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
