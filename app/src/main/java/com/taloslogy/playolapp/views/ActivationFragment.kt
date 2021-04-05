@@ -1,20 +1,25 @@
 package com.taloslogy.playolapp.views
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.taloslogy.playolapp.view_models.UserViewModel
 import com.taloslogy.playolapp.R
+import com.taloslogy.playolapp.view_models.subscriptions.SubscriptionViewModel
 import kotlinx.android.synthetic.main.fragment_activation.*
 
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class ActivationFragment : Fragment() {
 
     private val userViewModel: UserViewModel by activityViewModels()
+    private lateinit var subViewModel: SubscriptionViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,6 +31,19 @@ class ActivationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        subViewModel = ViewModelProvider(this).get(SubscriptionViewModel::class.java)
+
+        val navController = findNavController()
+        val currentBackStackEntry = navController.currentBackStackEntry!!
+        val savedStateHandle = currentBackStackEntry.savedStateHandle
+        savedStateHandle.getLiveData<String>(QRScannerFragment.QR_CODE)
+            .observe(currentBackStackEntry, Observer { code ->
+                requireActivity().runOnUiThread {
+                    subViewModel.setQRCode(code)
+                }
+            })
+
         btn_activate.setOnClickListener {
             //userViewModel.loginComplete()
             findNavController().navigate(R.id.action_qr_scan)

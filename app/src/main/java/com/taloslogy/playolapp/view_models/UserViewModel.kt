@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 class UserViewModel: ViewModel() {
 
     var test: Boolean = false
+    var userId: Int? = null
 
     private val _userLoggedIn = MutableLiveData<Boolean>()
 
@@ -22,6 +23,7 @@ class UserViewModel: ViewModel() {
 
     fun loginComplete() {
         test = true
+        userId = 2
     }
 
 }
