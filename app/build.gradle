@@ -5,6 +5,12 @@ plugins {
     id 'androidx.navigation.safeargs'
 }
 
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.1"
@@ -24,11 +30,20 @@ android {
         buildConfigField "String", "SSIV2", "\"017035012004015000026013125142159157167068063068035010145002029014145078137180\""
     }
 
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'])
+            storePassword keystoreProperties['storePassword']
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled true
             shrinkResources true
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
