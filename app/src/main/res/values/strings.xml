@@ -22,5 +22,16 @@
     <string name="update_details">UPDATE DETAILS</string>
     <string name="name">Name</string>
     <string name="e_mail">E-mail</string>
+    <string name="grade_hint">Select grade</string>
+
+    <string-array name="Grades">
+        <item>Select grade</item>
+        <item>Grade 11</item>
+        <item>Grade 10</item>
+        <item>Grade 9</item>
+        <item>Grade 8</item>
+        <item>Grade 7</item>
+        <item>Grade 6</item>
+    </string-array>
 
 </resources>
