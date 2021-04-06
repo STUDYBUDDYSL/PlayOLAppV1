@@ -23,6 +23,9 @@
     <string name="name">Name</string>
     <string name="e_mail">E-mail</string>
     <string name="grade_hint">Select grade</string>
+    <string name="sign_in_with_google">Sign in with Google</string>
+    <string name="activate">Activate</string>
+    <string name="subscription_code">Add Code</string>
 
     <string-array name="Grades">
         <item>Select grade</item>
