@@ -24,6 +24,9 @@ class UserDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        name_field.setText("Rangana Perera")
+        email_field.setText("ranganaperera94@gmail.com")
+
         val res = resources
         val grades = res.getStringArray(R.array.Grades)
         val gradeAdapter = GradeListAdapter(requireActivity(), R.layout.spinner_item, grades, res)

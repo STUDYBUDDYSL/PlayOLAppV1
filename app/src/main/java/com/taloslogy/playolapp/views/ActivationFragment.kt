@@ -43,9 +43,12 @@ class ActivationFragment : Fragment() {
                 }
             })
 
-        btn_activate.setOnClickListener {
-            //userViewModel.loginComplete()
+        btn_qr_scan.setOnClickListener {
             findNavController().navigate(R.id.action_qr_scan)
+        }
+
+        btn_activate.setOnClickListener {
+            userViewModel.loginComplete()
         }
     }
 

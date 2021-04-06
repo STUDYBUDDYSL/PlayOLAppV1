@@ -42,8 +42,7 @@ class LoginFragment : Fragment() {
         mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
 
         google_sign_in.setOnClickListener {
-            findNavController().navigate(R.id.action_userDetails)
-//            signIn()
+            signIn()
         }
     }
 
@@ -86,6 +85,8 @@ class LoginFragment : Fragment() {
 
             val googleIdToken = account?.idToken ?: ""
             Log.i("Google ID Token", googleIdToken)
+
+            findNavController().navigate(R.id.action_userDetails)
 
         } catch (e: ApiException) {
             // Sign in was unsuccessful

@@ -62,6 +62,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
+                android:id="@+id/btn_qr_scan"
                 android:background="@drawable/end_button"
                 android:layout_width="50dip"
                 android:layout_height="wrap_content"
