@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.taloslogy.playolapp.repository.LoginRepository
 
 class UserViewModel: ViewModel() {
 
@@ -14,6 +15,8 @@ class UserViewModel: ViewModel() {
     var email: String? = null
 
     private val _userLoggedIn = MutableLiveData<Boolean>()
+
+    private val loginRepo: LoginRepository = LoginRepository()
 
     fun checkLogin() : LiveData<Boolean> {
         checkForKeys()
@@ -33,7 +36,22 @@ class UserViewModel: ViewModel() {
     fun googleSignIn(fName: String, lName: String, email: String, token: String) {
         this.name = "$fName $lName"
         this.email = email
-        Log.d("TEST_LOG", token)
+
+        try{
+            Log.d("TEST_LOG", token)
+            // Complete SSO login
+            loginRepo.makeLoginRequest(token) { result ->
+                if(result){
+                    Log.d("TEST_LOG", "Navigate...")
+                }
+                else {
+                    //TODO display error
+                }
+            }
+        }
+        catch(e: Exception){
+            Log.e("TEST_LOG_E", e.toString())
+        }
     }
 
 }
