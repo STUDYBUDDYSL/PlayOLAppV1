@@ -61,6 +61,7 @@ class LoginFragment : Fragment() {
                 LoginPayload.LoginSuccess -> {
                     dialog.dismiss()
                     findNavController().navigate(R.id.action_userDetails)
+                    userViewModel.loginCycle.postValue(LoginPayload.LoginWaiting)
                 }
                 LoginPayload.LoginWaiting -> {}
             }
