@@ -12,7 +12,7 @@ class LoginRepository {
         private const val ssoUrl = "http://jack-frost.taloslogy.net:5001/User?authToken="
     }
 
-    fun makeLoginRequest(authToken: String, onResult: (res: Boolean) -> Unit) {
+    fun ssoLoginRequest(authToken: String, onResult: (res: Boolean) -> Unit) {
 
         val url = "$ssoUrl$authToken"
 

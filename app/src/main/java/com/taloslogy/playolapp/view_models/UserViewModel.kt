@@ -4,14 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.taloslogy.playolapp.models.LoginPayload
 import com.taloslogy.playolapp.repository.LoginRepository
-
-sealed class LoginPayload {
-    object LoginWaiting: LoginPayload()
-    object LoginLoading: LoginPayload()
-    object LoginSuccess: LoginPayload()
-    object LoginError: LoginPayload()
-}
 
 class UserViewModel: ViewModel() {
 
@@ -49,7 +43,7 @@ class UserViewModel: ViewModel() {
         try{
             Log.d("TEST_LOG", token)
             // Complete SSO login
-            loginRepo.makeLoginRequest(token) { result ->
+            loginRepo.ssoLoginRequest(token) { result ->
                 if(result){
                     Log.d("TEST_LOG", "Navigate...")
                     loginCycle.postValue(LoginPayload.LoginSuccess)

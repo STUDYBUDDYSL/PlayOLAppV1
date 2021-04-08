@@ -2,7 +2,6 @@ package com.taloslogy.playolapp.views
 
 import android.accounts.Account
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -22,7 +21,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.taloslogy.playolapp.R
-import com.taloslogy.playolapp.view_models.LoginPayload
+import com.taloslogy.playolapp.models.LoginPayload
 import com.taloslogy.playolapp.view_models.UserViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlin.concurrent.thread
