@@ -1,7 +1,8 @@
 package com.taloslogy.playolapp.views
 
 import android.accounts.Account
-import android.app.ProgressDialog
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -26,6 +27,7 @@ import com.taloslogy.playolapp.view_models.UserViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlin.concurrent.thread
 
+
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class LoginFragment : Fragment() {
 
@@ -44,17 +46,20 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val builder = AlertDialog.Builder(context)
+        builder.setCancelable(false)
+        builder.setView(R.layout.progress)
+        val dialog = builder.create()
+
         userViewModel.loginCycle.observe(viewLifecycleOwner, Observer {
             when(it) {
-                LoginPayload.LoginLoading -> {
-                    Log.d("TEST_LOG", "progress show")
-                }
+                LoginPayload.LoginLoading -> dialog.show()
                 LoginPayload.LoginError -> {
-                    Log.d("TEST_LOG", "progress hide")
+                    dialog.dismiss()
                     Toast.makeText(activity, getString(R.string.login_error), Toast.LENGTH_SHORT).show()
                 }
                 LoginPayload.LoginSuccess -> {
-                    Log.d("TEST_LOG", "progress hide")
+                    dialog.dismiss()
                     findNavController().navigate(R.id.action_userDetails)
                 }
                 LoginPayload.LoginWaiting -> {}
