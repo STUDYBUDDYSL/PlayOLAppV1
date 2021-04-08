@@ -1,6 +1,7 @@
 package com.taloslogy.playolapp.views
 
 import android.accounts.Account
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,7 +9,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.GoogleAuthUtil
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -18,6 +21,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.taloslogy.playolapp.R
+import com.taloslogy.playolapp.view_models.LoginPayload
 import com.taloslogy.playolapp.view_models.UserViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlin.concurrent.thread
@@ -39,6 +43,23 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        userViewModel.loginCycle.observe(viewLifecycleOwner, Observer {
+            when(it) {
+                LoginPayload.LoginLoading -> {
+                    Log.d("TEST_LOG", "progress show")
+                }
+                LoginPayload.LoginError -> {
+                    Log.d("TEST_LOG", "progress hide")
+                    Toast.makeText(activity, getString(R.string.login_error), Toast.LENGTH_SHORT).show()
+                }
+                LoginPayload.LoginSuccess -> {
+                    Log.d("TEST_LOG", "progress hide")
+                    findNavController().navigate(R.id.action_userDetails)
+                }
+                LoginPayload.LoginWaiting -> {}
+            }
+        })
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.google_client_id))
@@ -84,8 +105,6 @@ class LoginFragment : Fragment() {
                 val token = GoogleAuthUtil.getToken(context, acnt, scopes)
                 userViewModel.googleSignIn(googleFirstName, googleLastName, googleEmail, token)
             }
-
-            // findNavController().navigate(R.id.action_userDetails)
 
         } catch (e: ApiException) {
             // Sign in was unsuccessful

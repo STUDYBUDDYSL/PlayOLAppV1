@@ -6,6 +6,13 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.taloslogy.playolapp.repository.LoginRepository
 
+sealed class LoginPayload {
+    object LoginWaiting: LoginPayload()
+    object LoginLoading: LoginPayload()
+    object LoginSuccess: LoginPayload()
+    object LoginError: LoginPayload()
+}
+
 class UserViewModel: ViewModel() {
 
     var test: Boolean = false
@@ -15,6 +22,7 @@ class UserViewModel: ViewModel() {
     var email: String? = null
 
     private val _userLoggedIn = MutableLiveData<Boolean>()
+    val loginCycle = MutableLiveData<LoginPayload>(LoginPayload.LoginWaiting)
 
     private val loginRepo: LoginRepository = LoginRepository()
 
@@ -37,20 +45,24 @@ class UserViewModel: ViewModel() {
         this.name = "$fName $lName"
         this.email = email
 
+        loginCycle.postValue(LoginPayload.LoginLoading)
         try{
             Log.d("TEST_LOG", token)
             // Complete SSO login
             loginRepo.makeLoginRequest(token) { result ->
                 if(result){
                     Log.d("TEST_LOG", "Navigate...")
+                    loginCycle.postValue(LoginPayload.LoginSuccess)
                 }
                 else {
                     //TODO display error
+                    loginCycle.postValue(LoginPayload.LoginError)
                 }
             }
         }
         catch(e: Exception){
             Log.e("TEST_LOG_E", e.toString())
+            loginCycle.postValue(LoginPayload.LoginError)
         }
     }
 

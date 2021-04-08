@@ -4,6 +4,7 @@
     <string name="cool_image_button">Cool image button</string>
 
     <string name="google_client_id">505349873428-ms6gevhp2b2l0v5o7t60qhj34fnke6nt.apps.googleusercontent.com</string>
+    <string name="login_error">Couldn\'t complete login. Please try again!</string>
 
     <string name="permission_message">You need to allow access permissions for app usage</string>
     <string name="ok_text">OK</string>
