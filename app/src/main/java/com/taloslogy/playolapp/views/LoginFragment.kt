@@ -31,7 +31,6 @@ import kotlin.concurrent.thread
 class LoginFragment : Fragment() {
 
     private lateinit var mGoogleSignInClient: GoogleSignInClient
-    private val RC_SIGN_IN = 9001
     private val userViewModel: UserViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -116,6 +115,10 @@ class LoginFragment : Fragment() {
                 "failed code=", e.statusCode.toString()
             )
         }
+    }
+
+    companion object {
+        private const val RC_SIGN_IN = 9001
     }
 
 }
