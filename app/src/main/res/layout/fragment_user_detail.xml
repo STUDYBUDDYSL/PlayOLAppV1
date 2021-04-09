@@ -197,7 +197,7 @@
             android:layout_gravity="center"
             android:background="@drawable/fully_rounded_white"
             android:text="@string/update_details"
-            android:textColor="@color/playColor"
+            android:textColor="@color/text_color"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/grade_dropdown"

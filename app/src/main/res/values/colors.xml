@@ -5,5 +5,7 @@
     <color name="colorAccent">#23B6FF</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorHint">#C1BCBC</color>
+    <color name="colorDisabled">#80605E5E</color>
+    <color name="colorSplash">#E9E1FA</color>
     <color name="playColor">#1B1464</color>
 </resources>
