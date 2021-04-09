@@ -1,15 +1,21 @@
 package com.taloslogy.playolapp.views
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.adapters.GradeListAdapter
 import com.taloslogy.playolapp.models.LoginPayload
+import com.taloslogy.playolapp.view_models.UserDetailViewModel
 import com.taloslogy.playolapp.view_models.UserViewModel
 import kotlinx.android.synthetic.main.fragment_user_detail.*
 
@@ -17,6 +23,7 @@ import kotlinx.android.synthetic.main.fragment_user_detail.*
 class UserDetailFragment : Fragment() {
 
     private val userViewModel: UserViewModel by activityViewModels()
+    private val userDetailViewModel: UserDetailViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +44,29 @@ class UserDetailFragment : Fragment() {
         val grades = res.getStringArray(R.array.Grades)
         val gradeAdapter = GradeListAdapter(requireActivity(), R.layout.spinner_item, grades, res)
         grade_dropdown.adapter = gradeAdapter
+
+        grade_dropdown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+                userDetailViewModel.grade.postValue(position)
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+
+        address_field.addTextChangedListener {
+            userDetailViewModel.address.postValue(it.toString())
+        }
+
+        contact_field.addTextChangedListener {
+            userDetailViewModel.phoneNumber.postValue(it.toString())
+        }
+
+        school_field.addTextChangedListener {
+            userDetailViewModel.school.postValue(it.toString())
+        }
+
+        userDetailViewModel.valid.observe(viewLifecycleOwner, Observer {
+            btn_update_user.isEnabled = it
+        })
 
         btn_update_user.setOnClickListener {
             findNavController().navigate(R.id.action_activateCode)
