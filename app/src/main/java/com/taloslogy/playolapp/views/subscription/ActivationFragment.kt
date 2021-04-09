@@ -1,4 +1,4 @@
-package com.taloslogy.playolapp.views
+package com.taloslogy.playolapp.views.subscription
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

@@ -2,10 +2,9 @@ package com.taloslogy.playolapp.repository
 
 import android.util.Log
 import com.github.kittinunf.fuel.Fuel
-import com.github.kittinunf.fuel.core.FuelError
 import com.github.kittinunf.result.Result
-import java.lang.Exception
 
+/** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class LoginRepository {
 
     companion object {

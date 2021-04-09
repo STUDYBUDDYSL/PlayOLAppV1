@@ -1,4 +1,4 @@
-package com.taloslogy.playolapp.views
+package com.taloslogy.playolapp.views.login
 
 import android.accounts.Account
 import android.app.AlertDialog

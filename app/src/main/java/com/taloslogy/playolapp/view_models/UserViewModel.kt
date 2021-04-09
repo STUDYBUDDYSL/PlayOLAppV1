@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.taloslogy.playolapp.models.LoginPayload
 import com.taloslogy.playolapp.repository.LoginRepository
 
+/** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class UserViewModel: ViewModel() {
 
     var test: Boolean = false

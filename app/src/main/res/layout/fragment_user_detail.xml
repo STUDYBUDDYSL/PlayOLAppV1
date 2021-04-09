@@ -6,7 +6,7 @@
     android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".views.UserDetailFragment"
+    tools:context=".views.login.UserDetailFragment"
     android:background="@drawable/background"
     android:fillViewport="true">
 

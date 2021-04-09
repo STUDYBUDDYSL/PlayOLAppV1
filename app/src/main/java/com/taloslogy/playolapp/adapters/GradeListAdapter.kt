@@ -2,7 +2,6 @@ package com.taloslogy.playolapp.adapters
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.util.Log
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import com.taloslogy.playolapp.R
 
-
+/** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class GradeListAdapter(
     context: Context,
     textViewResourceId: Int,

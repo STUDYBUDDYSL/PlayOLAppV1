@@ -4,6 +4,7 @@ import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
+/** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class UserDetailViewModel : ViewModel() {
 
     val address = MutableLiveData<String>("")

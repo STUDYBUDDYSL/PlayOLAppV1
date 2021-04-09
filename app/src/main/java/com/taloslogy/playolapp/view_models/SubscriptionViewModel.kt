@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
+/** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class SubscriptionViewModel: ViewModel() {
 
     private val _qrCode = MutableLiveData<String>()
