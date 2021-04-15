@@ -102,10 +102,9 @@ class LoginFragment : Fragment() {
             val googleEmail = account?.email ?: ""
 
             val acnt = Account(googleEmail, "com.google")
-            val scopes = "oauth2:profile email"
 
             thread {
-                val token = GoogleAuthUtil.getToken(context, acnt, scopes)
+                val token = GoogleAuthUtil.getToken(context, acnt, SCOPES)
                 userViewModel.googleSignIn(googleFirstName, googleLastName, googleEmail, token)
             }
 
@@ -119,6 +118,7 @@ class LoginFragment : Fragment() {
 
     companion object {
         private const val RC_SIGN_IN = 9001
+        private const val SCOPES = "oauth2:profile email"
     }
 
 }
