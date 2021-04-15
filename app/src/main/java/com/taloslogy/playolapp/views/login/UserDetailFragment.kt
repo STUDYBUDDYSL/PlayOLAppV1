@@ -45,7 +45,7 @@ class UserDetailFragment : Fragment() {
         grade_dropdown.adapter = gradeAdapter
 
         grade_dropdown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 userDetailViewModel.grade.postValue(position)
             }
             override fun onNothingSelected(parent: AdapterView<*>) {}
