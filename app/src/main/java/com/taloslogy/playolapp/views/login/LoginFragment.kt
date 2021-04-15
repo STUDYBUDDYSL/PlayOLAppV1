@@ -72,8 +72,7 @@ class LoginFragment : Fragment() {
         mGoogleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
 
         google_sign_in.setOnClickListener {
-            //signIn()
-            userViewModel.odooTest()
+            signIn()
         }
     }
 

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.taloslogy.playolapp.view_models.UserViewModel
 import com.taloslogy.playolapp.R
@@ -18,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_activation.*
 class ActivationFragment : Fragment() {
 
     private val userViewModel: UserViewModel by activityViewModels()
-    private lateinit var subViewModel: SubscriptionViewModel
+    private val subViewModel: SubscriptionViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,17 +30,9 @@ class ActivationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        subViewModel = ViewModelProvider(this).get(SubscriptionViewModel::class.java)
-
-        val navController = findNavController()
-        val currentBackStackEntry = navController.currentBackStackEntry!!
-        val savedStateHandle = currentBackStackEntry.savedStateHandle
-        savedStateHandle.getLiveData<String>(QRScannerFragment.QR_CODE)
-            .observe(currentBackStackEntry, Observer { code ->
-                requireActivity().runOnUiThread {
-                    subViewModel.setQRCode(code)
-                }
-            })
+        subViewModel.qrCode.observe(viewLifecycleOwner, Observer {
+            qr_field.setText(it)
+        })
 
         btn_qr_scan.setOnClickListener {
             findNavController().navigate(R.id.action_qr_scan)

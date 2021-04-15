@@ -45,7 +45,7 @@
                 android:layout_marginStart="20dp">
 
                 <EditText
-                    android:id="@+id/name_field"
+                    android:id="@+id/qr_field"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@drawable/textfield_half_round"
@@ -56,8 +56,7 @@
                     android:textColor="@color/colorWhite"
                     android:textSize="18sp"
                     android:fontFamily="@font/modernhead"
-                    android:autofillHints="address"
-                    android:enabled="false"/>
+                    android:autofillHints="address"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
