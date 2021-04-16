@@ -16,9 +16,6 @@ import java.net.URL
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class UserViewModel(private val userKeyPreference: UserKeyPreference) : ViewModel() {
 
-    var test: Boolean = false
-    var userId: Int? = null
-
     var name: String? = null
     var email: String? = null
 
@@ -33,12 +30,11 @@ class UserViewModel(private val userKeyPreference: UserKeyPreference) : ViewMode
     }
 
     private fun checkForKeys() {
-        _userLoggedIn.value = userKeyPreference.isSet
+        _userLoggedIn.value = userKeyPreference.get()
     }
 
     fun loginComplete() {
-        userKeyPreference.set("test")
-        userId = 2
+        userKeyPreference.set(true)
     }
 
     private val listener = object : XMLRPCCallback{

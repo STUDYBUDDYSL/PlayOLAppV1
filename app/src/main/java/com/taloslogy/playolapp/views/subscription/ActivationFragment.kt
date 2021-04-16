@@ -49,7 +49,7 @@ class ActivationFragment : Fragment() {
 
         btn_activate.setOnClickListener {
             userViewModel.loginComplete()
-            //findNavController().navigate(R.id.action_loginComplete)
+            findNavController().navigate(R.id.action_loginComplete)
         }
     }
 

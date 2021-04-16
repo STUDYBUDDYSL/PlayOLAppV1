@@ -3,7 +3,7 @@ package com.taloslogy.playolapp.utils.storage
 import android.content.SharedPreferences
 
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
-class BooleanPreference(private val preference: SharedPreferences, private val key: String) {
+open class BooleanPreference(private val preference: SharedPreferences, private val key: String) {
 
     fun get() : Boolean {
         return preference.getBoolean(key, false)

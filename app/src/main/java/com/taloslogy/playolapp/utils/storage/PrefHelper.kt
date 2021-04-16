@@ -17,13 +17,12 @@ class PrefHelper private constructor(pref: SharedPreferences) {
         private fun setSharedPrefInstance(app: Context) = PrefHelper(app.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE))
 
         private const val PREF_NAME = "PlayOLPref"
-        private const val USER_ID = "OdooId"
+        private const val LOG_STATUS = "LoggedIn"
         private const val AES_KEY_1 = "AES_1"
     }
 
-    val userPref: UserKeyPreference = UserKeyPreference(pref, USER_ID, null)
+    val userPref: UserKeyPreference = UserKeyPreference(pref, LOG_STATUS)
 
 }
 
-class UserKeyPreference(preferences: SharedPreferences, key: String, defaultValue: String?)
-    : StringKeyStore(preferences, key, defaultValue)
+class UserKeyPreference(preferences: SharedPreferences, key: String) : BooleanPreference(preferences, key)
