@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.google.android.gms.auth.GoogleAuthUtil
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -22,7 +23,9 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.models.LoginPayload
+import com.taloslogy.playolapp.utils.storage.PrefHelper
 import com.taloslogy.playolapp.view_models.UserViewModel
+import com.taloslogy.playolapp.view_models.UserViewModelFactory
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlin.concurrent.thread
 
@@ -31,7 +34,8 @@ import kotlin.concurrent.thread
 class LoginFragment : Fragment() {
 
     private lateinit var mGoogleSignInClient: GoogleSignInClient
-    private val userViewModel: UserViewModel by activityViewModels()
+    private lateinit var userViewModel: UserViewModel
+    private lateinit var viewModelFactory: UserViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,6 +52,10 @@ class LoginFragment : Fragment() {
         builder.setCancelable(false)
         builder.setView(R.layout.progress)
         val dialog = builder.create()
+
+        val userPref = PrefHelper.getInstance(requireActivity()).userPref
+        viewModelFactory = UserViewModelFactory(userPref)
+        userViewModel = ViewModelProvider(requireActivity().viewModelStore, viewModelFactory).get(UserViewModel::class.java)
 
         userViewModel.loginCycle.observe(viewLifecycleOwner, Observer {
             when(it) {

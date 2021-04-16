@@ -10,18 +10,23 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.adapters.GradeListAdapter
 import com.taloslogy.playolapp.models.LoginPayload
+import com.taloslogy.playolapp.utils.storage.PrefHelper
 import com.taloslogy.playolapp.view_models.UserDetailViewModel
 import com.taloslogy.playolapp.view_models.UserViewModel
+import com.taloslogy.playolapp.view_models.UserViewModelFactory
 import kotlinx.android.synthetic.main.fragment_user_detail.*
 
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class UserDetailFragment : Fragment() {
 
-    private val userViewModel: UserViewModel by activityViewModels()
+    private lateinit var userViewModel: UserViewModel
+    private lateinit var viewModelFactory: UserViewModelFactory
+
     private val userDetailViewModel: UserDetailViewModel by viewModels()
 
     override fun onCreateView(
@@ -34,6 +39,10 @@ class UserDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val userPref = PrefHelper.getInstance(requireActivity()).userPref
+        viewModelFactory = UserViewModelFactory(userPref)
+        userViewModel = ViewModelProvider(requireActivity().viewModelStore, viewModelFactory).get(UserViewModel::class.java)
 
         userViewModel.loginCycle.postValue(LoginPayload.LoginWaiting)
         name_field.setText(userViewModel.name)

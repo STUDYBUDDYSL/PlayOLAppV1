@@ -31,7 +31,7 @@ class Crypto(private val keyName: String) {
     private val key: Unit
         get() {
             try {
-                val secretKeyEntry = keyStore!!.getEntry(keyName, null) as KeyStore.SecretKeyEntry
+                val secretKeyEntry = keyStore!!.getEntry(keyName, null) as KeyStore.SecretKeyEntry?
                 // if no key was found -> generate new
                 if (secretKeyEntry != null) secretKey = secretKeyEntry.secretKey
             } catch (e: KeyStoreException) {
@@ -85,7 +85,7 @@ class Crypto(private val keyName: String) {
 
     companion object {
         private const val TRANSFORMATION = KeyProperties.KEY_ALGORITHM_AES + "/" + KeyProperties.BLOCK_MODE_CBC + "/" + KeyProperties.ENCRYPTION_PADDING_PKCS7
-        private const val ANDROID_KEY_STORE = "PlayOLKeyStore"
+        private const val ANDROID_KEY_STORE = "AndroidKeyStore"
         private const val SEPARATOR = ","
     }
 

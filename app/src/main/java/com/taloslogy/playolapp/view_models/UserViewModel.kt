@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.taloslogy.playolapp.models.LoginPayload
 import com.taloslogy.playolapp.repository.LoginRepository
+import com.taloslogy.playolapp.utils.storage.UserKeyPreference
 import de.timroes.axmlrpc.XMLRPCCallback
 import de.timroes.axmlrpc.XMLRPCClient
 import de.timroes.axmlrpc.XMLRPCException
@@ -13,7 +14,7 @@ import de.timroes.axmlrpc.XMLRPCServerException
 import java.net.URL
 
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
-class UserViewModel: ViewModel() {
+class UserViewModel(private val userKeyPreference: UserKeyPreference) : ViewModel() {
 
     var test: Boolean = false
     var userId: Int? = null
@@ -32,12 +33,11 @@ class UserViewModel: ViewModel() {
     }
 
     private fun checkForKeys() {
-        // Do an asynchronous operation to find the keys if existing logged in
-        _userLoggedIn.value = test
+        _userLoggedIn.value = userKeyPreference.isSet
     }
 
     fun loginComplete() {
-        test = true
+        userKeyPreference.set("test")
         userId = 2
     }
 

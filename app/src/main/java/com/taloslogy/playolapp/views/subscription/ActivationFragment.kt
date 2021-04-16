@@ -7,16 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.taloslogy.playolapp.view_models.UserViewModel
 import com.taloslogy.playolapp.R
+import com.taloslogy.playolapp.utils.storage.PrefHelper
 import com.taloslogy.playolapp.view_models.SubscriptionViewModel
+import com.taloslogy.playolapp.view_models.UserViewModelFactory
 import kotlinx.android.synthetic.main.fragment_activation.*
 
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class ActivationFragment : Fragment() {
 
-    private val userViewModel: UserViewModel by activityViewModels()
+    private lateinit var userViewModel: UserViewModel
+    private lateinit var viewModelFactory: UserViewModelFactory
+
     private val subViewModel: SubscriptionViewModel by activityViewModels()
 
     override fun onCreateView(
@@ -30,6 +35,10 @@ class ActivationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val userPref = PrefHelper.getInstance(requireActivity()).userPref
+        viewModelFactory = UserViewModelFactory(userPref)
+        userViewModel = ViewModelProvider(requireActivity().viewModelStore, viewModelFactory).get(UserViewModel::class.java)
+
         subViewModel.qrCode.observe(viewLifecycleOwner, Observer {
             qr_field.setText(it)
         })
@@ -40,7 +49,7 @@ class ActivationFragment : Fragment() {
 
         btn_activate.setOnClickListener {
             userViewModel.loginComplete()
-            findNavController().navigate(R.id.action_loginComplete)
+            //findNavController().navigate(R.id.action_loginComplete)
         }
     }
 
