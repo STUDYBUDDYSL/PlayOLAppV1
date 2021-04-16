@@ -18,6 +18,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.taloslogy.playolapp.R
+import com.taloslogy.playolapp.utils.ByteMagic
 import com.taloslogy.playolapp.utils.Decryptor
 import com.taloslogy.playolapp.utils.FileUtils
 import com.taloslogy.playolapp.utils.StringUtils
@@ -176,23 +177,19 @@ MediaPlayer.OnErrorListener {
             else name.dropLast(10)
         }
 
+        val prefs = PrefHelper.getInstance(requireActivity())
+        val decryptor = Decryptor(prefs)
+
         val keyFile = File("${StringUtils.getCoursePath}/${StringUtils.getKeyFileName}")
-        val decryptedVal = Decryptor().decryptKey(keyFile)
+        val decryptedVal = decryptor.decryptKey(keyFile)
         val decryptKeys = String(decryptedVal!!, Charsets.UTF_8)
         val passphrase = decryptKeys.split('\n').first().trim()
         val iv = decryptKeys.split('\n').last()
 
-        val prefs = PrefHelper.getInstance(requireActivity())
-
-        val pass1 = prefs.key1Pref.get()!!
-        val pass2 = prefs.key2Pref.get()!!
-        val iv1 = prefs.iv1Pref.get()!!
-        val iv2 = prefs.iv2Pref.get()!!
-
-//        val pass1 = ByteMagic(resources.getString(R.string.ssk1)).str
-//        val iv1 = ByteMagic(BuildConfig.SSIV2).str
-//        val pass2 = ByteMagic(BuildConfig.SSK2).str
-//        val iv2 = ByteMagic(resources.getString(R.string.ssiv1)).str
+        val pass1 = ByteMagic(prefs.key1Pref.get()!!).str
+        val iv1 = ByteMagic(prefs.iv1Pref.get()!!).str
+        val pass2 = ByteMagic(prefs.key2Pref.get()!!).str
+        val iv2 = ByteMagic(prefs.iv2Pref.get()!!).str
 
         val pChunk = passphrase.chunked(8)
         val ivChunk = iv.chunked(4)
@@ -201,7 +198,7 @@ MediaPlayer.OnErrorListener {
         val ivv = iv1 + ivChunk.first() + iv2 + ivChunk.last()
 
         val file = File("$videoPath/$name")
-        val decrypted = Decryptor().decryptVideoFile(pp, ivv, file)
+        val decrypted = decryptor.decryptVideoFile(pp, ivv, file)
         getDataSource(decrypted)
 
         activity?.runOnUiThread {

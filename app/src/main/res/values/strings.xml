@@ -14,8 +14,6 @@
     <string name="first_video_toast">This is the first video!</string>
     <string name="last_video_toast">This is the last video!</string>
 
-    <string name="ssk1">017035012004015000026013125142159157167068063068035010145002029020168165160150147173132106</string>
-    <string name="ssiv1">017035012004015000026013125142159157167068063068035010145002029014147110150057</string>
     <string name="loading">Loading...</string>
     <string name="home_address">Home Address</string>
     <string name="phone_number">Phone Number</string>

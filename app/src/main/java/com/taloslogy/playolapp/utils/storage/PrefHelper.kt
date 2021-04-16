@@ -18,6 +18,9 @@ class PrefHelper private constructor(pref: SharedPreferences) {
 
         private const val PREF_NAME = "PlayOLPref"
         private const val LOG_STATUS = "LoggedIn"
+        private const val AES_KEY = "AES_KEY"
+        private const val AES_IV = "AES_IV"
+        private const val PART_KEY = "PART_KEY"
         private const val KEY_PART_1 = "KEY_PART_1"
         private const val KEY_PART_2 = "KEY_PART_2"
         private const val IV_PART_1 = "IV_PART_1"
@@ -25,6 +28,9 @@ class PrefHelper private constructor(pref: SharedPreferences) {
     }
 
     val userPref: UserKeyPreference = UserKeyPreference(pref, LOG_STATUS)
+    val aesKeyPref: AesKeyPreference = AesKeyPreference(pref, AES_KEY)
+    val aesIvPref: AesIvPreference = AesIvPreference(pref, AES_IV)
+    val partKeyPref: PartKeyPreference = PartKeyPreference(pref, PART_KEY)
     val key1Pref: KeyPart1Preference = KeyPart1Preference(pref, KEY_PART_1)
     val key2Pref: KeyPart2Preference = KeyPart2Preference(pref, KEY_PART_2)
     val iv1Pref: IVPart1Preference = IVPart1Preference(pref, IV_PART_1)
@@ -33,6 +39,12 @@ class PrefHelper private constructor(pref: SharedPreferences) {
 }
 
 class UserKeyPreference(preferences: SharedPreferences, key: String) : BooleanPreference(preferences, key)
+
+class AesKeyPreference(preferences: SharedPreferences, key: String) : StringKeyStore(preferences, key)
+
+class AesIvPreference(preferences: SharedPreferences, key: String) : StringKeyStore(preferences, key)
+
+class PartKeyPreference(preferences: SharedPreferences, key: String) : StringKeyStore(preferences, key)
 
 class KeyPart1Preference(preferences: SharedPreferences, key: String) : StringKeyStore(preferences, key)
 

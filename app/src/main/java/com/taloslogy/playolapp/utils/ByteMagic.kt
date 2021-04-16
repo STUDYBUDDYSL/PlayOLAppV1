@@ -12,7 +12,7 @@ class ByteMagic(var str: String) {
             .build()
         val initRequest = PlayOLProto.InitRequest.newBuilder()
             .setBaseResponse(baseResponse)
-            .setChallenge(ByteString.copyFrom(GetDeviceInfo.deviceName, Charsets.UTF_8))
+            .setChallenge(ByteString.copyFrom("Incar A8", Charsets.UTF_8))
             .build()
 
         val au = PlayOLProto.InitRequest.parseFrom(initRequest.toByteArray()).challenge
