@@ -1,9 +1,9 @@
 package com.taloslogy.playolapp.utils.storage
 
-import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 
+/** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class PrefHelper private constructor(pref: SharedPreferences) {
 
     companion object {

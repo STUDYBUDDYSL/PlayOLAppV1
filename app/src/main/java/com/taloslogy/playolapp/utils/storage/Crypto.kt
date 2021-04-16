@@ -10,6 +10,7 @@ import java.security.cert.CertificateException
 import javax.crypto.*
 import javax.crypto.spec.IvParameterSpec
 
+/** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class Crypto(private val keyName: String) {
     private var keyStore: KeyStore? = null
     private var secretKey: SecretKey? = null

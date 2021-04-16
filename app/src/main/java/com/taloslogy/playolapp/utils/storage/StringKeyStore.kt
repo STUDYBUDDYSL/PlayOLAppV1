@@ -9,6 +9,7 @@ import javax.crypto.BadPaddingException
 import javax.crypto.IllegalBlockSizeException
 import javax.crypto.NoSuchPaddingException
 
+/** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 open class StringKeyStore @JvmOverloads constructor(private val preferences: SharedPreferences, private val key: String, private val defaultValue: String? = null) {
     fun get(): String? {
         var value: String? = null

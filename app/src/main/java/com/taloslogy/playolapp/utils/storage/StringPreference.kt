@@ -2,6 +2,7 @@ package com.taloslogy.playolapp.utils.storage
 
 import android.content.SharedPreferences
 
+/** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class StringPreference(private val preference: SharedPreferences, private val key: String) {
 
     fun get() : String {
