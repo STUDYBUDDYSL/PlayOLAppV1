@@ -38,7 +38,10 @@ class UserViewModel(private val prefs: PrefHelper) : ViewModel() {
         // TODO(Get the activation codes from a network call)
 
         // Set the keys retrieved from api
-
+        prefs.key1Pref.set("wrmffxYB")
+        prefs.key2Pref.set("GPVSIrun")
+        prefs.iv1Pref.set("d=Z~")
+        prefs.iv2Pref.set("fGe+")
 
         // Complete login flow and not show a second time
         prefs.userPref.set(true)

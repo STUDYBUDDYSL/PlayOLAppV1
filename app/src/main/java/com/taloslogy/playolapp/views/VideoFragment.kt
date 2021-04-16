@@ -21,6 +21,7 @@ import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.utils.Decryptor
 import com.taloslogy.playolapp.utils.FileUtils
 import com.taloslogy.playolapp.utils.StringUtils
+import com.taloslogy.playolapp.utils.storage.PrefHelper
 import kotlinx.android.synthetic.main.fragment_video.*
 import org.json.JSONObject
 import java.io.File
@@ -181,15 +182,17 @@ MediaPlayer.OnErrorListener {
         val passphrase = decryptKeys.split('\n').first().trim()
         val iv = decryptKeys.split('\n').last()
 
+        val prefs = PrefHelper.getInstance(requireActivity())
+
+        val pass1 = prefs.key1Pref.get()!!
+        val pass2 = prefs.key2Pref.get()!!
+        val iv1 = prefs.iv1Pref.get()!!
+        val iv2 = prefs.iv2Pref.get()!!
+
 //        val pass1 = ByteMagic(resources.getString(R.string.ssk1)).str
 //        val iv1 = ByteMagic(BuildConfig.SSIV2).str
 //        val pass2 = ByteMagic(BuildConfig.SSK2).str
 //        val iv2 = ByteMagic(resources.getString(R.string.ssiv1)).str
-
-        val pass1 = "wrmffxYB"
-        val pass2 = "GPVSIrun"
-        val iv1 = "d=Z~"
-        val iv2 = "fGe+"
 
         val pChunk = passphrase.chunked(8)
         val ivChunk = iv.chunked(4)
