@@ -35,8 +35,8 @@ class ActivationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val userPref = PrefHelper.getInstance(requireActivity()).userPref
-        viewModelFactory = UserViewModelFactory(userPref)
+        val prefs = PrefHelper.getInstance(requireActivity())
+        viewModelFactory = UserViewModelFactory(prefs)
         userViewModel = ViewModelProvider(requireActivity().viewModelStore, viewModelFactory).get(UserViewModel::class.java)
 
         subViewModel.qrCode.observe(viewLifecycleOwner, Observer {

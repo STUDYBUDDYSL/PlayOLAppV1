@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -33,8 +32,8 @@ class SplashFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val navController = findNavController()
 
-        val userPref = PrefHelper.getInstance(requireActivity()).userPref
-        viewModelFactory = UserViewModelFactory(userPref)
+        val prefs = PrefHelper.getInstance(requireActivity())
+        viewModelFactory = UserViewModelFactory(prefs)
         userViewModel = ViewModelProvider(requireActivity().viewModelStore, viewModelFactory).get(UserViewModel::class.java)
 
         userViewModel.checkLogin().observe(viewLifecycleOwner, Observer {

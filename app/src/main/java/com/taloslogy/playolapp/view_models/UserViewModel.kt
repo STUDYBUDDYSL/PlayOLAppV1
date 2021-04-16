@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.taloslogy.playolapp.models.LoginPayload
 import com.taloslogy.playolapp.repository.LoginRepository
-import com.taloslogy.playolapp.utils.storage.UserKeyPreference
+import com.taloslogy.playolapp.utils.storage.PrefHelper
 import de.timroes.axmlrpc.XMLRPCCallback
 import de.timroes.axmlrpc.XMLRPCClient
 import de.timroes.axmlrpc.XMLRPCException
@@ -14,7 +14,7 @@ import de.timroes.axmlrpc.XMLRPCServerException
 import java.net.URL
 
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
-class UserViewModel(private val userKeyPreference: UserKeyPreference) : ViewModel() {
+class UserViewModel(private val prefs: PrefHelper) : ViewModel() {
 
     var name: String? = null
     var email: String? = null
@@ -30,11 +30,18 @@ class UserViewModel(private val userKeyPreference: UserKeyPreference) : ViewMode
     }
 
     private fun checkForKeys() {
-        _userLoggedIn.value = userKeyPreference.get()
+        _userLoggedIn.value = prefs.userPref.get()
     }
 
     fun loginComplete() {
-        userKeyPreference.set(true)
+
+        // TODO(Get the activation codes from a network call)
+
+        // Set the keys retrieved from api
+
+
+        // Complete login flow and not show a second time
+        prefs.userPref.set(true)
     }
 
     private val listener = object : XMLRPCCallback{

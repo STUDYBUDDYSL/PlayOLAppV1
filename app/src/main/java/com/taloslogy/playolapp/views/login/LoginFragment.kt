@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -53,8 +52,8 @@ class LoginFragment : Fragment() {
         builder.setView(R.layout.progress)
         val dialog = builder.create()
 
-        val userPref = PrefHelper.getInstance(requireActivity()).userPref
-        viewModelFactory = UserViewModelFactory(userPref)
+        val prefs = PrefHelper.getInstance(requireActivity())
+        viewModelFactory = UserViewModelFactory(prefs)
         userViewModel = ViewModelProvider(requireActivity().viewModelStore, viewModelFactory).get(UserViewModel::class.java)
 
         userViewModel.loginCycle.observe(viewLifecycleOwner, Observer {
