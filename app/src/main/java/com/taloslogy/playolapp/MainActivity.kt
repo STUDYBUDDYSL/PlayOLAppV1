@@ -9,7 +9,6 @@ import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import com.taloslogy.playolapp.utils.SafetyNet
 import kotlinx.android.synthetic.main.activity_main.*
