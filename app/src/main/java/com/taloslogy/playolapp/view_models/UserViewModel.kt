@@ -4,7 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.taloslogy.playolapp.models.LoginPayload
+import com.taloslogy.playolapp.models.LoginRes
+import com.taloslogy.playolapp.models.LoginResult
 import com.taloslogy.playolapp.repository.LoginRepository
 import com.taloslogy.playolapp.utils.storage.PrefHelper
 import de.timroes.axmlrpc.XMLRPCCallback
@@ -20,7 +21,7 @@ class UserViewModel(private val prefs: PrefHelper) : ViewModel() {
     var email: String? = null
 
     private val _userLoggedIn = MutableLiveData<Boolean>()
-    val loginCycle = MutableLiveData<LoginPayload>(LoginPayload.LoginWaiting)
+    val loginCycle = MutableLiveData<LoginResult>(LoginResult(LoginRes.LoginWaiting))
 
     private val loginRepo: LoginRepository = LoginRepository()
 
@@ -112,24 +113,24 @@ class UserViewModel(private val prefs: PrefHelper) : ViewModel() {
         this.name = "$fName $lName"
         this.email = email
 
-        loginCycle.postValue(LoginPayload.LoginLoading)
+        loginCycle.postValue(LoginResult(LoginRes.LoginLoading))
         try{
             Log.d("TEST_LOG", token)
             // Complete SSO login
-            loginRepo.ssoLoginRequest(token) { result ->
+            loginRepo.ssoLoginRequest(token) { result, msg ->
                 if(result){
                     Log.d("TEST_LOG", "Navigate...")
-                    loginCycle.postValue(LoginPayload.LoginSuccess)
+                    loginCycle.postValue(LoginResult(LoginRes.LoginSuccess))
                 }
                 else {
                     //TODO display error
-                    loginCycle.postValue(LoginPayload.LoginError)
+                    loginCycle.postValue(LoginResult(LoginRes.LoginError, msg))
                 }
             }
         }
         catch(e: Exception){
             Log.e("TEST_LOG_E", e.toString())
-            loginCycle.postValue(LoginPayload.LoginError)
+            loginCycle.postValue(LoginResult(LoginRes.LoginError))
         }
     }
 

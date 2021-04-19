@@ -21,7 +21,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.taloslogy.playolapp.R
-import com.taloslogy.playolapp.models.LoginPayload
+import com.taloslogy.playolapp.models.LoginRes
 import com.taloslogy.playolapp.utils.storage.PrefHelper
 import com.taloslogy.playolapp.view_models.UserViewModel
 import com.taloslogy.playolapp.view_models.UserViewModelFactory
@@ -57,17 +57,17 @@ class LoginFragment : Fragment() {
         userViewModel = ViewModelProvider(requireActivity().viewModelStore, viewModelFactory).get(UserViewModel::class.java)
 
         userViewModel.loginCycle.observe(viewLifecycleOwner, Observer {
-            when(it) {
-                LoginPayload.LoginLoading -> dialog.show()
-                LoginPayload.LoginError -> {
+            when(it.type) {
+                LoginRes.LoginLoading -> dialog.show()
+                LoginRes.LoginError -> {
                     dialog.dismiss()
-                    Toast.makeText(activity, getString(R.string.login_error), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, it.message, Toast.LENGTH_LONG).show()
                 }
-                LoginPayload.LoginSuccess -> {
+                LoginRes.LoginSuccess -> {
                     dialog.dismiss()
                     findNavController().navigate(R.id.action_userDetails)
                 }
-                LoginPayload.LoginWaiting -> {}
+                LoginRes.LoginWaiting -> {}
             }
         })
 

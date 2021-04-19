@@ -2,7 +2,6 @@ package com.taloslogy.playolapp.views.login
 
 import android.app.DatePickerDialog
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +15,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.adapters.GradeListAdapter
-import com.taloslogy.playolapp.models.LoginPayload
+import com.taloslogy.playolapp.models.LoginRes
+import com.taloslogy.playolapp.models.LoginResult
 import com.taloslogy.playolapp.utils.storage.PrefHelper
 import com.taloslogy.playolapp.view_models.UserDetailViewModel
 import com.taloslogy.playolapp.view_models.UserViewModel
@@ -24,7 +24,6 @@ import com.taloslogy.playolapp.view_models.UserViewModelFactory
 import kotlinx.android.synthetic.main.fragment_user_detail.*
 import java.text.SimpleDateFormat
 import java.util.*
-import javax.xml.datatype.DatatypeConstants.MONTHS
 
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class UserDetailFragment : Fragment() , DatePickerDialog.OnDateSetListener {
@@ -49,7 +48,7 @@ class UserDetailFragment : Fragment() , DatePickerDialog.OnDateSetListener {
         viewModelFactory = UserViewModelFactory(prefs)
         userViewModel = ViewModelProvider(requireActivity().viewModelStore, viewModelFactory).get(UserViewModel::class.java)
 
-        userViewModel.loginCycle.postValue(LoginPayload.LoginWaiting)
+        userViewModel.loginCycle.postValue(LoginResult(LoginRes.LoginWaiting))
         name_field.setText(userViewModel.name)
         email_field.setText(userViewModel.email)
 

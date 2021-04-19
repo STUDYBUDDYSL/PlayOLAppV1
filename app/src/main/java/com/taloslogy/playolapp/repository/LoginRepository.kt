@@ -11,19 +11,29 @@ class LoginRepository {
         private const val ssoUrl = "http://greentel.taloslogy.net:8080/sso?authToken="
     }
 
-    fun ssoLoginRequest(authToken: String, onResult: (res: Boolean) -> Unit) {
+    fun ssoLoginRequest(authToken: String, onResult: (res: Boolean, msg: String) -> Unit) {
 
         val url = "$ssoUrl$authToken"
 
         val httpSSO = Fuel.post(url).response { _, _, result ->
             when(result){
                 is Result.Failure -> {
-                    result.getException().message?.let { Log.e("TEST_LOG", it) }
-                    onResult(false)
+                    val err = result.getException().message
+                    var msg = ""
+                    if(!err.isNullOrBlank()){
+                        Log.e("TEST_LOG", err)
+                        msg = if(err.contains("Unable to resolve host")){
+                            "Device doesn't have an internet connection!"
+                        } else {
+                            "Server error. Please try again!"
+                        }
+                    }
+
+                    onResult(false, msg)
                 }
                 is Result.Success -> {
                     Log.d("TEST_LOG", "Logged in..")
-                    onResult(true)
+                    onResult(true, "")
                 }
             }
         }

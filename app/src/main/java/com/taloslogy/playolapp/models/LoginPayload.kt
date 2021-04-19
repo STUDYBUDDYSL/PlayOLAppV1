@@ -1,9 +1,11 @@
 package com.taloslogy.playolapp.models
 
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
-sealed class LoginPayload {
-    object LoginWaiting: LoginPayload()
-    object LoginLoading: LoginPayload()
-    object LoginSuccess: LoginPayload()
-    object LoginError: LoginPayload()
+enum class LoginRes {
+    LoginWaiting,
+    LoginLoading,
+    LoginSuccess,
+    LoginError
 }
+
+class LoginResult(val type: LoginRes, val message: String = "Couldn't complete login. Please try again!")
