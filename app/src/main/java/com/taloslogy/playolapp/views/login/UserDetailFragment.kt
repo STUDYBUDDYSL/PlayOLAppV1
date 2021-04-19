@@ -69,6 +69,10 @@ class UserDetailFragment : Fragment() , DatePickerDialog.OnDateSetListener {
         val cal = Calendar.getInstance()
         dob_label.visibility = if(dob_input.text.isNullOrEmpty()) View.INVISIBLE else View.VISIBLE
 
+        userDetailViewModel.dob.observe(viewLifecycleOwner, Observer {
+            dob_input.text = it
+        })
+
         dob_input.setOnClickListener {
 
             val dpd = DatePickerDialog(requireActivity(), R.style.MySpinnerDatePickerStyle, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
@@ -80,7 +84,7 @@ class UserDetailFragment : Fragment() , DatePickerDialog.OnDateSetListener {
                 // Display Selected date in textbox
                 val myFormat = "dd-MMMM-yyyy"
                 val sdf = SimpleDateFormat(myFormat, Locale.US)
-                dob_input.text = sdf.format(cal.time)
+                userDetailViewModel.dob.postValue(sdf.format(cal.time))
 
                 dob_label.visibility = View.VISIBLE
 
@@ -91,6 +95,10 @@ class UserDetailFragment : Fragment() , DatePickerDialog.OnDateSetListener {
 
         address_field.addTextChangedListener {
             userDetailViewModel.address.postValue(it.toString())
+        }
+
+        city_field.addTextChangedListener {
+            userDetailViewModel.city.postValue(it.toString())
         }
 
         contact_field.addTextChangedListener {
