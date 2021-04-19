@@ -16,6 +16,7 @@
 
     <string name="loading">Loading...</string>
     <string name="home_address">Home Address</string>
+    <string name="city">City</string>
     <string name="phone_number">Phone Number</string>
     <string name="school">School</string>
     <string name="update_details">UPDATE DETAILS</string>
@@ -34,6 +35,15 @@
         <item>Grade 8</item>
         <item>Grade 7</item>
         <item>Grade 6</item>
+    </string-array>
+
+    <string-array name="Provinces">
+        <item>Select province</item>
+        <item>Western</item>
+        <item>Southern</item>
+        <item>North Western</item>
+        <item>Northern</item>
+        <item>Eastern</item>
     </string-array>
 
 </resources>

@@ -52,6 +52,10 @@ class UserDetailFragment : Fragment() {
         val gradeAdapter = GradeListAdapter(requireActivity(), R.layout.spinner_item, grades, res)
         grade_dropdown.adapter = gradeAdapter
 
+        val provinces = res.getStringArray(R.array.Provinces)
+        val provinceAdapter = GradeListAdapter(requireActivity(), R.layout.spinner_item, provinces, res)
+        province_dropdown.adapter = provinceAdapter
+
         grade_dropdown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 userDetailViewModel.grade.postValue(position)
