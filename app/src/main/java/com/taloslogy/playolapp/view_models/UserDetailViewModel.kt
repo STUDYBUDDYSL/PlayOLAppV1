@@ -13,9 +13,6 @@ class UserDetailViewModel : ViewModel() {
     val grade = MutableLiveData<Int>(0)
 
     val valid = MediatorLiveData<Boolean>().apply {
-        addSource(address) {
-            value = isValidForm()
-        }
         addSource(phoneNumber) {
             value = isValidForm()
         }
@@ -29,8 +26,7 @@ class UserDetailViewModel : ViewModel() {
     }
 
     private fun isValidForm() : Boolean {
-        return !address.value.isNullOrEmpty()
-                && !phoneNumber.value.isNullOrEmpty()
+        return !phoneNumber.value.isNullOrEmpty()
                 && !school.value.isNullOrEmpty()
                 && grade.value != 0
     }

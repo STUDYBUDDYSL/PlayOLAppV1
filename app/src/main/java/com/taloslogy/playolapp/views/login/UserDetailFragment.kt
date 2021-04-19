@@ -61,11 +61,13 @@ class UserDetailFragment : Fragment() , DatePickerDialog.OnDateSetListener {
         grade_dropdown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 userDetailViewModel.grade.postValue(position)
+                grade_label.visibility =  if(position != 0) View.VISIBLE else View.INVISIBLE
             }
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
         val cal = Calendar.getInstance()
+        dob_label.visibility = if(dob_input.text.isNullOrEmpty()) View.INVISIBLE else View.VISIBLE
 
         dob_input.setOnClickListener {
 
@@ -79,6 +81,8 @@ class UserDetailFragment : Fragment() , DatePickerDialog.OnDateSetListener {
                 val myFormat = "dd-MMMM-yyyy"
                 val sdf = SimpleDateFormat(myFormat, Locale.US)
                 dob_input.text = sdf.format(cal.time)
+
+                dob_label.visibility = View.VISIBLE
 
             }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH))
 

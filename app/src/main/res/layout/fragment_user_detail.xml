@@ -100,9 +100,10 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <TextView
+                android:id="@+id/dob_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Date of Birth"
+                android:text="@string/date_of_birth"
                 android:layout_marginStart="12dp"
                 android:textSize="10sp"
                 android:fontFamily="@font/modernhead"
@@ -252,9 +253,10 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <TextView
+                android:id="@+id/grade_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Grade"
+                android:text="@string/grade"
                 android:layout_marginStart="12dp"
                 android:textSize="10sp"
                 android:fontFamily="@font/modernhead"
