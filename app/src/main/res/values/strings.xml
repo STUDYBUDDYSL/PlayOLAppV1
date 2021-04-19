@@ -32,19 +32,6 @@
         <item>Select grade</item>
         <item>Grade 11</item>
         <item>Grade 10</item>
-        <item>Grade 9</item>
-        <item>Grade 8</item>
-        <item>Grade 7</item>
-        <item>Grade 6</item>
-    </string-array>
-
-    <string-array name="Provinces">
-        <item>Select province</item>
-        <item>Western</item>
-        <item>Southern</item>
-        <item>North Western</item>
-        <item>Northern</item>
-        <item>Eastern</item>
     </string-array>
 
 </resources>
