@@ -1,11 +1,14 @@
 package com.taloslogy.playolapp.views.login
 
+import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.DatePicker
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -19,9 +22,12 @@ import com.taloslogy.playolapp.view_models.UserDetailViewModel
 import com.taloslogy.playolapp.view_models.UserViewModel
 import com.taloslogy.playolapp.view_models.UserViewModelFactory
 import kotlinx.android.synthetic.main.fragment_user_detail.*
+import java.text.SimpleDateFormat
+import java.util.*
+import javax.xml.datatype.DatatypeConstants.MONTHS
 
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
-class UserDetailFragment : Fragment() {
+class UserDetailFragment : Fragment() , DatePickerDialog.OnDateSetListener {
 
     private lateinit var userViewModel: UserViewModel
     private lateinit var viewModelFactory: UserViewModelFactory
@@ -63,6 +69,26 @@ class UserDetailFragment : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
+        val cal = Calendar.getInstance()
+
+        dob_input.setOnClickListener {
+
+            val dpd = DatePickerDialog(requireActivity(), R.style.MySpinnerDatePickerStyle, DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
+
+                cal.set(Calendar.YEAR, year)
+                cal.set(Calendar.MONTH, monthOfYear)
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+
+                // Display Selected date in textbox
+                val myFormat = "dd-MMMM-yyyy"
+                val sdf = SimpleDateFormat(myFormat, Locale.US)
+                dob_input.text = sdf.format(cal.time)
+
+            }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH))
+
+            dpd.show()
+        }
+
         address_field.addTextChangedListener {
             userDetailViewModel.address.postValue(it.toString())
         }
@@ -82,6 +108,11 @@ class UserDetailFragment : Fragment() {
         btn_update_user.setOnClickListener {
             findNavController().navigate(R.id.action_activateCode)
         }
+    }
+
+
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        TODO("Not yet implemented")
     }
 
 }
