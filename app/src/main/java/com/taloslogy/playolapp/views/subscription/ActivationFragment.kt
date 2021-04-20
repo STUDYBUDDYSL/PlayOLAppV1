@@ -18,6 +18,7 @@ import com.taloslogy.playolapp.models.LoginRes
 import com.taloslogy.playolapp.models.LoginResult
 import com.taloslogy.playolapp.utils.storage.PrefHelper
 import com.taloslogy.playolapp.view_models.SubscriptionViewModel
+import com.taloslogy.playolapp.view_models.SubscriptionViewModelFactory
 import com.taloslogy.playolapp.view_models.UserViewModelFactory
 import kotlinx.android.synthetic.main.fragment_activation.*
 
@@ -26,8 +27,8 @@ class ActivationFragment : Fragment() {
 
     private lateinit var userViewModel: UserViewModel
     private lateinit var viewModelFactory: UserViewModelFactory
-
-    private val subViewModel: SubscriptionViewModel by activityViewModels()
+    private lateinit var subViewModel: SubscriptionViewModel
+    private lateinit var subVMFactory: SubscriptionViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,6 +44,8 @@ class ActivationFragment : Fragment() {
         val prefs = PrefHelper.getInstance(requireActivity())
         viewModelFactory = UserViewModelFactory(prefs)
         userViewModel = ViewModelProvider(requireActivity().viewModelStore, viewModelFactory).get(UserViewModel::class.java)
+        subVMFactory = SubscriptionViewModelFactory(prefs)
+        subViewModel = ViewModelProvider(requireActivity().viewModelStore, subVMFactory).get(SubscriptionViewModel::class.java)
 
         val builder = AlertDialog.Builder(context)
         builder.setCancelable(false)

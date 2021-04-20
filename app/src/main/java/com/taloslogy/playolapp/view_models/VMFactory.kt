@@ -14,3 +14,14 @@ class UserViewModelFactory(private val prefs: PrefHelper) : ViewModelProvider.Fa
     }
 
 }
+
+class SubscriptionViewModelFactory(private val prefs: PrefHelper) : ViewModelProvider.Factory{
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(SubscriptionViewModel::class.java)) {
+            return SubscriptionViewModel(prefs) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
+    }
+
+}

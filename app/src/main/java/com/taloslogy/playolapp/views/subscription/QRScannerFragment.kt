@@ -8,19 +8,23 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.SavedStateHandle
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.budiyev.android.codescanner.CodeScanner
 import com.budiyev.android.codescanner.CodeScannerView
 import com.budiyev.android.codescanner.DecodeCallback
 import com.budiyev.android.codescanner.ErrorCallback
 import com.taloslogy.playolapp.R
+import com.taloslogy.playolapp.utils.storage.PrefHelper
 import com.taloslogy.playolapp.view_models.SubscriptionViewModel
+import com.taloslogy.playolapp.view_models.SubscriptionViewModelFactory
 
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class QRScannerFragment : Fragment() {
 
     private lateinit var codeScanner: CodeScanner
-    private val subViewModel: SubscriptionViewModel by activityViewModels()
+    private lateinit var subViewModel: SubscriptionViewModel
+    private lateinit var subVMFactory: SubscriptionViewModelFactory
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +36,10 @@ class QRScannerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val prefs = PrefHelper.getInstance(requireActivity())
+        subVMFactory = SubscriptionViewModelFactory(prefs)
+        subViewModel = ViewModelProvider(requireActivity().viewModelStore, subVMFactory).get(SubscriptionViewModel::class.java)
 
         val scannerView = view.findViewById<CodeScannerView>(R.id.scanner_view)
         val activity = requireActivity()
