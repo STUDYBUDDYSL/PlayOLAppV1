@@ -41,4 +41,19 @@ class UserDetailRepository {
         }
     }
 
+    fun activateSubscription(listener: XMLRPCCallback, id: Int, token: String, params: ArrayList<Any>){
+        try{
+            val client = XMLRPCClient(URL(QUERY_URL))
+            client.callAsync(
+                    listener,
+                    "execute_kw",
+                    "greentel", id, token, "activation.codes", "activatekey", params
+            )
+
+        }
+        catch(e: Exception){
+            Log.e("TEST_LOG", e.toString())
+        }
+    }
+
 }

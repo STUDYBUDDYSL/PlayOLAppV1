@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import com.taloslogy.playolapp.view_models.UserViewModel
 import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.models.LoginRes
+import com.taloslogy.playolapp.models.LoginResult
 import com.taloslogy.playolapp.utils.storage.PrefHelper
 import com.taloslogy.playolapp.view_models.SubscriptionViewModel
 import com.taloslogy.playolapp.view_models.UserViewModelFactory
@@ -58,6 +59,7 @@ class ActivationFragment : Fragment() {
                 LoginRes.LoginSuccess -> {
                     dialog.dismiss()
                     findNavController().navigate(R.id.action_loginComplete)
+                    subViewModel.activation.postValue(LoginResult(LoginRes.LoginWaiting))
                 }
                 LoginRes.LoginWaiting -> {}
             }
@@ -80,7 +82,9 @@ class ActivationFragment : Fragment() {
         }
 
         btn_activate.setOnClickListener {
-            userViewModel.loginComplete()
+            subViewModel.activateSubscription(
+                userViewModel.email!!, userViewModel.token!!
+            )
         }
     }
 
