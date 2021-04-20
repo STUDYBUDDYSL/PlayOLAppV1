@@ -27,6 +27,17 @@ class PrefHelper private constructor(pref: SharedPreferences) {
         private const val IV_PART_2 = "IV_PART_2"
     }
 
+    fun clearPrefs(){
+        aesKeyPref.delete()
+        aesIvPref.delete()
+        partKeyPref.delete()
+        userPref.delete()
+        key1Pref.delete()
+        key2Pref.delete()
+        iv1Pref.delete()
+        iv2Pref.delete()
+    }
+
     val userPref: UserKeyPreference = UserKeyPreference(pref, LOG_STATUS)
     val aesKeyPref: AesKeyPreference = AesKeyPreference(pref, AES_KEY)
     val aesIvPref: AesIvPreference = AesIvPreference(pref, AES_IV)

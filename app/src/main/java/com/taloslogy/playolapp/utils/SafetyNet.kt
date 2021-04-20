@@ -3,6 +3,7 @@ package com.taloslogy.playolapp.utils
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import androidx.documentfile.provider.DocumentFile
+import com.taloslogy.playolapp.utils.storage.PrefHelper
 
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 object SafetyNet {
@@ -13,11 +14,8 @@ object SafetyNet {
         val isRooted = RootCheck.isDeviceRooted
 
         if(isRooted){
-            val uri = Uri.parse(StringUtils.getExternalStorageTreePath)
-            var docFile = DocumentFile.fromTreeUri(context,uri)
-            docFile = docFile?.findFile(StringUtils.getCourseFolderName)
-            docFile = docFile?.findFile(StringUtils.getKeyFileName)
-            docFile?.delete()
+            val pref = PrefHelper.getInstance(context)
+            pref.clearPrefs()
             context.finishAndRemoveTask()
         }
     }
