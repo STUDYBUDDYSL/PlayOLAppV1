@@ -18,7 +18,7 @@ class UserDetailRepository {
             client.callAsync(
                 listener,
                 "authenticate",
-                "greentel", "admin@taloslogy.com", "odoo@123#", ""
+                "greentel", userName, token, ""
             )
         }
         catch(e: Exception){
@@ -26,15 +26,13 @@ class UserDetailRepository {
         }
     }
 
-    fun odooTest2(listener: XMLRPCCallback, id: Int){
+    fun updateUserDetails(listener: XMLRPCCallback, id: Int, token: String, params: ArrayList<Any>){
         try{
             val client = XMLRPCClient(URL(QUERY_URL))
-            client.callAsync(listener, "execute_kw", "jack_frost", id,
-                    "odoo@123#",
-                    "olympus.device",
-                    "search_read",
-                    emptyList<String>(),
-                    mapOf("fields" to arrayListOf("display_name", "thingId"))
+            client.callAsync(
+                listener,
+                "execute_kw",
+                "greentel", id, token, "res.partner", "update_student_details", params
             )
 
         }

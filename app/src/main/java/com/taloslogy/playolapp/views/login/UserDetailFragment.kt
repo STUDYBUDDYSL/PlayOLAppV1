@@ -19,6 +19,7 @@ import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.adapters.GradeListAdapter
 import com.taloslogy.playolapp.models.LoginRes
 import com.taloslogy.playolapp.models.LoginResult
+import com.taloslogy.playolapp.utils.StringUtils
 import com.taloslogy.playolapp.utils.storage.PrefHelper
 import com.taloslogy.playolapp.view_models.UserDetailViewModel
 import com.taloslogy.playolapp.view_models.UserViewModel
@@ -28,7 +29,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
-class UserDetailFragment : Fragment() , DatePickerDialog.OnDateSetListener {
+class UserDetailFragment : Fragment(){
 
     private lateinit var userViewModel: UserViewModel
     private lateinit var viewModelFactory: UserViewModelFactory
@@ -54,9 +55,7 @@ class UserDetailFragment : Fragment() , DatePickerDialog.OnDateSetListener {
         name_field.setText(userViewModel.name)
         email_field.setText(userViewModel.email)
 
-        val res = resources
-        val grades = res.getStringArray(R.array.Grades)
-        val gradeAdapter = GradeListAdapter(requireActivity(), R.layout.spinner_item, grades, res)
+        val gradeAdapter = GradeListAdapter(requireActivity(), R.layout.spinner_item, StringUtils.grades, resources)
         grade_dropdown.adapter = gradeAdapter
 
         grade_dropdown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -83,7 +82,7 @@ class UserDetailFragment : Fragment() , DatePickerDialog.OnDateSetListener {
                 cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
 
                 // Display Selected date in textbox
-                val myFormat = "dd-MMMM-yyyy"
+                val myFormat = "yyyy-MM-dd"
                 val sdf = SimpleDateFormat(myFormat, Locale.US)
                 userDetailViewModel.dob.postValue(sdf.format(cal.time))
 
@@ -132,17 +131,14 @@ class UserDetailFragment : Fragment() , DatePickerDialog.OnDateSetListener {
         }
 
         userDetailViewModel.valid.observe(viewLifecycleOwner, Observer {
-            btn_update_user.isEnabled = true
+            btn_update_user.isEnabled = it
         })
 
         btn_update_user.setOnClickListener {
-            userDetailViewModel.updateUserDetails()
+            userDetailViewModel.updateUserDetails(
+                userViewModel.email!!, userViewModel.token!!
+            )
         }
-    }
-
-
-    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
-        TODO("Not yet implemented")
     }
 
 }

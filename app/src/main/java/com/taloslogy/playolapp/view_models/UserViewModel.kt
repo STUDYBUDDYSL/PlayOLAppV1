@@ -14,6 +14,7 @@ class UserViewModel(private val prefs: PrefHelper) : ViewModel() {
 
     var name: String? = null
     var email: String? = null
+    var token: String? = null
 
     private val _userLoggedIn = MutableLiveData<Boolean>()
     val loginCycle = MutableLiveData<LoginResult>(LoginResult(LoginRes.LoginWaiting))
@@ -57,6 +58,7 @@ class UserViewModel(private val prefs: PrefHelper) : ViewModel() {
     fun googleSignIn(fName: String, lName: String, email: String, token: String) {
         this.name = "$fName $lName"
         this.email = email
+        this.token = token
 
         loginCycle.postValue(LoginResult(LoginRes.LoginLoading))
         try{
@@ -68,13 +70,11 @@ class UserViewModel(private val prefs: PrefHelper) : ViewModel() {
                     loginCycle.postValue(LoginResult(LoginRes.LoginSuccess))
                 }
                 else {
-                    //TODO display error
                     loginCycle.postValue(LoginResult(LoginRes.LoginError, msg))
                 }
             }
         }
         catch(e: Exception){
-            Log.e("TEST_LOG_E", e.toString())
             loginCycle.postValue(LoginResult(LoginRes.LoginError))
         }
     }

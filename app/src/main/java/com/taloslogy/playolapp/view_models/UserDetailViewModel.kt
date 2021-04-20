@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.taloslogy.playolapp.models.LoginRes
 import com.taloslogy.playolapp.models.LoginResult
 import com.taloslogy.playolapp.repository.UserDetailRepository
+import com.taloslogy.playolapp.utils.StringUtils
 import de.timroes.axmlrpc.XMLRPCCallback
 import de.timroes.axmlrpc.XMLRPCException
 import de.timroes.axmlrpc.XMLRPCServerException
@@ -45,20 +46,30 @@ class UserDetailViewModel : ViewModel() {
     }
 
     private fun isValidForm() : Boolean {
-        return !dob.value.isNullOrEmpty()
-                && !city.value.isNullOrEmpty()
-                && !phoneNumber.value.isNullOrEmpty()
+        return !dob.value.isNullOrBlank()
+                && !city.value.isNullOrBlank()
+                && !phoneNumber.value.isNullOrBlank()
                 && phoneNumber.value?.length == 10
-                && !school.value.isNullOrEmpty()
+                && !school.value.isNullOrBlank()
                 && grade.value != 0
     }
 
+    var token: String? = null
+
     private val authListener = object : XMLRPCCallback {
         override fun onResponse(id: Long, result: Any?) {
-            apiCall.postValue(LoginResult(LoginRes.LoginSuccess))
-            Log.d("TEST_RESPONSE", result.toString())
             if (result is Int){
-                //userRepo.odooTest2(detailListener, result)
+                val params = arrayListOf(1, mapOf(
+                    "uid" to result,
+                    "grade" to StringUtils.grades[grade.value!!],
+                    "dob" to dob.value,
+                    "school" to school.value,
+                    "province" to "",
+                    "city" to city.value,
+                    "street" to address.value,
+                    "phone" to phoneNumber.value
+                ))
+                userRepo.updateUserDetails(detailListener, result, token!!, params)
             }
         }
 
@@ -75,8 +86,7 @@ class UserDetailViewModel : ViewModel() {
 
     private val detailListener = object : XMLRPCCallback {
         override fun onResponse(id: Long, result: Any?) {
-            Log.d("TEST_RESPONSE", result.toString())
-            Log.d("TEST_RESPONSE", "${result!!::class.simpleName}")
+            apiCall.postValue(LoginResult(LoginRes.LoginSuccess))
         }
 
         override fun onServerError(id: Long, error: XMLRPCServerException?) {
@@ -90,9 +100,10 @@ class UserDetailViewModel : ViewModel() {
         }
     }
 
-    fun updateUserDetails(){
+    fun updateUserDetails(userName: String, token: String){
         apiCall.postValue(LoginResult(LoginRes.LoginLoading))
-        userRepo.authenticate(authListener, "", "")
+        this.token = token
+        userRepo.authenticate(authListener, userName, token)
     }
 
 }
