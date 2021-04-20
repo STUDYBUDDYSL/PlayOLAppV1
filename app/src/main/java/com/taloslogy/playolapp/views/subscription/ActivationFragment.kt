@@ -1,26 +1,36 @@
 package com.taloslogy.playolapp.views.subscription
 
+import android.Manifest
 import android.app.AlertDialog
+import android.content.DialogInterface
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.taloslogy.playolapp.PERMISSION_REQUEST_CODE
 import com.taloslogy.playolapp.view_models.UserViewModel
 import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.models.LoginRes
 import com.taloslogy.playolapp.models.LoginResult
+import com.taloslogy.playolapp.utils.SafetyNet
 import com.taloslogy.playolapp.utils.storage.PrefHelper
 import com.taloslogy.playolapp.view_models.SubscriptionViewModel
 import com.taloslogy.playolapp.view_models.SubscriptionViewModelFactory
 import com.taloslogy.playolapp.view_models.UserViewModelFactory
 import kotlinx.android.synthetic.main.fragment_activation.*
+import kotlin.concurrent.thread
+
+const val CAMERA_PERMISSION_REQUEST_CODE = 3017
 
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class ActivationFragment : Fragment() {
@@ -36,6 +46,15 @@ class ActivationFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_activation, container, false)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        if (!checkCameraPermission()) {
+            requestPermission()
+        }
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -82,7 +101,12 @@ class ActivationFragment : Fragment() {
         }
 
         btn_qr_scan.setOnClickListener {
-            findNavController().navigate(R.id.action_qr_scan)
+            if (checkCameraPermission()) {
+                findNavController().navigate(R.id.action_qr_scan)
+            }
+            else {
+                requestPermission()
+            }
         }
 
         btn_activate.setOnClickListener {
@@ -92,4 +116,44 @@ class ActivationFragment : Fragment() {
         }
     }
 
+    private fun checkCameraPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun requestPermission() {
+        requestPermissions(
+            arrayOf(Manifest.permission.CAMERA),
+            CAMERA_PERMISSION_REQUEST_CODE
+        )
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        when (requestCode) {
+            CAMERA_PERMISSION_REQUEST_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Log.d("TEST_LOG", "Got permission..")
+            } else {
+                if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.CAMERA)
+                    != PackageManager.PERMISSION_GRANTED
+                ) {
+                    showMessageOKCancel(resources.getString(R.string.cam_permission),
+                        DialogInterface.OnClickListener { _, _ ->
+                            requestPermission()
+                        })
+                }
+            }
+        }
+    }
+
+    private fun showMessageOKCancel(message: String, okListener: DialogInterface.OnClickListener) {
+        AlertDialog.Builder(requireActivity())
+            .setMessage(message)
+            .setPositiveButton(resources.getString(R.string.ok_text), okListener)
+            .setNegativeButton(resources.getString(R.string.cancel_text), null)
+            .create()
+            .show()
+    }
 }
