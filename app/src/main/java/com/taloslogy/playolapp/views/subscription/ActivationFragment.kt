@@ -1,16 +1,20 @@
 package com.taloslogy.playolapp.views.subscription
 
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.taloslogy.playolapp.view_models.UserViewModel
 import com.taloslogy.playolapp.R
+import com.taloslogy.playolapp.models.LoginRes
 import com.taloslogy.playolapp.utils.storage.PrefHelper
 import com.taloslogy.playolapp.view_models.SubscriptionViewModel
 import com.taloslogy.playolapp.view_models.UserViewModelFactory
@@ -39,9 +43,37 @@ class ActivationFragment : Fragment() {
         viewModelFactory = UserViewModelFactory(prefs)
         userViewModel = ViewModelProvider(requireActivity().viewModelStore, viewModelFactory).get(UserViewModel::class.java)
 
-        subViewModel.qrCode.observe(viewLifecycleOwner, Observer {
+        val builder = AlertDialog.Builder(context)
+        builder.setCancelable(false)
+        builder.setView(R.layout.progress)
+        val dialog = builder.create()
+
+        subViewModel.activation.observe(viewLifecycleOwner, Observer {
+            when(it.type) {
+                LoginRes.LoginLoading -> dialog.show()
+                LoginRes.LoginError -> {
+                    dialog.dismiss()
+                    Toast.makeText(activity, it.message, Toast.LENGTH_LONG).show()
+                }
+                LoginRes.LoginSuccess -> {
+                    dialog.dismiss()
+                    findNavController().navigate(R.id.action_loginComplete)
+                }
+                LoginRes.LoginWaiting -> {}
+            }
+        })
+
+        subViewModel.setQR.observe(viewLifecycleOwner, Observer {
             qr_field.setText(it)
         })
+
+        subViewModel.qrCode.observe(viewLifecycleOwner, Observer {
+            btn_activate.isEnabled = !it.isNullOrBlank()
+        })
+
+        qr_field.addTextChangedListener{
+            subViewModel.qrCode.postValue(it.toString())
+        }
 
         btn_qr_scan.setOnClickListener {
             findNavController().navigate(R.id.action_qr_scan)
@@ -49,7 +81,6 @@ class ActivationFragment : Fragment() {
 
         btn_activate.setOnClickListener {
             userViewModel.loginComplete()
-            findNavController().navigate(R.id.action_loginComplete)
         }
     }
 

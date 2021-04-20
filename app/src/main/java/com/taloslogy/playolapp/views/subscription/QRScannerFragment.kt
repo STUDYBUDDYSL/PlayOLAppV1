@@ -38,7 +38,7 @@ class QRScannerFragment : Fragment() {
         codeScanner = CodeScanner(activity, scannerView)
         codeScanner.decodeCallback = DecodeCallback {
             activity.runOnUiThread {
-                subViewModel.setQRCode(it.text)
+                subViewModel.setQR.postValue(it.text)
             }
             findNavController().popBackStack()
         }

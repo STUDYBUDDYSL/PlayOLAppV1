@@ -79,7 +79,7 @@
             android:paddingVertical="10dp"
             android:paddingHorizontal="40dp"
             android:text="@string/activate"
-            android:textColor="@color/playColor"
+            android:textColor="@color/text_color"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
