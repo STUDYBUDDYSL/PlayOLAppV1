@@ -1,5 +1,6 @@
 package com.taloslogy.playolapp.views.login
 
+import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.DatePicker
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -92,6 +94,27 @@ class UserDetailFragment : Fragment() , DatePickerDialog.OnDateSetListener {
             dpd.show()
         }
 
+        val builder = AlertDialog.Builder(context)
+        builder.setCancelable(false)
+        builder.setView(R.layout.progress)
+        val dialog = builder.create()
+
+        userDetailViewModel.apiCall.observe(viewLifecycleOwner, Observer {
+            when(it.type) {
+                LoginRes.LoginLoading -> dialog.show()
+                LoginRes.LoginError -> {
+                    dialog.dismiss()
+                    Toast.makeText(activity, it.message, Toast.LENGTH_LONG).show()
+                }
+                LoginRes.LoginSuccess -> {
+                    dialog.dismiss()
+                    findNavController().navigate(R.id.action_activateCode)
+                    userDetailViewModel.apiCall.postValue(LoginResult(LoginRes.LoginWaiting))
+                }
+                LoginRes.LoginWaiting -> {}
+            }
+        })
+
         address_field.addTextChangedListener {
             userDetailViewModel.address.postValue(it.toString())
         }
@@ -109,11 +132,11 @@ class UserDetailFragment : Fragment() , DatePickerDialog.OnDateSetListener {
         }
 
         userDetailViewModel.valid.observe(viewLifecycleOwner, Observer {
-            btn_update_user.isEnabled = it
+            btn_update_user.isEnabled = true
         })
 
         btn_update_user.setOnClickListener {
-            findNavController().navigate(R.id.action_activateCode)
+            userDetailViewModel.updateUserDetails()
         }
     }
 
