@@ -58,6 +58,7 @@ class ActivationFragment : Fragment() {
                 LoginRes.LoginError -> {
                     dialog.dismiss()
                     Toast.makeText(activity, it.message, Toast.LENGTH_LONG).show()
+                    subViewModel.activation.postValue(LoginResult(LoginRes.LoginWaiting))
                 }
                 LoginRes.LoginSuccess -> {
                     dialog.dismiss()

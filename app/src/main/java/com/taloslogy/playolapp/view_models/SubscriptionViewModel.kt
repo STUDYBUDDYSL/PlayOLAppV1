@@ -74,17 +74,27 @@ class SubscriptionViewModel(private val prefs: PrefHelper): ViewModel() {
         Log.d("TEST_RESPONSE", keys.keys.toString())
 
         // Set the keys retrieved from api
-        prefs.aesKeyPref.set("017035012004015000026013125142159157167068063068035010145002029020158170135154155119155126")
-        prefs.aesIvPref.set("017035012004015000026013125142159157167068063068035010145002029014045167149060")
-        prefs.partKeyPref.set("08d40f121863624257654e6473674d39555a747430695765476466733308d40f120c782b61584a7e4b415d2a7d66")
-        prefs.key1Pref.set("017035012004015000026013125142159157167068063068035010145002029020168165160150147173132106")
-        prefs.key2Pref.set("017035012004015000026013125142159157167068063068035010145002029020108123131127112165166160")
-        prefs.iv1Pref.set("017035012004015000026013125142159157167068063068035010145002029014145078137180")
-        prefs.iv2Pref.set("017035012004015000026013125142159157167068063068035010145002029014147110150057")
+        prefs.aesKeyPref.set(hexStrToStr(keys.getValue("aes_key")))
+        prefs.aesIvPref.set(hexStrToStr(keys.getValue("iv_key")))
+        prefs.partKeyPref.set(keys.getValue("part_key"))
+        prefs.key1Pref.set(hexStrToStr(keys.getValue("half_key_one")))
+        prefs.key2Pref.set(hexStrToStr(keys.getValue("half_key_two")))
+        prefs.iv1Pref.set(hexStrToStr(keys.getValue("half_iv_one")))
+        prefs.iv2Pref.set(hexStrToStr(keys.getValue("half_iv_two")))
 
         // Complete login flow and not show a second time
         prefs.userPref.set(true)
         activation.postValue(LoginResult(LoginRes.LoginSuccess))
+    }
+
+    private fun hexStrToStr(str: String): String {
+        val arr = arrayListOf<String>()
+        for (x in str.indices step 3){
+            val s = str.substring(x, x+3)
+            val s16 = s.toInt(16).toString().padStart(3, '0')
+            arr.add(s16)
+        }
+        return arr.joinToString("")
     }
 
 }
