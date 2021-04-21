@@ -5,16 +5,17 @@ import android.content.res.Configuration
 import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import android.view.WindowManager
-import android.widget.LinearLayout
 import android.widget.MediaController
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.taloslogy.playolapp.R
@@ -80,6 +81,24 @@ MediaPlayer.OnErrorListener {
         val files = fileUtils.getFilesFromPath(path!!, onlyFolders = false)
         val json = fileUtils.readFileText(StringUtils.getJsonFileName, requireActivity())
         val jsonObject = JSONObject(json)
+
+        if(resources.configuration.orientation  == Configuration.ORIENTATION_PORTRAIT){
+            val height = resources.displayMetrics.heightPixels
+
+            val margin = (height * 0.03).toInt()
+            Log.d("TEST_LOG", margin.toString())
+            Log.d("TEST_LOG", (height * 0.375f).toString())
+
+            val params = ConstraintLayout.LayoutParams(
+                ConstraintLayout.LayoutParams.MATCH_PARENT,
+                getPxFromDp(height * 0.375f)
+            )
+            params.topToBottom = subject_content.id
+            params.bottomToTop = media_controls.id
+            video_content.layoutParams = params
+
+            setMargins(video_content, 0, margin, 0, margin)
+        }
 
         thread { if(!isPrepared) decryptVideo(files, path, jsonObject) }
 
@@ -277,9 +296,9 @@ MediaPlayer.OnErrorListener {
             subject_content.visibility = View.GONE
             media_controls.visibility = View.GONE
 
-            val params = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.FILL_PARENT,
-                LinearLayout.LayoutParams.FILL_PARENT
+            val params = ConstraintLayout.LayoutParams(
+                ConstraintLayout.LayoutParams.FILL_PARENT,
+                ConstraintLayout.LayoutParams.FILL_PARENT
             )
             video_content.layoutParams = params
         }
@@ -288,12 +307,20 @@ MediaPlayer.OnErrorListener {
             subject_content.visibility = View.VISIBLE
             media_controls.visibility = View.VISIBLE
 
-            val params = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                getPxFromDp(450f)
+            val height = resources.displayMetrics.heightPixels
+
+            val margin = (height * 0.03).toInt()
+
+            val params = ConstraintLayout.LayoutParams(
+                ConstraintLayout.LayoutParams.MATCH_PARENT,
+                getPxFromDp(height * 0.375f)
             )
+
+            params.topToBottom = subject_content.id
+            params.bottomToTop = media_controls.id
+
             video_content.layoutParams = params
-            setMargins(video_content, 0, 40, 0, 40)
+            setMargins(video_content, 0, margin, 0, margin)
             setButtonControls()
         }
 
