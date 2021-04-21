@@ -3,15 +3,14 @@ package com.taloslogy.playolapp.views
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Color
+import android.graphics.Point
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.util.TypedValue
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.ViewGroup.MarginLayoutParams
-import android.view.WindowManager
 import android.widget.MediaController
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
@@ -28,6 +27,7 @@ import kotlinx.android.synthetic.main.fragment_video.*
 import org.json.JSONObject
 import java.io.File
 import java.io.FileOutputStream
+import java.lang.reflect.Method
 import kotlin.concurrent.thread
 
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
@@ -88,10 +88,11 @@ MediaPlayer.OnErrorListener {
             val margin = (height * 0.03).toInt()
             Log.d("TEST_LOG", margin.toString())
             Log.d("TEST_LOG", (height * 0.375f).toString())
+            Log.d("TEST_LOG", (height).toString())
 
             val params = ConstraintLayout.LayoutParams(
                 ConstraintLayout.LayoutParams.MATCH_PARENT,
-                getPxFromDp(height * 0.375f)
+                getPxFromDp(getVideoHeight(height))
             )
             params.topToBottom = subject_content.id
             params.bottomToTop = media_controls.id
@@ -313,7 +314,7 @@ MediaPlayer.OnErrorListener {
 
             val params = ConstraintLayout.LayoutParams(
                 ConstraintLayout.LayoutParams.MATCH_PARENT,
-                getPxFromDp(height * 0.375f)
+                getPxFromDp(getVideoHeight(height))
             )
 
             params.topToBottom = subject_content.id
@@ -381,6 +382,20 @@ MediaPlayer.OnErrorListener {
             thread { decryptVideo(files, path, jsonObject) }
         }
         super.onResume()
+    }
+
+    private fun getVideoHeight(height: Int) : Float {
+        return when {
+            height < 1000 -> {
+                (height * 0.375).toFloat()
+            }
+            height < 1800 -> {
+                (height * 0.25).toFloat()
+            }
+            else -> {
+                (height * 0.15).toFloat()
+            }
+        }
     }
 
 }
