@@ -117,9 +117,6 @@ class LoginFragment : Fragment() {
 
         } catch (e: ApiException) {
             // Sign in was unsuccessful
-            Log.e(
-                "failed code=", e.statusCode.toString()
-            )
         }
     }
 

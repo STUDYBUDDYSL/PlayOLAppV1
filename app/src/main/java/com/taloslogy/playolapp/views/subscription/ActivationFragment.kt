@@ -134,7 +134,6 @@ class ActivationFragment : Fragment() {
     ) {
         when (requestCode) {
             CAMERA_PERMISSION_REQUEST_CODE -> if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Log.d("TEST_LOG", "Got permission..")
             } else {
                 if (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.CAMERA)
                     != PackageManager.PERMISSION_GRANTED

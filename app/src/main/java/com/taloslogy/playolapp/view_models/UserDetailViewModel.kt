@@ -75,12 +75,10 @@ class UserDetailViewModel : ViewModel() {
 
         override fun onServerError(id: Long, error: XMLRPCServerException?) {
             apiCall.postValue(LoginResult(LoginRes.LoginError, "Server error. Please try again!"))
-            Log.e("TEST_SERVER_ERROR", error.toString())
         }
 
         override fun onError(id: Long, error: XMLRPCException?) {
             apiCall.postValue(LoginResult(LoginRes.LoginError, "Device doesn't have an internet connection!"))
-            Log.e("TEST_ERROR", error.toString())
         }
     }
 
@@ -91,12 +89,10 @@ class UserDetailViewModel : ViewModel() {
 
         override fun onServerError(id: Long, error: XMLRPCServerException?) {
             apiCall.postValue(LoginResult(LoginRes.LoginError, "Server error. Please try again!"))
-            Log.e("TEST_SERVER_ERROR", error.toString())
         }
 
         override fun onError(id: Long, error: XMLRPCException?) {
             apiCall.postValue(LoginResult(LoginRes.LoginError, "Device doesn't have an internet connection!"))
-            Log.e("TEST_ERROR", error.toString())
         }
     }
 

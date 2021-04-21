@@ -46,7 +46,6 @@ open class StringKeyStore @JvmOverloads constructor(private val preferences: Sha
         } catch (e: BadPaddingException) {
             e.printStackTrace()
         }
-        Log.d("TEST_KEYSTORE", "Got value as: $value")
         return value
     }
 
@@ -54,7 +53,6 @@ open class StringKeyStore @JvmOverloads constructor(private val preferences: Sha
     val isSet: Boolean
         get() {
             // If preference has decrypt key, then all good
-            Log.d("TEST_KEYSTORE", "Is this set: " + preferences.contains(key))
             return preferences.contains(key)
         }
 
@@ -66,7 +64,6 @@ open class StringKeyStore @JvmOverloads constructor(private val preferences: Sha
             val decryptionKey: String = cryptography.encrypt(value)
             // Save decryption key into shared preference for retrieval
             preferences.edit().putString(key, decryptionKey).apply()
-            Log.d("TEST_KEYSTORE", "Key set as: $decryptionKey")
         } catch (e: CertificateException) {
             e.printStackTrace()
         } catch (e: NoSuchAlgorithmException) {

@@ -86,9 +86,6 @@ MediaPlayer.OnErrorListener {
             val height = resources.displayMetrics.heightPixels
 
             val margin = (height * 0.03).toInt()
-            Log.d("TEST_LOG", margin.toString())
-            Log.d("TEST_LOG", (height * 0.375f).toString())
-            Log.d("TEST_LOG", (height).toString())
 
             val params = ConstraintLayout.LayoutParams(
                 ConstraintLayout.LayoutParams.MATCH_PARENT,

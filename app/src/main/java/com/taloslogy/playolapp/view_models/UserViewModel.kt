@@ -45,11 +45,9 @@ class UserViewModel(private val prefs: PrefHelper) : ViewModel() {
 
         loginCycle.postValue(LoginResult(LoginRes.LoginLoading))
         try{
-            Log.d("TEST_LOG", token)
             // Complete SSO login
             loginRepo.ssoLoginRequest(token) { result, msg ->
                 if(result){
-                    Log.d("TEST_LOG", "Navigate...")
                     loginCycle.postValue(LoginResult(LoginRes.LoginSuccess))
                 }
                 else {

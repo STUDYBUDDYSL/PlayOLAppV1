@@ -22,7 +22,6 @@ class UserDetailRepository {
             )
         }
         catch(e: Exception){
-            Log.e("TEST_LOG", e.toString())
         }
     }
 
@@ -37,7 +36,6 @@ class UserDetailRepository {
 
         }
         catch(e: Exception){
-            Log.e("TEST_LOG", e.toString())
         }
     }
 
@@ -52,7 +50,6 @@ class UserDetailRepository {
 
         }
         catch(e: Exception){
-            Log.e("TEST_LOG", e.toString())
         }
     }
 

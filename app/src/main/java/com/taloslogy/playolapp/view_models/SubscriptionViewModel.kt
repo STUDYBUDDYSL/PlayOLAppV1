@@ -36,18 +36,15 @@ class SubscriptionViewModel(private val prefs: PrefHelper): ViewModel() {
 
         override fun onServerError(id: Long, error: XMLRPCServerException?) {
             activation.postValue(LoginResult(LoginRes.LoginError, "Server error. Please try again!"))
-            Log.e("TEST_SERVER_ERROR", error.toString())
         }
 
         override fun onError(id: Long, error: XMLRPCException?) {
             activation.postValue(LoginResult(LoginRes.LoginError, "Device doesn't have an internet connection!"))
-            Log.e("TEST_ERROR", error.toString())
         }
     }
 
     private val detailListener = object : XMLRPCCallback {
         override fun onResponse(id: Long, result: Any?) {
-            Log.d("TEST_RESPONSE", "${result!!::class.simpleName}")
             if(result is HashMap<*, *>){
                 saveKeys(result as HashMap<String, String>)
             }
@@ -55,12 +52,10 @@ class SubscriptionViewModel(private val prefs: PrefHelper): ViewModel() {
 
         override fun onServerError(id: Long, error: XMLRPCServerException?) {
             activation.postValue(LoginResult(LoginRes.LoginError, "The entered activation code is wrong or has been activated already!"))
-            Log.e("TEST_SERVER_ERROR", error.toString())
         }
 
         override fun onError(id: Long, error: XMLRPCException?) {
             activation.postValue(LoginResult(LoginRes.LoginError, "Device doesn't have an internet connection!"))
-            Log.e("TEST_ERROR", error.toString())
         }
     }
 
@@ -71,7 +66,6 @@ class SubscriptionViewModel(private val prefs: PrefHelper): ViewModel() {
     }
 
     private fun saveKeys(keys: HashMap<String, String>){
-        Log.d("TEST_RESPONSE", keys.keys.toString())
 
         // Set the keys retrieved from api
         prefs.aesKeyPref.set(hexStrToStr(keys.getValue("aes_key")))

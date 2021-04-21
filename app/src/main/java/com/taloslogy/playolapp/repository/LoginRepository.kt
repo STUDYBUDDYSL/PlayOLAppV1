@@ -21,7 +21,6 @@ class LoginRepository {
                     val err = result.getException().message
                     var msg = ""
                     if(!err.isNullOrBlank()){
-                        Log.e("TEST_LOG", err)
                         msg = if(err.contains("Unable to resolve host")){
                             "Device doesn't have an internet connection!"
                         } else {
@@ -32,7 +31,6 @@ class LoginRepository {
                     onResult(false, msg)
                 }
                 is Result.Success -> {
-                    Log.d("TEST_LOG", "Logged in..")
                     onResult(true, "")
                 }
             }
