@@ -1,12 +1,15 @@
 package com.taloslogy.playolapp.views
 
+import android.content.Context
 import android.os.Bundle
+import android.os.storage.StorageManager
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.navigation.fragment.findNavController
 import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.utils.FileUtils
@@ -34,14 +37,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun getSdCardPath() : String {
-        val files = FileUtils().getFilesFromPath("/storage/")
-        for (f in files){
-            if (f.name.contains("sdcard0")){
-                return "/storage/sdcard0"
-            }
-            if (f.name.length == 9 && f.name.contains("-")){
-                return "/storage/${f.name}"
-            }
+        val sm = requireActivity().getSystemService(Context.STORAGE_SERVICE) as StorageManager
+        val sdCard = sm.storageVolumes.find { it.isRemovable }
+        if(sdCard != null){
+            return "/storage/${sdCard.uuid}"
         }
         return ""
     }
