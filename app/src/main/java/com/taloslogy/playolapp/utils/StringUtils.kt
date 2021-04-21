@@ -9,11 +9,9 @@ object StringUtils {
 
     val getGrade11Name:String get() = "Grade 11"
 
-    val getCoursePath:String get() = "/storage/sdcard0/Courses"
+    var sdCardPath = ""
 
-    val getExternalStorageTreePath:String get() = "content://com.android.externalstorage.documents/tree/sdcard0%3A"
-
-    val getCourseFolderName:String get() = "Courses"
+    val getCoursePath:String get() = "$sdCardPath/Courses"
 
     val getKeyFileName:String get() = "key.talos"
 

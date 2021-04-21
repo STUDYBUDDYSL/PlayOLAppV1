@@ -1,6 +1,7 @@
 package com.taloslogy.playolapp.views
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.utils.FileUtils
 import com.taloslogy.playolapp.utils.StringUtils
 import kotlinx.android.synthetic.main.fragment_home.*
+import java.io.File
 
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class HomeFragment : Fragment() {
@@ -21,6 +23,27 @@ class HomeFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_home, container, false)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // Set the course path
+        val path = getSdCardPath()
+        StringUtils.sdCardPath = path
+    }
+
+    private fun getSdCardPath() : String {
+        val files = FileUtils().getFilesFromPath("/storage/")
+        for (f in files){
+            if (f.name.contains("sdcard0")){
+                return "/storage/sdcard0"
+            }
+            if (f.name.length == 9 && f.name.contains("-")){
+                return "/storage/${f.name}"
+            }
+        }
+        return ""
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
