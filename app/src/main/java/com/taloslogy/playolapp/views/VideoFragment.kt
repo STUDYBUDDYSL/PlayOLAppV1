@@ -3,20 +3,23 @@ package com.taloslogy.playolapp.views
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Color
-import android.graphics.Point
 import android.media.MediaPlayer
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.util.Log
 import android.util.TypedValue
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
-import android.widget.MediaController
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.Player
+import com.google.android.exoplayer2.SimpleExoPlayer
 import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.utils.ByteMagic
 import com.taloslogy.playolapp.utils.Decryptor
@@ -27,12 +30,10 @@ import kotlinx.android.synthetic.main.fragment_video.*
 import org.json.JSONObject
 import java.io.File
 import java.io.FileOutputStream
-import java.lang.reflect.Method
 import kotlin.concurrent.thread
 
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
-class VideoFragment : Fragment(), MediaPlayer.OnPreparedListener, MediaPlayer.OnCompletionListener,
-MediaPlayer.OnErrorListener {
+class VideoFragment : Fragment() {
 
     private var isPrepared = false
     private var isFullScreen = false
@@ -40,6 +41,7 @@ MediaPlayer.OnErrorListener {
 
     private val fileUtils: FileUtils = FileUtils()
     private lateinit var playFile: File
+    private lateinit var exoPlayer: SimpleExoPlayer
 
     private var position: Int? = null
 
@@ -102,15 +104,11 @@ MediaPlayer.OnErrorListener {
 
         play_pause_btn.setOnClickListener {
             if(isPrepared){
-                if(videoView.isPlaying) {
-                    play_pause_btn.background = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_play_icon)
-                    setMargins(play_pause_btn, 7, 4, 3, 4)
-                    videoView.pause()
+                if(exoPlayer.isPlaying) {
+                    exoPlayer.pause()
                 }
                 else {
-                    play_pause_btn.background = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_pause)
-                    setMargins(play_pause_btn, 5, 4, 5, 4)
-                    videoView.start()
+                    exoPlayer.play()
                 }
             }
         }
@@ -128,8 +126,8 @@ MediaPlayer.OnErrorListener {
                     isPrepared = false
                     play_pause_btn.background = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_play_icon)
                     setMargins(play_pause_btn, 7, 4, 3, 4)
-                    videoView?.stopPlayback()
-                    videoView?.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+                    exoPlayer.release()
+                    videoView?.player = null
                     playFile.delete()
                     position = position!! - 1
                     thread { decryptVideo(files, path, jsonObject) }
@@ -148,8 +146,8 @@ MediaPlayer.OnErrorListener {
                     isPrepared = false
                     play_pause_btn.background = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_play_icon)
                     setMargins(play_pause_btn, 7, 4, 3, 4)
-                    videoView?.stopPlayback()
-                    videoView?.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+                    exoPlayer.release()
+                    videoView?.player = null
                     playFile.delete()
                     position = position!! + 1
                     thread { decryptVideo(files, path, jsonObject) }
@@ -179,7 +177,6 @@ MediaPlayer.OnErrorListener {
     private fun decryptVideo(files: List<File>, videoPath: String, fileNames: JSONObject) {
 
         activity?.runOnUiThread {
-            videoView?.setBackgroundColor(resources.getColor(R.color.colorPrimary))
             decrypt_loader?.visibility = View.VISIBLE
         }
 
@@ -226,34 +223,37 @@ MediaPlayer.OnErrorListener {
 
     private fun playVideo() {
         try {
-            videoView?.setOnPreparedListener { onPrepared(it) }
-            videoView?.setOnCompletionListener { onCompletion(it) }
-            videoView?.setOnErrorListener { mp, i, j -> onError(mp, i,j) }
-            val controller = MediaController(activity)
-            controller.setAnchorView(videoView)
-            videoView?.setMediaController(controller)
-            videoView?.setVideoPath(playFile.absolutePath)
+            exoPlayer = SimpleExoPlayer.Builder(requireActivity()).build()
+            videoView.player = exoPlayer
+            val mediaItem = MediaItem.fromUri(playFile.absolutePath)
+            exoPlayer.setMediaItem(mediaItem)
+            exoPlayer.addListener(object : Player.EventListener {
+                override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
+                    if (playbackState == Player.STATE_READY) {
+                        if(!isPrepared){
+                            isPrepared = true
+                            videoView?.setBackgroundColor(Color.TRANSPARENT)
+                            exoPlayer.play()
+                            play_pause_btn?.background = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_pause)
+                            setMargins(play_pause_btn!!, 5, 4, 5, 4)
+                        }
+                        else {
+                            setButtonControls()
+                        }
+                    }
+                    if(playbackState == Player.STATE_ENDED){
+                        play_pause_btn.background = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_play_icon)
+                        setMargins(play_pause_btn, 7, 4, 3, 4)
+                    }
+
+                }
+            })
+            exoPlayer.seekTo(0, 0)
+            exoPlayer.prepare()
             videoView?.requestFocus()
         } catch (e: java.lang.Exception) {
             e.printStackTrace()
         }
-    }
-
-    override fun onPrepared(player: MediaPlayer?) {
-        isPrepared = true
-        videoView?.setBackgroundColor(Color.TRANSPARENT)
-        player?.start()
-        play_pause_btn?.background = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_pause)
-        setMargins(play_pause_btn!!, 5, 4, 5, 4)
-    }
-
-    override fun onCompletion(player: MediaPlayer?) {
-        play_pause_btn.background = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_play_icon)
-        setMargins(play_pause_btn, 7, 4, 3, 4)
-    }
-
-    override fun onError(player: MediaPlayer?, p1: Int, p2: Int): Boolean {
-        return true
     }
 
     private fun getDataSource(array: ByteArray?) {
@@ -325,7 +325,7 @@ MediaPlayer.OnErrorListener {
     }
 
     private fun setButtonControls() {
-        if(videoView.isPlaying) {
+        if(exoPlayer.isPlaying) {
             play_pause_btn.background = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_pause)
             setMargins(play_pause_btn, 5, 4, 5, 4)
         }
@@ -344,7 +344,8 @@ MediaPlayer.OnErrorListener {
     }
 
     override fun onDestroy() {
-        videoView?.stopPlayback()
+        videoView?.onPause()
+        exoPlayer.release()
         if(this::playFile.isInitialized)
             playFile.delete()
         activity?.cacheDir?.deleteRecursively()
@@ -352,22 +353,23 @@ MediaPlayer.OnErrorListener {
     }
 
     override fun onPause() {
+        super.onPause()
         isPaused = true
-        videoView?.stopPlayback()
+        videoView?.onPause()
+        exoPlayer.release()
         if(this::playFile.isInitialized)
             playFile.delete()
         activity?.cacheDir?.deleteRecursively()
-        super.onPause()
     }
 
     override fun onResume() {
+        super.onResume()
         if(isPaused){
             isPaused = false
             isPrepared = false
             play_pause_btn.background = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_play_icon)
             setMargins(play_pause_btn, 7, 4, 3, 4)
-            videoView?.stopPlayback()
-            videoView?.setBackgroundColor(resources.getColor(R.color.colorPrimary))
+            videoView?.onResume()
 
             position = arguments?.let { VideoFragmentArgs.fromBundle(it).lessonNumber }
             val path = arguments?.let { VideoFragmentArgs.fromBundle(it).subject }
@@ -378,7 +380,6 @@ MediaPlayer.OnErrorListener {
 
             thread { decryptVideo(files, path, jsonObject) }
         }
-        super.onResume()
     }
 
     private fun getVideoHeight(height: Int) : Float {
