@@ -325,13 +325,15 @@ class VideoFragment : Fragment() {
     }
 
     private fun setButtonControls() {
-        if(exoPlayer.isPlaying) {
-            play_pause_btn.background = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_pause)
-            setMargins(play_pause_btn, 5, 4, 5, 4)
-        }
-        else {
-            play_pause_btn.background = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_play_icon)
-            setMargins(play_pause_btn, 7, 4, 3, 4)
+        if(this::exoPlayer.isInitialized){
+            if(exoPlayer.isPlaying) {
+                play_pause_btn.background = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_pause)
+                setMargins(play_pause_btn, 5, 4, 5, 4)
+            }
+            else {
+                play_pause_btn.background = ContextCompat.getDrawable(requireActivity(), R.drawable.ic_play_icon)
+                setMargins(play_pause_btn, 7, 4, 3, 4)
+            }
         }
     }
 
@@ -345,7 +347,8 @@ class VideoFragment : Fragment() {
 
     override fun onDestroy() {
         videoView?.onPause()
-        exoPlayer.release()
+        if(this::exoPlayer.isInitialized)
+            exoPlayer.release()
         if(this::playFile.isInitialized)
             playFile.delete()
         activity?.cacheDir?.deleteRecursively()
@@ -356,7 +359,8 @@ class VideoFragment : Fragment() {
         super.onPause()
         isPaused = true
         videoView?.onPause()
-        exoPlayer.release()
+        if(this::exoPlayer.isInitialized)
+            exoPlayer.release()
         if(this::playFile.isInitialized)
             playFile.delete()
         activity?.cacheDir?.deleteRecursively()
