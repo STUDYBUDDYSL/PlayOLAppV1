@@ -4,10 +4,12 @@ import android.content.Context
 import android.os.Bundle
 import android.os.storage.StorageManager
 import android.util.Log
+import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.navigation.fragment.findNavController
@@ -51,6 +53,16 @@ class HomeFragment : Fragment() {
         val navController = findNavController()
         val fileUtils = FileUtils()
 
+        // Set dynamic sizes
+        val width = resources.displayMetrics.widthPixels
+
+        val btnParams = FrameLayout.LayoutParams(
+            getPxFromDp((width*0.26).toFloat()),
+            getPxFromDp((width*0.26).toFloat())
+        )
+        btn10.layoutParams = btnParams
+        btn11.layoutParams = btnParams
+
         btn_grade10.setOnClickListener{
             if(fileUtils.checkGradeExists(StringUtils.getGrade10Name)){
                 val action = HomeFragmentDirections.selectGrade(StringUtils.getGrade10Name)
@@ -74,6 +86,14 @@ class HomeFragment : Fragment() {
                     Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun getPxFromDp(dp: Float): Int {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dp,
+            resources.displayMetrics
+        ).toInt()
     }
 
 }

@@ -22,7 +22,7 @@
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="812dp"
+            android:layout_height="wrap_content"
             android:layout_margin="20dp">
 
             <TableRow
@@ -40,8 +40,9 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/btn10"
                         android:layout_width="match_parent"
-                        android:layout_height="180dp"
+                        android:layout_height="0dp"
                         android:background="@drawable/button"
                         android:scaleType="fitCenter" />
 
@@ -77,8 +78,9 @@
                     android:orientation="horizontal">
 
                     <ImageView
+                        android:id="@+id/btn11"
                         android:layout_width="match_parent"
-                        android:layout_height="180dp"
+                        android:layout_height="0dp"
                         android:background="@drawable/button"
                         android:scaleType="fitCenter" />
 
