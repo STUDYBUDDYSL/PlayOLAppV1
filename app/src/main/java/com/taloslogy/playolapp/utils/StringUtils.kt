@@ -9,6 +9,8 @@ object StringUtils {
 
     val getGrade11Name:String get() = "Grade 11"
 
+    val getEnglishName:String get() = "English"
+
     var sdCardPath = ""
 
     val getCoursePath:String get() = "$sdCardPath/Courses"

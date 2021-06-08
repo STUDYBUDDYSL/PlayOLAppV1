@@ -3,15 +3,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".views.HomeFragment">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@drawable/background">
 
         <ImageView
+            android:id="@+id/main_logo"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             android:layout_width="140dp"
             android:layout_height="100dp"
             android:background="@drawable/main_logo"
@@ -21,6 +26,8 @@
             android:contentDescription="@string/cool_image_button" />
 
         <TableLayout
+            android:id="@+id/btn_table"
+            app:layout_constraintTop_toBottomOf="@id/main_logo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp">
@@ -109,6 +116,40 @@
 
         </TableLayout>
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/btnEng"
+            app:layout_constraintTop_toBottomOf="@id/btn_table"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_marginHorizontal="20dp"
+            android:background="@drawable/english_btn"
+            android:scaleType="fitCenter" />
+
+        <LinearLayout
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/greentel"
+                android:layout_height="0dp"
+                android:layout_width="0dp"
+                android:background="@drawable/greentel"
+                android:scaleType="fitCenter" />
+
+            <ImageView
+                android:id="@+id/learn_tv"
+                android:layout_height="0dp"
+                android:layout_width="0dp"
+                android:background="@drawable/learn_tv"
+                android:scaleType="fitCenter" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

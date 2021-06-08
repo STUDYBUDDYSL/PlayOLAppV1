@@ -10,13 +10,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.navigation.fragment.findNavController
 import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.utils.FileUtils
 import com.taloslogy.playolapp.utils.StringUtils
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_video.*
 import java.io.File
 
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
@@ -63,6 +66,31 @@ class HomeFragment : Fragment() {
         btn10.layoutParams = btnParams
         btn11.layoutParams = btnParams
 
+        val btnEngParams = ConstraintLayout.LayoutParams(
+            ConstraintLayout.LayoutParams.MATCH_PARENT,
+            getPxFromDp((width*0.28).toFloat())
+        )
+        btnEngParams.topToBottom = btn_table.id
+        btnEng.layoutParams = btnEngParams
+        setMargins(btnEng, 20, 0, 20, 0)
+
+        val logoHeight = resources.displayMetrics.heightPixels * 0.09
+
+        val greentelParams = LinearLayout.LayoutParams(
+            getPxFromDp((logoHeight*500/418).toFloat()),
+            getPxFromDp(logoHeight.toFloat())
+        )
+        greentel.layoutParams = greentelParams
+        setMargins(greentel, 0, 0, 20, 0)
+
+        val learnTVParams = LinearLayout.LayoutParams(
+            getPxFromDp((logoHeight*687/418).toFloat()),
+            getPxFromDp(logoHeight.toFloat())
+        )
+        learn_tv.layoutParams = learnTVParams
+        setMargins(learn_tv, 20, 0, 0, 0)
+
+
         btn_grade10.setOnClickListener{
             if(fileUtils.checkGradeExists(StringUtils.getGrade10Name)){
                 val action = HomeFragmentDirections.selectGrade(StringUtils.getGrade10Name)
@@ -86,6 +114,18 @@ class HomeFragment : Fragment() {
                     Toast.LENGTH_SHORT).show()
             }
         }
+
+        btnEng.setOnClickListener{
+            if(fileUtils.checkGradeExists(StringUtils.getEnglishName)){
+                val action = HomeFragmentDirections.selectGrade(StringUtils.getEnglishName)
+                navController.navigate(action)
+            }
+            else {
+                Toast.makeText(activity,
+                    requireActivity().getText(R.string.incorrect_grade_toast),
+                    Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun getPxFromDp(dp: Float): Int {
@@ -94,6 +134,20 @@ class HomeFragment : Fragment() {
             dp,
             resources.displayMetrics
         ).toInt()
+    }
+
+    private fun setMargins(
+        view: View,
+        left: Int,
+        top: Int,
+        right: Int,
+        bottom: Int
+    ) {
+        if (view.layoutParams is ViewGroup.MarginLayoutParams) {
+            val p = view.layoutParams as ViewGroup.MarginLayoutParams
+            p.setMargins(left, top, right, bottom)
+            view.requestLayout()
+        }
     }
 
 }
