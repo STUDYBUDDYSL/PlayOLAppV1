@@ -28,6 +28,9 @@
         <action
             android:id="@+id/select_grade"
             app:destination="@id/gradeFragment" />
+        <action
+            android:id="@+id/select_english"
+            app:destination="@id/englishFragment" />
     </fragment>
     <fragment
         android:id="@+id/gradeFragment"
@@ -69,4 +72,16 @@
             app:argType="string" />
     </fragment>
     <include app:graph="@navigation/login_graph" />
+    <fragment
+        android:id="@+id/englishFragment"
+        android:name="com.taloslogy.playolapp.views.EnglishFragment"
+        android:label="fragment_english"
+        tools:layout="@layout/fragment_english">
+        <action
+            android:id="@+id/select_subject"
+            app:destination="@id/subjectFragment" />
+        <argument
+            android:name="selected_grade"
+            app:argType="string" />
+    </fragment>
 </navigation>

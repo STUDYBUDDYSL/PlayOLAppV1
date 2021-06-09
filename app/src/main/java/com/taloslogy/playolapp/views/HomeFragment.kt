@@ -117,8 +117,7 @@ class HomeFragment : Fragment() {
 
         btnEng.setOnClickListener{
             if(fileUtils.checkGradeExists(StringUtils.getEnglishName)){
-                val action = HomeFragmentDirections.selectGrade(StringUtils.getEnglishName)
-                navController.navigate(action)
+                navController.navigate(R.id.select_english)
             }
             else {
                 Toast.makeText(activity,
