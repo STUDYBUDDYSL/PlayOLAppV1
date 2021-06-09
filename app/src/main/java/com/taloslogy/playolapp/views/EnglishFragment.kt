@@ -35,6 +35,16 @@ class EnglishFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val height = resources.displayMetrics.heightPixels
+
+        val iParams = LinearLayout.LayoutParams(
+            getPxFromDp((height*0.2).toFloat()),
+            getPxFromDp((height*0.2).toFloat())
+        )
+        iParams.setMargins(0,20,0,0)
+        iParams.gravity = Gravity.CENTER
+        lesson_logo.layoutParams = iParams
+
         val files = fUtils.getFilesFromPath("${StringUtils.getCoursePath}/English")
         thread { generateTable(files) }
 

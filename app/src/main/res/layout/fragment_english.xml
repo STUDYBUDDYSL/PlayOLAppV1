@@ -16,8 +16,6 @@
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:background="@drawable/english_hello"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"
             android:scaleType="fitCenter"
             android:contentDescription="@string/cool_image_button" />
 
@@ -29,7 +27,7 @@
             android:textColor="@color/colorWhite"
             android:textSize="45sp"
             android:fontFamily="@font/next_art_bold"
-            android:textAllCaps="false"/>
+            android:layout_marginBottom="20dp"/>
 
         <LinearLayout
             android:id="@+id/stages"
