@@ -5,30 +5,25 @@ import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.taloslogy.playolapp.PERMISSION_REQUEST_CODE
 import com.taloslogy.playolapp.view_models.UserViewModel
 import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.models.LoginRes
 import com.taloslogy.playolapp.models.LoginResult
-import com.taloslogy.playolapp.utils.SafetyNet
 import com.taloslogy.playolapp.utils.storage.PrefHelper
 import com.taloslogy.playolapp.view_models.SubscriptionViewModel
 import com.taloslogy.playolapp.view_models.SubscriptionViewModelFactory
 import com.taloslogy.playolapp.view_models.UserViewModelFactory
 import kotlinx.android.synthetic.main.fragment_activation.*
-import kotlin.concurrent.thread
 
 const val CAMERA_PERMISSION_REQUEST_CODE = 3017
 

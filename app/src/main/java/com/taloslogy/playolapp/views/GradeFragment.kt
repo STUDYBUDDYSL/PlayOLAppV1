@@ -13,7 +13,6 @@ import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.utils.FileUtils
 import com.taloslogy.playolapp.utils.StringUtils
 import kotlinx.android.synthetic.main.fragment_grade.*
-import kotlinx.android.synthetic.main.nice_button1.view.*
 import org.json.JSONObject
 import java.io.File
 import kotlin.concurrent.thread

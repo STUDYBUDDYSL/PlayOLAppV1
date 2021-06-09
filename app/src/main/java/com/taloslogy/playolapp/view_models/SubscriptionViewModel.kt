@@ -1,12 +1,10 @@
 package com.taloslogy.playolapp.view_models
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.taloslogy.playolapp.models.LoginRes
 import com.taloslogy.playolapp.models.LoginResult
 import com.taloslogy.playolapp.repository.UserDetailRepository
-import com.taloslogy.playolapp.utils.StringUtils
 import com.taloslogy.playolapp.utils.storage.PrefHelper
 import de.timroes.axmlrpc.XMLRPCCallback
 import de.timroes.axmlrpc.XMLRPCException

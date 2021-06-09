@@ -13,7 +13,6 @@ import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.utils.FileUtils
 import com.taloslogy.playolapp.utils.StringUtils
 import kotlinx.android.synthetic.main.fragment_english.*
-import kotlinx.android.synthetic.main.nice_button1.view.*
 import kotlinx.android.synthetic.main.stage_btn.view.*
 import org.json.JSONObject
 import java.io.File

@@ -3,7 +3,6 @@ package com.taloslogy.playolapp.views
 import android.content.Context
 import android.os.Bundle
 import android.os.storage.StorageManager
-import android.util.Log
 import android.util.TypedValue
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,14 +12,11 @@ import android.widget.FrameLayout
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.navigation.fragment.findNavController
 import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.utils.FileUtils
 import com.taloslogy.playolapp.utils.StringUtils
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.android.synthetic.main.fragment_video.*
-import java.io.File
 
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class HomeFragment : Fragment() {

@@ -1,6 +1,5 @@
 package com.taloslogy.playolapp.repository
 
-import android.util.Log
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.result.Result
 

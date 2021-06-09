@@ -1,8 +1,6 @@
 package com.taloslogy.playolapp.utils
 
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
-import androidx.documentfile.provider.DocumentFile
 import com.taloslogy.playolapp.utils.storage.PrefHelper
 
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */

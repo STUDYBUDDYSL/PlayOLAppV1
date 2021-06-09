@@ -1,6 +1,5 @@
 package com.taloslogy.playolapp.view_models
 
-import android.util.Log
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -76,7 +75,6 @@ class UserDetailViewModel : ViewModel() {
                     "phone" to phoneNumber.value,
                     "gender" to gender.value
                 ))
-                Log.d("TEST_LOG", params.toString())
                 userRepo.updateUserDetails(detailListener, result, token!!, params)
             }
         }
