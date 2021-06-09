@@ -19,6 +19,7 @@
     <string name="dob">Date of Birth</string>
     <string name="home_address">Home Address</string>
     <string name="city">City</string>
+    <string name="district">District</string>
     <string name="phone_number">Phone Number</string>
     <string name="school">School</string>
     <string name="update_details">UPDATE DETAILS</string>

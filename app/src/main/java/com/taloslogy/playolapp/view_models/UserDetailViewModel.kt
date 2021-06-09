@@ -25,6 +25,7 @@ class UserDetailViewModel : ViewModel() {
     val phoneNumber = MutableLiveData<String>("")
     val school = MutableLiveData<String>("")
     val grade = MutableLiveData<Int>(0)
+    val district = MutableLiveData<Int>(0)
 
     val valid = MediatorLiveData<Boolean>().apply {
         addSource(dob) {
@@ -42,6 +43,9 @@ class UserDetailViewModel : ViewModel() {
         addSource(grade) {
             value = isValidForm()
         }
+        addSource(district) {
+            value = isValidForm()
+        }
 
     }
 
@@ -52,6 +56,7 @@ class UserDetailViewModel : ViewModel() {
                 && phoneNumber.value?.length == 10
                 && !school.value.isNullOrBlank()
                 && grade.value != 0
+                && district.value != 0
     }
 
     var token: String? = null
@@ -64,11 +69,12 @@ class UserDetailViewModel : ViewModel() {
                     "grade" to StringUtils.grades[grade.value!!],
                     "dob" to dob.value,
                     "school" to school.value,
-                    "province" to "",
+                    "province" to StringUtils.districts[district.value!!],
                     "city" to city.value,
                     "street" to address.value,
                     "phone" to phoneNumber.value
                 ))
+                Log.d("TEST_LOG", params.toString())
                 userRepo.updateUserDetails(detailListener, result, token!!, params)
             }
         }

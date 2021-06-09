@@ -66,6 +66,17 @@ class UserDetailFragment : Fragment(){
             override fun onNothingSelected(parent: AdapterView<*>) {}
         }
 
+        val districtAdapter = GradeListAdapter(requireActivity(), R.layout.spinner_item, StringUtils.districts, resources)
+        district_dropdown.adapter = districtAdapter
+
+        district_dropdown.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
+                userDetailViewModel.district.postValue(position)
+                district_label.visibility =  if(position != 0) View.VISIBLE else View.INVISIBLE
+            }
+            override fun onNothingSelected(parent: AdapterView<*>) {}
+        }
+
         val cal = Calendar.getInstance()
         dob_label.visibility = if(dob_input.text.isNullOrEmpty()) View.INVISIBLE else View.VISIBLE
 
