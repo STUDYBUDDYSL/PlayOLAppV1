@@ -35,6 +35,26 @@
     "name": "විද්\u200Dයාව",
     "lines": 1
   },
+  "s1": {
+    "name": "1 - Beginner",
+    "stage": "Stage 01"
+  },
+  "s2": {
+    "name": "2 - Beginner",
+    "stage": "Stage 02"
+  },
+  "s3": {
+    "name": "3 - Beginner",
+    "stage": "Stage 03"
+  },
+  "s4": {
+    "name": "4 - Beginner",
+    "stage": "Stage 04"
+  },
+  "s5": {
+    "name": "5 - Beginner",
+    "stage": "Stage 05"
+  },
   "commerce-10-01-01-130kgt": "ව්‍යාපාර සංකල්පය",
   "commerce-10-01-02-130kgt": "ව්‍යාපාර අරමුණු",
   "commerce-10-01-03-130kgt": "පාරිභෝගික අවශ්‍යතා හා උවමනා",

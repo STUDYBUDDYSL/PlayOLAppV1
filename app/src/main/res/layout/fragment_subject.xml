@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/colorWhite"
             android:textSize="28sp"
-            android:fontFamily="@font/basuru"
+            android:fontFamily="@font/next_art_bold"
             android:textStyle="bold"
             android:textFontWeight="1000"
             android:paddingHorizontal="20dp"

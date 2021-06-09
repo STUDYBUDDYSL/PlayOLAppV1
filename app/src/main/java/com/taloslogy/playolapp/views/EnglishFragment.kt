@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.Navigation
 import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.utils.FileUtils
 import com.taloslogy.playolapp.utils.StringUtils
 import kotlinx.android.synthetic.main.fragment_english.*
+import kotlinx.android.synthetic.main.nice_button1.view.*
 import kotlinx.android.synthetic.main.stage_btn.view.*
 import org.json.JSONObject
 import java.io.File
@@ -54,8 +56,14 @@ class EnglishFragment : Fragment() {
 
         for (x in files) {
             val btnS = LayoutInflater.from(activity).inflate(R.layout.stage_btn, null)
-            btnS.stage_btn.text = x.name
+            btnS.stage_btn.text = jsonObject.getJSONObject(x.name).getString("stage")
             btnS.layoutParams = lParams
+
+            btnS.setOnClickListener {
+                val action = EnglishFragmentDirections.selectSubject("English/${x.name}")
+                Navigation.findNavController(it).navigate(action)
+            }
+
             // Add the completed row to table
             requireActivity().runOnUiThread {
                 stages.addView(btnS)
