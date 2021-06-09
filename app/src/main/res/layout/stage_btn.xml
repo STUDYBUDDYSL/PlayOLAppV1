@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/stage_btn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:textColor="@color/colorWhite"
+    android:background="@drawable/stage_background"
+    android:fontFamily="@font/next_art_bold"
+    android:textSize="28sp"
+    android:paddingStart="60dp"
+    android:paddingEnd="0dp"
+    android:paddingTop="15sp"
+    android:paddingBottom="10sp">
+</TextView>

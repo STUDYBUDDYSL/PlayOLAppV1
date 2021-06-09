@@ -7,11 +7,12 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:background="@drawable/background">
 
         <ImageView
+            android:id="@+id/lesson_logo"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:background="@drawable/english_hello"
@@ -31,87 +32,10 @@
             android:textAllCaps="false"/>
 
         <LinearLayout
+            android:id="@+id/stages"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@drawable/background">
-
-            <TextView
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:textColor="@color/colorWhite"
-                android:background="@drawable/stage_background"
-                android:text="Stage 01"
-                android:fontFamily="@font/next_art_bold"
-                android:textSize="28sp"
-                android:paddingStart="60dp"
-                android:paddingEnd="0dp"
-                android:layout_marginVertical="10dp"
-                android:paddingTop="15sp"
-                android:paddingBottom="10sp"/>
-
-            <TextView
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:textColor="@color/colorWhite"
-                android:background="@drawable/stage_background"
-                android:text="Stage 02"
-                android:fontFamily="@font/next_art_bold"
-                android:textSize="28sp"
-                android:paddingStart="60dp"
-                android:paddingEnd="0dp"
-                android:layout_marginVertical="10dp"
-                android:paddingTop="15sp"
-                android:paddingBottom="10sp"/>
-
-            <TextView
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:textColor="@color/colorWhite"
-                android:background="@drawable/stage_background"
-                android:text="Stage 03"
-                android:fontFamily="@font/next_art_bold"
-                android:textSize="28sp"
-                android:paddingStart="60dp"
-                android:paddingEnd="0dp"
-                android:layout_marginVertical="10dp"
-                android:paddingTop="15sp"
-                android:paddingBottom="10sp"/>
-
-            <TextView
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:textColor="@color/colorWhite"
-                android:background="@drawable/stage_background"
-                android:text="Stage 04"
-                android:fontFamily="@font/next_art_bold"
-                android:textSize="28sp"
-                android:paddingStart="60dp"
-                android:paddingEnd="0dp"
-                android:layout_marginVertical="10dp"
-                android:paddingTop="15sp"
-                android:paddingBottom="10sp"/>
-
-            <TextView
-                android:layout_width="350dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:textColor="@color/colorWhite"
-                android:background="@drawable/stage_background"
-                android:text="Stage 05"
-                android:fontFamily="@font/next_art_bold"
-                android:textSize="28sp"
-                android:paddingStart="60dp"
-                android:paddingEnd="0dp"
-                android:layout_marginVertical="10dp"
-                android:paddingTop="15sp"
-                android:paddingBottom="10sp"/>
-
-        </LinearLayout>
+            android:orientation="vertical"/>
 
     </LinearLayout>
 
