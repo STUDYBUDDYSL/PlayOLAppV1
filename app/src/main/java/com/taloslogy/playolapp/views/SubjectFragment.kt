@@ -96,7 +96,12 @@ class SubjectFragment : Fragment() {
                     }
                 }
                 else{
-                    it.name
+                    if(it.name.contains(".mp4.talos")){
+                        it.name.dropLast(10)
+                    }
+                    else{
+                        it.name
+                    }
                 }
             }) else arrayListOf()
 
