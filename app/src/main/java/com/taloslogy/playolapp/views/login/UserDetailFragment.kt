@@ -3,12 +3,14 @@ package com.taloslogy.playolapp.views.login
 import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.DatePicker
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.viewModels
@@ -78,11 +80,16 @@ class UserDetailFragment : Fragment(){
         }
 
         val cal = Calendar.getInstance()
-        dob_label.visibility = if(dob_input.text.isNullOrEmpty()) View.INVISIBLE else View.VISIBLE
 
         userDetailViewModel.dob.observe(viewLifecycleOwner, Observer {
             dob_input.text = it
+            dob_label.visibility = if(dob_input.text.isNullOrEmpty()) View.INVISIBLE else View.VISIBLE
         })
+
+        radioGroup1.setOnCheckedChangeListener { _, i ->
+            val radio = activity?.findViewById<RadioButton>(i)
+            userDetailViewModel.gender.postValue(radio!!.text.toString())
+        }
 
         dob_input.setOnClickListener {
 

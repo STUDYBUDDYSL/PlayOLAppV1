@@ -26,6 +26,7 @@ class UserDetailViewModel : ViewModel() {
     val school = MutableLiveData<String>("")
     val grade = MutableLiveData<Int>(0)
     val district = MutableLiveData<Int>(0)
+    val gender = MutableLiveData<String>("Male")
 
     val valid = MediatorLiveData<Boolean>().apply {
         addSource(dob) {
@@ -72,7 +73,8 @@ class UserDetailViewModel : ViewModel() {
                     "province" to StringUtils.districts[district.value!!],
                     "city" to city.value,
                     "street" to address.value,
-                    "phone" to phoneNumber.value
+                    "phone" to phoneNumber.value,
+                    "gender" to gender.value
                 ))
                 Log.d("TEST_LOG", params.toString())
                 userRepo.updateUserDetails(detailListener, result, token!!, params)
