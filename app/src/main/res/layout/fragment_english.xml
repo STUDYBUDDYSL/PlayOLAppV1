@@ -5,10 +5,114 @@
     android:layout_height="match_parent"
     tools:context=".views.EnglishFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/background">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@drawable/english_hello"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:scaleType="fitCenter"
+            android:contentDescription="@string/cool_image_button" />
+
+        <TextView
+            android:text="@string/lessons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/colorWhite"
+            android:textSize="45sp"
+            android:fontFamily="@font/next_art_bold"
+            android:textAllCaps="false"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/background">
+
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:textColor="@color/colorWhite"
+                android:background="@drawable/stage_background"
+                android:text="Stage 01"
+                android:fontFamily="@font/next_art_bold"
+                android:textSize="28sp"
+                android:paddingStart="60dp"
+                android:paddingEnd="0dp"
+                android:layout_marginVertical="10dp"
+                android:paddingTop="15sp"
+                android:paddingBottom="10sp"/>
+
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:textColor="@color/colorWhite"
+                android:background="@drawable/stage_background"
+                android:text="Stage 02"
+                android:fontFamily="@font/next_art_bold"
+                android:textSize="28sp"
+                android:paddingStart="60dp"
+                android:paddingEnd="0dp"
+                android:layout_marginVertical="10dp"
+                android:paddingTop="15sp"
+                android:paddingBottom="10sp"/>
+
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:textColor="@color/colorWhite"
+                android:background="@drawable/stage_background"
+                android:text="Stage 03"
+                android:fontFamily="@font/next_art_bold"
+                android:textSize="28sp"
+                android:paddingStart="60dp"
+                android:paddingEnd="0dp"
+                android:layout_marginVertical="10dp"
+                android:paddingTop="15sp"
+                android:paddingBottom="10sp"/>
+
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:textColor="@color/colorWhite"
+                android:background="@drawable/stage_background"
+                android:text="Stage 04"
+                android:fontFamily="@font/next_art_bold"
+                android:textSize="28sp"
+                android:paddingStart="60dp"
+                android:paddingEnd="0dp"
+                android:layout_marginVertical="10dp"
+                android:paddingTop="15sp"
+                android:paddingBottom="10sp"/>
+
+            <TextView
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:textColor="@color/colorWhite"
+                android:background="@drawable/stage_background"
+                android:text="Stage 05"
+                android:fontFamily="@font/next_art_bold"
+                android:textSize="28sp"
+                android:paddingStart="60dp"
+                android:paddingEnd="0dp"
+                android:layout_marginVertical="10dp"
+                android:paddingTop="15sp"
+                android:paddingBottom="10sp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </FrameLayout>
