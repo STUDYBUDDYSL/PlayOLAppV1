@@ -1,39 +1,30 @@
 {
   "sinhala": {
-    "name": "සිංහල",
-    "lines": 1
+    "name": "සිංහල"
   },
   "english": {
-    "name": "ඉංග්\u200Dරීසි",
-    "lines": 1
+    "name": "ඉංග්\u200Dරීසි"
   },
   "commerce": {
-    "name": "ව්\u200Dයාපාර\nඅධ්\u200Dයයනය",
-    "lines": 2
+    "name": "ව්\u200Dයාපාර\nඅධ්\u200Dයයනය"
   },
   "geography": {
-    "name": "භූගෝල\nවිද්\u200Dයාව",
-    "lines": 2
+    "name": "භූගෝල\nවිද්\u200Dයාව"
   },
   "entrepreneurship": {
-    "name": "ව්\u200Dයවසායකත්ව\nඅධ්\u200Dයයනය",
-    "lines": 2
+    "name": "ව්\u200Dයවසායකත්ව\nඅධ්\u200Dයයනය"
   },
   "history": {
-    "name": "ඉතිහාසය",
-    "lines": 1
+    "name": "ඉතිහාසය"
   },
   "ict": {
-    "name": "තොරතුරු\nතාක්ෂණය",
-    "lines": 2
+    "name": "තොරතුරු\nතාක්ෂණය"
   },
   "maths": {
-    "name": "ගණිතය",
-    "lines": 1
+    "name": "ගණිතය"
   },
   "science": {
-    "name": "විද්\u200Dයාව",
-    "lines": 1
+    "name": "විද්\u200Dයාව"
   },
   "s1": {
     "name": "1 - Beginner",

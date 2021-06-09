@@ -1,28 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/btn1"
+<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/btn_sub"
     android:layout_width="0dp"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:layout_marginHorizontal="10dp"
+    android:layout_height="0dp"
     android:layout_weight="1"
     android:orientation="horizontal">
 
-    <Button
-        android:id="@+id/btn"
-        android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:layout_gravity="center"
-        android:layout_marginHorizontal="10dp"
-        android:paddingHorizontal="5dp"
-        android:background="@drawable/button"
-        android:fontFamily="@font/basuru"
-        android:scaleType="fitCenter"
-        android:textColor="@color/colorWhite"
-        android:textStyle="bold"
-        android:autoSizeTextType="uniform"
-        android:autoSizeMinTextSize="12sp"
-        android:autoSizeMaxTextSize="35sp"
-        android:autoSizeStepGranularity="2sp"/>
-
-</FrameLayout>
+</ImageView>

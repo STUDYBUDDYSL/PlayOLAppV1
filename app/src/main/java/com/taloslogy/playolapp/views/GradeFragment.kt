@@ -1,10 +1,12 @@
 package com.taloslogy.playolapp.views
 
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
 import com.taloslogy.playolapp.R
@@ -53,13 +55,15 @@ class GradeFragment : Fragment() {
                 TableLayout.LayoutParams.WRAP_CONTENT,
                 3f
             )
-            lParams.setMargins(0,10,0,10)
+
+            val imgH = resources.displayMetrics.widthPixels * 0.2
 
             val cParams = TableRow.LayoutParams(
                 0,
-                TableRow.LayoutParams.WRAP_CONTENT,
+                getPxFromDp(imgH.toFloat()),
                 1f
             )
+            cParams.setMargins(10,10,10,10)
 
             // Set row count as per item count in files
             val rowCount = ceil(files.size.div(3.0)).toInt()
@@ -75,13 +79,11 @@ class GradeFragment : Fragment() {
                     val i = (x * 3) + y
                     if (files.size > i && jsonObject.has(files[i].name)) {
                         // Create the fancy button
-                        val nb = LayoutInflater.from(activity).inflate(R.layout.nice_button1, null)
+                        val sub = LayoutInflater.from(activity).inflate(R.layout.nice_button1, null)
+                        sub.background = ContextCompat.getDrawable(requireActivity(), getBackground(files[i].name))
+                        sub.layoutParams = cParams
 
-                        nb.btn.text = jsonObject.getJSONObject(files[i].name).getString("name")
-                        nb.btn.maxLines = jsonObject.getJSONObject(files[i].name).getInt("lines")
-                        nb.layoutParams = cParams
-
-                        nb.btn.setOnClickListener {
+                        sub.setOnClickListener {
                             val action =
                                 GradeFragmentDirections.selectSubject(
                                     "$grade/${files[i].name}"
@@ -89,7 +91,7 @@ class GradeFragment : Fragment() {
                             Navigation.findNavController(it).navigate(action)
                         }
 
-                        row.addView(nb)
+                        row.addView(sub)
                     }
                     else {
                         val extra = TextView(activity)
@@ -101,6 +103,29 @@ class GradeFragment : Fragment() {
                 // Add the completed row to table
                 requireActivity().runOnUiThread { table_view?.addView(row, lParams) }
             }
+        }
+    }
+
+    private fun getPxFromDp(dp: Float): Int {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dp,
+            resources.displayMetrics
+        ).toInt()
+    }
+
+    private fun getBackground(sub: String): Int {
+        return when(sub){
+            "sinhala" -> R.drawable.s_sinhala
+            "english" -> R.drawable.s_english
+            "commerce" -> R.drawable.s_commerce
+            "geography" -> R.drawable.s_geography
+            "entrepreneurship" -> R.drawable.s_entrepreneurship
+            "history" -> R.drawable.s_history
+            "ict" -> R.drawable.s_ict
+            "maths" -> R.drawable.s_maths
+            "science" -> R.drawable.s_science
+            else -> R.drawable.s_commerce
         }
     }
 }
