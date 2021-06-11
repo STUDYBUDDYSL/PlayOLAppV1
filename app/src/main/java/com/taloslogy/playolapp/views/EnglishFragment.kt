@@ -1,6 +1,7 @@
 package com.taloslogy.playolapp.views
 
 import android.os.Bundle
+import android.util.Log
 import android.util.TypedValue
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -37,8 +38,8 @@ class EnglishFragment : Fragment() {
         val height = resources.displayMetrics.heightPixels
 
         val iParams = LinearLayout.LayoutParams(
-            getPxFromDp((height*0.2).toFloat()),
-            getPxFromDp((height*0.2).toFloat())
+            getPxFromDp(getLogoHeight(height)),
+            getPxFromDp(getLogoHeight(height))
         )
         iParams.setMargins(0,20,0,0)
         iParams.gravity = Gravity.CENTER
@@ -58,7 +59,7 @@ class EnglishFragment : Fragment() {
         val width = resources.displayMetrics.widthPixels
 
         val lParams = LinearLayout.LayoutParams(
-            getPxFromDp((width*0.6).toFloat()),
+            getPxFromDp(getStageWidth(width)),
             LinearLayout.LayoutParams.WRAP_CONTENT
         )
         lParams.setMargins(0,10,0,10)
@@ -88,5 +89,21 @@ class EnglishFragment : Fragment() {
             dp,
             resources.displayMetrics
         ).toInt()
+    }
+
+    private fun getLogoHeight(height: Int) : Float {
+        return when {
+            height < 1000 -> (height * 0.2).toFloat()
+            height < 1800 -> (height * 0.15).toFloat()
+            else -> (height * 0.1).toFloat()
+        }
+    }
+
+    private fun getStageWidth(width: Int) : Float {
+        return when {
+            width < 650 -> (width * 0.6).toFloat()
+            width < 950 ->(width * 0.45).toFloat()
+            else -> (width * 0.3).toFloat()
+        }
     }
 }
