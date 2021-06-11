@@ -181,14 +181,13 @@ class VideoFragment : Fragment() {
         }
 
         val name = files[position!!].name
+        val fName = name.replace(".mp4.talos", "")
 
         activity?.runOnUiThread {
             lesson_number.text = (position!! + 1).toString()
-            lesson_name.text = if (fileNames.has(name.dropLast(10)))
-                if(fileNames.getString(name.dropLast(10)).isNotEmpty())
-                    fileNames.getString(name.dropLast(10))
-                else name.dropLast(10)
-            else name.dropLast(10)
+            lesson_name.text = if (fileNames.has(fName))
+                if(fileNames.getString(fName).isNotEmpty()) fileNames.getString(fName) else fName
+            else fName.replace("-360p", "")
         }
 
         val prefs = PrefHelper.getInstance(requireActivity())

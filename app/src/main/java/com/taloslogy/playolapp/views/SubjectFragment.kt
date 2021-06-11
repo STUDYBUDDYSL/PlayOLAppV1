@@ -87,21 +87,12 @@ class SubjectFragment : Fragment() {
     private fun generateLessons(files: List<File>, path: String, fileNames: JSONObject) {
         totalSet =  if (files.isNotEmpty())
             ArrayList(files.map{
-                if(fileNames.has(it.name.dropLast(10))){
-                    if(fileNames.getString(it.name.dropLast(10)).isNotEmpty()){
-                        fileNames.getString(it.name.dropLast(10))
-                    }
-                    else {
-                        it.name.dropLast(10)
-                    }
+                val name = it.name.replace(".mp4.talos", "")
+                if(fileNames.has(name)){
+                    if (fileNames.getString(name).isNotEmpty()) fileNames.getString(name) else name
                 }
                 else{
-                    if(it.name.contains(".mp4.talos")){
-                        it.name.dropLast(10)
-                    }
-                    else{
-                        it.name
-                    }
+                    name.replace("-360p", "")
                 }
             }) else arrayListOf()
 
