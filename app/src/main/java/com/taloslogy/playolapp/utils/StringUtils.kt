@@ -9,7 +9,7 @@ object StringUtils {
 
     val getGrade11Name:String get() = "Grade 11"
 
-    val getEnglishName:String get() = "English"
+    val getEnglishName:String get() = "english-for-all"
 
     var sdCardPath = ""
 

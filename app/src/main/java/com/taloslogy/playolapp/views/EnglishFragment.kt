@@ -44,7 +44,8 @@ class EnglishFragment : Fragment() {
         iParams.gravity = Gravity.CENTER
         lesson_logo.layoutParams = iParams
 
-        val files = fUtils.getFilesFromPath("${StringUtils.getCoursePath}/English")
+        val files = fUtils.getFilesFromPath(
+                "${StringUtils.getCoursePath}/${StringUtils.getEnglishName}")
         thread { generateTable(files) }
 
     }
@@ -69,7 +70,8 @@ class EnglishFragment : Fragment() {
             btnS.layoutParams = lParams
 
             btnS.setOnClickListener {
-                val action = EnglishFragmentDirections.selectSubject("English/${x.name}")
+                val action = EnglishFragmentDirections
+                        .selectSubject("${StringUtils.getEnglishName}/${x.name}")
                 Navigation.findNavController(it).navigate(action)
             }
 
