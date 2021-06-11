@@ -55,11 +55,9 @@ class GradeFragment : Fragment() {
                 3f
             )
 
-            val imgH = resources.displayMetrics.widthPixels * 0.2
-
             val cParams = TableRow.LayoutParams(
                 0,
-                getPxFromDp(imgH.toFloat()),
+                getPxFromDp(getBtnHeight(resources.displayMetrics.widthPixels)),
                 1f
             )
             cParams.setMargins(10,10,10,10)
@@ -111,6 +109,14 @@ class GradeFragment : Fragment() {
             dp,
             resources.displayMetrics
         ).toInt()
+    }
+
+    private fun getBtnHeight(width: Int) : Float {
+        return when {
+            width < 650 -> (width * 0.2).toFloat()
+            width < 950 ->(width * 0.14).toFloat()
+            else -> (width * 0.08).toFloat()
+        }
     }
 
     private fun getBackground(sub: String): Int {
