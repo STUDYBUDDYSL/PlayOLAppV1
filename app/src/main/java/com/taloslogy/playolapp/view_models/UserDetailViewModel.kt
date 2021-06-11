@@ -69,11 +69,12 @@ class UserDetailViewModel : ViewModel() {
                     "grade" to StringUtils.grades[grade.value!!],
                     "dob" to dob.value,
                     "school" to school.value,
-                    "province" to StringUtils.districts[district.value!!],
+                    "province" to "",
+                    "district" to StringUtils.districts[district.value!!],
                     "city" to city.value,
                     "street" to address.value,
                     "phone" to phoneNumber.value,
-                    "gender" to gender.value
+                    "gender" to gender.value!!.toLowerCase()
                 ))
                 userRepo.updateUserDetails(detailListener, result, token!!, params)
             }
