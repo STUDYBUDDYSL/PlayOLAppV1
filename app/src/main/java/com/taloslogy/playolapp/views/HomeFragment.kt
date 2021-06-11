@@ -56,32 +56,33 @@ class HomeFragment : Fragment() {
         val width = resources.displayMetrics.widthPixels
 
         val btnParams = FrameLayout.LayoutParams(
-            getPxFromDp((width*0.26).toFloat()),
-            getPxFromDp((width*0.26).toFloat())
+            getPxFromDp(getMainBtnWidth(width)),
+            getPxFromDp(getMainBtnWidth(width))
         )
+        btnParams.setMargins(15,0,15,0)
         btn10.layoutParams = btnParams
         btn11.layoutParams = btnParams
 
         val btnEngParams = ConstraintLayout.LayoutParams(
             ConstraintLayout.LayoutParams.MATCH_PARENT,
-            getPxFromDp((width*0.28).toFloat())
+            getPxFromDp(getEngBtnHeight(width))
         )
-        btnEngParams.topToBottom = btn_table.id
+        btnEngParams.topToBottom = btn_layout.id
         btnEng.layoutParams = btnEngParams
-        setMargins(btnEng, 20, 0, 20, 0)
+        setMargins(btnEng, 30, 45, 30, 0)
 
-        val logoHeight = resources.displayMetrics.heightPixels * 0.09
+        val logoHeight = getLogoHeight(resources.displayMetrics.heightPixels)
 
         val greentelParams = LinearLayout.LayoutParams(
             getPxFromDp((logoHeight*500/418).toFloat()),
-            getPxFromDp(logoHeight.toFloat())
+            getPxFromDp(logoHeight)
         )
         greentel.layoutParams = greentelParams
         setMargins(greentel, 0, 0, 20, 0)
 
         val learnTVParams = LinearLayout.LayoutParams(
-            getPxFromDp((logoHeight*687/418).toFloat()),
-            getPxFromDp(logoHeight.toFloat())
+            getPxFromDp((logoHeight*687/418)),
+            getPxFromDp(logoHeight)
         )
         learn_tv.layoutParams = learnTVParams
         setMargins(learn_tv, 20, 0, 0, 0)
@@ -142,6 +143,30 @@ class HomeFragment : Fragment() {
             val p = view.layoutParams as ViewGroup.MarginLayoutParams
             p.setMargins(left, top, right, bottom)
             view.requestLayout()
+        }
+    }
+
+    private fun getMainBtnWidth(width: Int) : Float {
+        return when {
+            width < 650 -> (width * 0.26).toFloat()
+            width < 950 ->(width * 0.2).toFloat()
+            else -> (width * 0.16).toFloat()
+        }
+    }
+
+    private fun getEngBtnHeight(width: Int) : Float {
+        return when {
+            width < 650 -> (width * 0.28).toFloat()
+            width < 950 ->(width * 0.22).toFloat()
+            else -> (width * 0.18).toFloat()
+        }
+    }
+
+    private fun getLogoHeight(height: Int) : Float {
+        return when {
+            height < 1000 -> (height * 0.09).toFloat()
+            height < 1800 -> (height * 0.06).toFloat()
+            else -> (height * 0.03).toFloat()
         }
     }
 

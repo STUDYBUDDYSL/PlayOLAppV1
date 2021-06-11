@@ -25,103 +25,99 @@
             android:scaleType="fitCenter"
             android:contentDescription="@string/cool_image_button" />
 
-        <TableLayout
-            android:id="@+id/btn_table"
+        <LinearLayout
+            android:id="@+id/btn_layout"
             app:layout_constraintTop_toBottomOf="@id/main_logo"
-            android:layout_width="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp">
+            android:layout_gravity="bottom"
+            android:layout_marginVertical="20dp"
+            android:orientation="horizontal">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginVertical="15dp">
+            <FrameLayout
+                android:id="@+id/btn_grade10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="1dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-                <FrameLayout
-                    android:id="@+id/btn_grade10"
+                <ImageView
+                    android:id="@+id/btn10"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@drawable/button"
+                    android:scaleType="fitCenter" />
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:layout_marginBottom="45dp"
+                    android:fontFamily="@font/modernhead_serife"
+                    android:text="Grade"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="32sp" />
 
-                    <ImageView
-                        android:id="@+id/btn10"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:background="@drawable/button"
-                        android:scaleType="fitCenter" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="45dp"
-                        android:fontFamily="@font/modernhead_serife"
-                        android:text="Grade"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="32sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/next_art_bold"
-                        android:text="10"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="110sp" />
-
-                </FrameLayout>
-
-                <FrameLayout
-                    android:id="@+id/btn_grade11"
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/next_art_bold"
+                    android:text="10"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="110sp" />
 
-                    <ImageView
-                        android:id="@+id/btn11"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        android:background="@drawable/button"
-                        android:scaleType="fitCenter" />
+            </FrameLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="45dp"
-                        android:fontFamily="@font/modernhead_serife"
-                        android:text="Grade"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="32sp" />
+            <FrameLayout
+                android:id="@+id/btn_grade11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="1dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="10dp"
-                        android:fontFamily="@font/next_art_bold"
-                        android:text="11"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="110sp" />
+                <ImageView
+                    android:id="@+id/btn11"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@drawable/button"
+                    android:scaleType="fitCenter" />
 
-                </FrameLayout>
-            </TableRow>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="45dp"
+                    android:fontFamily="@font/modernhead_serife"
+                    android:text="Grade"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="32sp" />
 
-        </TableLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/next_art_bold"
+                    android:text="11"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="110sp" />
+
+            </FrameLayout>
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/btnEng"
-            app:layout_constraintTop_toBottomOf="@id/btn_table"
+            app:layout_constraintTop_toBottomOf="@id/btn_layout"
             android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_marginHorizontal="20dp"
+            android:layout_height="0dp"
             android:background="@drawable/english_btn"
             android:scaleType="fitCenter" />
 
