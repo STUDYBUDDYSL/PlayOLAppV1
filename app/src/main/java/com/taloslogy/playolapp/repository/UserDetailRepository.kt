@@ -8,8 +8,8 @@ import java.net.URL
 class UserDetailRepository {
 
     companion object {
-        private const val AUTH_URL = "https://greentel.taloslogy.net/xmlrpc/2/common"
-        private const val QUERY_URL = "https://greentel.taloslogy.net/xmlrpc/2/object"
+        private const val AUTH_URL = "https://greentelol.com/xmlrpc/2/common"
+        private const val QUERY_URL = "https://greentelol.com/xmlrpc/2/object"
     }
 
     fun authenticate(listener: XMLRPCCallback, userName: String, token: String){

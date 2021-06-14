@@ -7,7 +7,7 @@ import com.github.kittinunf.result.Result
 class LoginRepository {
 
     companion object {
-        private const val ssoUrl = "http://greentel.taloslogy.net:8080/sso?authToken="
+        private const val ssoUrl = "http://greentelol.com:8080/sso?authToken="
     }
 
     fun ssoLoginRequest(authToken: String, onResult: (res: Boolean, msg: String) -> Unit) {
