@@ -1,5 +1,6 @@
 package com.taloslogy.playolapp.repository
 
+import android.util.Log
 import com.github.kittinunf.fuel.Fuel
 import com.github.kittinunf.result.Result
 
@@ -7,7 +8,7 @@ import com.github.kittinunf.result.Result
 class LoginRepository {
 
     companion object {
-        private const val ssoUrl = "http://greentelol.com:8080/sso?authToken="
+        private const val ssoUrl = "https://greentelol.com/sso?authToken="
     }
 
     fun ssoLoginRequest(authToken: String, onResult: (res: Boolean, msg: String) -> Unit) {
@@ -23,6 +24,7 @@ class LoginRepository {
                         msg = if(err.contains("Unable to resolve host")){
                             "Device doesn't have an internet connection!"
                         } else {
+                            Log.d("TEST_LOG", err)
                             "Server error. Please try again!"
                         }
                     }
