@@ -11,7 +11,7 @@ class FileUtils {
         return files
             .filter { showHiddenFiles || !it.name.startsWith(".") }
             .filter { !onlyFolders || it.isDirectory }
-            .toList()
+            .toList().sorted()
     }
 
     fun readFileText(fileName: String, context: FragmentActivity): String {
