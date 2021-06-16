@@ -57,7 +57,6 @@ class UserDetailViewModel : ViewModel() {
         return !dob.value.isNullOrBlank()
                 && !city.value.isNullOrBlank()
                 && !phoneNumber.value.isNullOrBlank()
-                && phoneNumber.value?.length == 10
                 && !school.value.isNullOrBlank()
                 && grade.value != 0
                 && district.value != 0

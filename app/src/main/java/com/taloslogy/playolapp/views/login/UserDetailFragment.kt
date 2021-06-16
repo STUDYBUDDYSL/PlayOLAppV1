@@ -136,19 +136,47 @@ class UserDetailFragment : Fragment(){
         })
 
         address_field.addTextChangedListener {
-            userDetailViewModel.address.postValue(it.toString())
+            val txt = it.toString()
+            if(txt.isEmpty()) address_field.error = "This field is required"
+            userDetailViewModel.address.postValue(txt)
         }
 
         city_field.addTextChangedListener {
-            userDetailViewModel.city.postValue(it.toString())
+            val txt = it.toString()
+            if(txt.isEmpty()) city_field.error = "This field is required"
+            userDetailViewModel.city.postValue(txt)
         }
 
         contact_field.addTextChangedListener {
-            userDetailViewModel.phoneNumber.postValue(it.toString())
+            val txt = it.toString()
+            if(txt.isEmpty()){
+                contact_field.error = "This field is required"
+                userDetailViewModel.phoneNumber.postValue("")
+            }
+            else {
+                if(txt.startsWith("+94")){
+                    if(txt.length != 12){
+                        contact_field.error = "Incorrect phone number"
+                        userDetailViewModel.phoneNumber.postValue("")
+                    }
+                    else {
+                        userDetailViewModel.phoneNumber.postValue(txt)
+                    }
+                }
+                else if (txt.length != 10){
+                    contact_field.error = "Incorrect phone number"
+                    userDetailViewModel.phoneNumber.postValue("")
+                }
+                else {
+                    userDetailViewModel.phoneNumber.postValue(txt)
+                }
+            }
         }
 
         school_field.addTextChangedListener {
-            userDetailViewModel.school.postValue(it.toString())
+            val txt = it.toString()
+            if(txt.isEmpty()) school_field.error = "This field is required"
+            userDetailViewModel.school.postValue(txt)
         }
 
         userDetailViewModel.valid.observe(viewLifecycleOwner, Observer {

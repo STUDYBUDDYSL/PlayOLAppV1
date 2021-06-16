@@ -35,6 +35,6 @@
     <string name="lessons">Lessons</string>
     <string name="male">Male</string>
     <string name="female">Female</string>
-    <string name="privacy_consent">I agree to bla bla</string>
+    <string name="privacy_consent">I agree to share these details with PlayOL</string>
 
 </resources>
