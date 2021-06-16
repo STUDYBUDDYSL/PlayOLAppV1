@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
+import android.widget.CheckBox
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
@@ -87,6 +88,10 @@ class UserDetailFragment : Fragment(){
         radioGroup1.setOnCheckedChangeListener { _, i ->
             val radio = activity?.findViewById<RadioButton>(i)
             userDetailViewModel.gender.postValue(radio!!.text.toString())
+        }
+
+        consent_check.setOnCheckedChangeListener { _, b ->
+            userDetailViewModel.consent.postValue(b)
         }
 
         dob_input.setOnClickListener {

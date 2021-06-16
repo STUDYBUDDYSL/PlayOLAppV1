@@ -26,6 +26,7 @@ class UserDetailViewModel : ViewModel() {
     val grade = MutableLiveData<Int>(0)
     val district = MutableLiveData<Int>(0)
     val gender = MutableLiveData<String>("Male")
+    val consent = MutableLiveData<Boolean>(false)
 
     val valid = MediatorLiveData<Boolean>().apply {
         addSource(dob) {
@@ -46,6 +47,9 @@ class UserDetailViewModel : ViewModel() {
         addSource(district) {
             value = isValidForm()
         }
+        addSource(consent) {
+            value = isValidForm()
+        }
 
     }
 
@@ -57,6 +61,7 @@ class UserDetailViewModel : ViewModel() {
                 && !school.value.isNullOrBlank()
                 && grade.value != 0
                 && district.value != 0
+                && consent.value!!
     }
 
     var token: String? = null
