@@ -121,7 +121,7 @@ class HomeFragment : Fragment() {
         }
 
         btnRevision.setOnClickListener{
-            if(!fileUtils.checkGradeExists(StringUtils.getRevisionName)){
+            if(fileUtils.checkGradeExists(StringUtils.getRevisionName)){
                 navController.navigate(R.id.select_revision)
             }
             else {
