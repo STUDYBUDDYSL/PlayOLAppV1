@@ -63,13 +63,21 @@ class HomeFragment : Fragment() {
         btn10.layoutParams = btnParams
         btn11.layoutParams = btnParams
 
+        val btnRevParams = ConstraintLayout.LayoutParams(
+            ConstraintLayout.LayoutParams.MATCH_PARENT,
+            getPxFromDp(getEngBtnHeight(width))
+        )
+        btnRevParams.topToBottom = btn_layout.id
+        btnRevision.layoutParams = btnRevParams
+        setMargins(btnRevision, 30, 10, 30, 0)
+
         val btnEngParams = ConstraintLayout.LayoutParams(
             ConstraintLayout.LayoutParams.MATCH_PARENT,
             getPxFromDp(getEngBtnHeight(width))
         )
-        btnEngParams.topToBottom = btn_layout.id
+        btnEngParams.topToBottom = btnRevision.id
         btnEng.layoutParams = btnEngParams
-        setMargins(btnEng, 30, 45, 30, 0)
+        setMargins(btnEng, 30, 0, 30, 0)
 
         val logoHeight = getLogoHeight(resources.displayMetrics.heightPixels)
 
@@ -164,9 +172,9 @@ class HomeFragment : Fragment() {
 
     private fun getLogoHeight(height: Int) : Float {
         return when {
-            height < 1000 -> (height * 0.09).toFloat()
-            height < 1800 -> (height * 0.06).toFloat()
-            else -> (height * 0.03).toFloat()
+            height < 1000 -> (height * 0.08).toFloat()
+            height < 1800 -> (height * 0.05).toFloat()
+            else -> (height * 0.02).toFloat()
         }
     }
 

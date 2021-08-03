@@ -17,8 +17,8 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="140dp"
-            android:layout_height="100dp"
+            android:layout_width="110dp"
+            android:layout_height="80dp"
             android:background="@drawable/main_logo"
             android:layout_gravity="center"
             android:layout_marginTop="15dp"
@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginVertical="20dp"
+            android:layout_marginVertical="10dp"
             android:orientation="horizontal">
 
             <FrameLayout
@@ -114,8 +114,16 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/btnEng"
+            android:id="@+id/btnRevision"
             app:layout_constraintTop_toBottomOf="@id/btn_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/revision_btn"
+            android:scaleType="fitCenter" />
+
+        <ImageView
+            android:id="@+id/btnEng"
+            app:layout_constraintTop_toBottomOf="@id/btnRevision"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@drawable/english_btn"
@@ -128,7 +136,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal">
 
             <ImageView
