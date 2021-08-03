@@ -11,6 +11,8 @@ object StringUtils {
 
     val getEnglishName:String get() = "english-for-all"
 
+    val getRevisionName:String get() = "Revision"
+
     var sdCardPath = ""
 
     val getCoursePath:String get() = "$sdCardPath/Courses"

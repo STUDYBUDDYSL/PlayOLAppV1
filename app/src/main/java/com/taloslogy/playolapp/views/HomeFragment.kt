@@ -82,7 +82,7 @@ class HomeFragment : Fragment() {
         val logoHeight = getLogoHeight(resources.displayMetrics.heightPixels)
 
         val greentelParams = LinearLayout.LayoutParams(
-            getPxFromDp((logoHeight*500/418).toFloat()),
+            getPxFromDp((logoHeight*500/418)),
             getPxFromDp(logoHeight)
         )
         greentel.layoutParams = greentelParams
@@ -112,6 +112,17 @@ class HomeFragment : Fragment() {
             if(fileUtils.checkGradeExists(StringUtils.getGrade11Name)){
                 val action = HomeFragmentDirections.selectGrade(StringUtils.getGrade11Name)
                 navController.navigate(action)
+            }
+            else {
+                Toast.makeText(activity,
+                    requireActivity().getText(R.string.incorrect_grade_toast),
+                    Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        btnRevision.setOnClickListener{
+            if(!fileUtils.checkGradeExists(StringUtils.getRevisionName)){
+                navController.navigate(R.id.select_revision)
             }
             else {
                 Toast.makeText(activity,

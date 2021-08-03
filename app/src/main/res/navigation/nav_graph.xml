@@ -29,6 +29,9 @@
             android:id="@+id/select_grade"
             app:destination="@id/gradeFragment" />
         <action
+            android:id="@+id/select_revision"
+            app:destination="@id/revisionYearFragment" />
+        <action
             android:id="@+id/select_english"
             app:destination="@id/englishFragment" />
     </fragment>
@@ -82,6 +85,30 @@
             app:destination="@id/subjectFragment" />
         <argument
             android:name="selected_grade"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/revisionYearFragment"
+        android:name="com.taloslogy.playolapp.views.RevisionYearFragment"
+        android:label="fragment_revision_year"
+        tools:layout="@layout/fragment_revision_year">
+        <action
+            android:id="@+id/select_year"
+            app:destination="@id/revisionSubjectFragment" />
+        <argument
+            android:name="selected_year"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/revisionSubjectFragment"
+        android:name="com.taloslogy.playolapp.views.RevisionSubjectFragment"
+        android:label="fragment_revision_subject"
+        tools:layout="@layout/fragment_revision_subject">
+        <action
+            android:id="@+id/select_subject"
+            app:destination="@id/subjectFragment" />
+        <argument
+            android:name="selected_subject"
             app:argType="string" />
     </fragment>
 </navigation>
