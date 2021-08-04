@@ -11,9 +11,6 @@
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
-            android:id="@+id/action_login"
-            app:destination="@id/login_graph"/>
-        <action
             android:id="@+id/action_home"
             app:destination="@id/homeFragment"
             app:popUpTo="@id/splashFragment"
@@ -82,7 +79,6 @@
             app:argType="boolean"
             android:defaultValue="false" />
     </fragment>
-    <include app:graph="@navigation/login_graph" />
     <fragment
         android:id="@+id/englishFragment"
         android:name="com.taloslogy.playolapp.views.EnglishFragment"

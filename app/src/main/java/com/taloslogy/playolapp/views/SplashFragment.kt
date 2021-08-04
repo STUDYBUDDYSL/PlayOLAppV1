@@ -37,10 +37,7 @@ class SplashFragment : Fragment() {
         userViewModel = ViewModelProvider(requireActivity().viewModelStore, viewModelFactory).get(UserViewModel::class.java)
 
         userViewModel.checkLogin().observe(viewLifecycleOwner, Observer {
-            if (!it){
-                navController.navigate(R.id.action_login)
-            }
-            else{
+            if (it){
                 navController.navigate(R.id.action_home)
             }
         })

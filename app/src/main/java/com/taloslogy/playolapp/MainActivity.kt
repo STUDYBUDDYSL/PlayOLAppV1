@@ -34,16 +34,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp() = findNavController(nav_host_fragment).navigateUp()
 
-    override fun onBackPressed() {
-        val currentDestination= findNavController(nav_host_fragment).currentDestination
-        when(currentDestination?.id) {
-            R.id.loginFragment -> {
-                finish()
-            }
-        }
-        super.onBackPressed()
-    }
-
     private fun checkPermission(): Boolean {
         return ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
     }
