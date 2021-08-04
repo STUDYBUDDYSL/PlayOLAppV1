@@ -3,9 +3,7 @@ package com.taloslogy.playolapp.views
 import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.graphics.Color
-import android.media.MediaPlayer
 import android.os.Bundle
-import android.util.Log
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +16,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.google.android.exoplayer2.MediaItem
+import com.google.android.exoplayer2.PlaybackParameters
 import com.google.android.exoplayer2.Player
 import com.google.android.exoplayer2.SimpleExoPlayer
 import com.taloslogy.playolapp.R
@@ -26,9 +25,7 @@ import com.taloslogy.playolapp.utils.Decryptor
 import com.taloslogy.playolapp.utils.FileUtils
 import com.taloslogy.playolapp.utils.StringUtils
 import com.taloslogy.playolapp.utils.storage.PrefHelper
-import kotlinx.android.synthetic.main.fragment_subject.*
 import kotlinx.android.synthetic.main.fragment_video.*
-import kotlinx.android.synthetic.main.fragment_video.top_image
 import org.json.JSONObject
 import java.io.File
 import java.io.FileOutputStream
@@ -46,6 +43,7 @@ class VideoFragment : Fragment() {
     private lateinit var exoPlayer: SimpleExoPlayer
 
     private var position: Int? = null
+    private var speed: Float = 1.0f
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -166,6 +164,25 @@ class VideoFragment : Fragment() {
                 }
             }
         }
+
+        speed_btn.setOnClickListener {
+            if(isPrepared){
+                speed = when (speed) {
+                    1.0f -> {
+                        1.5f
+                    }
+                    1.5f -> {
+                        2.0f
+                    }
+                    else -> {
+                        1.0f
+                    }
+                }
+                speed_text.text = "${speed}x"
+                val param = PlaybackParameters(speed)
+                exoPlayer.setPlaybackParameters(param)
+            }
+        }
     }
 
     private fun enterFullScreen() {
@@ -233,6 +250,12 @@ class VideoFragment : Fragment() {
             videoView.player = exoPlayer
             val mediaItem = MediaItem.fromUri(playFile.absolutePath)
             exoPlayer.setMediaItem(mediaItem)
+            // Set speed to normal on new playing
+            speed = 1.0f
+            speed_text.text = "${speed}x"
+            val param = PlaybackParameters(speed)
+            exoPlayer.setPlaybackParameters(param)
+
             exoPlayer.addListener(object : Player.EventListener {
                 override fun onPlayerStateChanged(playWhenReady: Boolean, playbackState: Int) {
                     if (playbackState == Player.STATE_READY) {

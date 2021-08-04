@@ -38,5 +38,6 @@
     <string name="privacy_consent">I agree to share these details with PlayOL</string>
     <string name="revision">O/L Revision</string>
     <string name="revision_year">%1$s Revision</string>
+    <string name="video_speed">1.0x</string>
 
 </resources>

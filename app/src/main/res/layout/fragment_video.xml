@@ -119,6 +119,33 @@
         app:layout_constraintTop_toBottomOf="@+id/video_content"
         app:layout_constraintBottom_toBottomOf="parent">
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/speed_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            app:cardPreventCornerOverlap="false"
+            app:cardBackgroundColor="@color/colorAccent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/back_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/speed_text"
+                android:layout_width="35dp"
+                android:layout_height="20dp"
+                android:layout_marginHorizontal="2dp"
+                android:layout_marginVertical="3.5dp"
+                android:text="@string/video_speed"
+                android:textColor="@color/colorWhite"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/cool_image_button" />
+
+        </androidx.cardview.widget.CardView>
+
         <ImageView
             android:id="@+id/back_btn"
             android:layout_width="50dp"
@@ -129,8 +156,8 @@
             android:contentDescription="@string/cool_image_button"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/play_pause"/>
+            app:layout_constraintStart_toEndOf="@id/speed_btn"
+            app:layout_constraintEnd_toStartOf="@id/play_pause"/>
 
         <androidx.cardview.widget.CardView
             android:id="@+id/play_pause"
