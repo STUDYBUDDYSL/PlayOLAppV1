@@ -58,6 +58,10 @@
         <action
             android:id="@+id/action_lesson"
             app:destination="@id/videoFragment" />
+        <argument
+            android:name="sub_type"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/videoFragment"
@@ -73,6 +77,10 @@
         <argument
             android:name="subject"
             app:argType="string" />
+        <argument
+            android:name="sub_type"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <include app:graph="@navigation/login_graph" />
     <fragment

@@ -26,7 +26,9 @@ import com.taloslogy.playolapp.utils.Decryptor
 import com.taloslogy.playolapp.utils.FileUtils
 import com.taloslogy.playolapp.utils.StringUtils
 import com.taloslogy.playolapp.utils.storage.PrefHelper
+import kotlinx.android.synthetic.main.fragment_subject.*
 import kotlinx.android.synthetic.main.fragment_video.*
+import kotlinx.android.synthetic.main.fragment_video.top_image
 import org.json.JSONObject
 import java.io.File
 import java.io.FileOutputStream
@@ -79,6 +81,11 @@ class VideoFragment : Fragment() {
 
         position = arguments?.let { VideoFragmentArgs.fromBundle(it).lessonNumber }
         val path = arguments?.let { VideoFragmentArgs.fromBundle(it).subject }
+        val subType = arguments?.let { VideoFragmentArgs.fromBundle(it).subType }
+
+        if(subType!!){
+            top_image.background = ContextCompat.getDrawable(requireActivity(), R.drawable.revision_img)
+        }
 
         val files = fileUtils.getFilesFromPath(path!!, onlyFolders = false)
         val json = fileUtils.readFileText(StringUtils.getJsonFileName, requireActivity())

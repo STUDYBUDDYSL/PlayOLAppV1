@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.taloslogy.playolapp.adapters.LessonAdapter
@@ -21,7 +22,6 @@ import kotlin.concurrent.thread
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
 class SubjectFragment : Fragment() {
 
-    private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
     private lateinit var myDataset: ArrayList<String>
@@ -44,6 +44,12 @@ class SubjectFragment : Fragment() {
         val jsonObject = JSONObject(json)
 
         val subName = arguments?.let { SubjectFragmentArgs.fromBundle(it).subject }
+        val subType = arguments?.let { SubjectFragmentArgs.fromBundle(it).subType }
+
+        if(subType!!){
+            top_image.background = ContextCompat.getDrawable(requireActivity(), R.drawable.revision_img)
+        }
+
         val sName = jsonObject.getJSONObject(subName!!.split('/').last()).getString("name")
         subject_name.text = sName.replace('\n', ' ')
 
@@ -51,7 +57,14 @@ class SubjectFragment : Fragment() {
             onlyFolders = false
         )
 
-        thread { generateLessons(files, "${StringUtils.getCoursePath}/$subName/ed", jsonObject) }
+        thread {
+            generateLessons(
+                files,
+                "${StringUtils.getCoursePath}/$subName/ed",
+                jsonObject,
+                subType
+            )
+        }
 
         search_text.setOnFocusChangeListener { _, b ->
             if(!b && search_text.text.toString().isEmpty()){
@@ -84,7 +97,11 @@ class SubjectFragment : Fragment() {
         })
     }
 
-    private fun generateLessons(files: List<File>, path: String, fileNames: JSONObject) {
+    private fun generateLessons(
+        files: List<File>,
+        path: String, fileNames: JSONObject,
+        subType: Boolean
+    ) {
         totalSet =  if (files.isNotEmpty())
             ArrayList(files.map{
                 val name = it.name.replace(".mp4.talos", "")
@@ -98,7 +115,7 @@ class SubjectFragment : Fragment() {
 
         myDataset = ArrayList(totalSet.toMutableList())
         viewManager = LinearLayoutManager(activity)
-        viewAdapter = LessonAdapter(myDataset, path)
+        viewAdapter = LessonAdapter(myDataset, path, subType)
 
         requireActivity().runOnUiThread {
             my_recycler_view?.apply {

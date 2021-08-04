@@ -99,7 +99,7 @@ class RevisionSubjectFragment : Fragment() {
                         sub.setOnClickListener {
                             val action = RevisionSubjectFragmentDirections.selectSubject(
                                     "$path/${files[i].name}"
-                                )
+                                ).setSubType(true)
                             Navigation.findNavController(it).navigate(action)
                         }
 

@@ -9,7 +9,11 @@ import com.taloslogy.playolapp.R
 import com.taloslogy.playolapp.views.SubjectFragmentDirections
 
 /** @author Rangana Perera. @copyrights: Taloslogy PVT Ltd. */
-class LessonAdapter(private val myDataset: ArrayList<String>, private val path: String) :
+class LessonAdapter(
+        private val myDataset: ArrayList<String>,
+        private val path: String,
+        private val subType: Boolean
+) :
     RecyclerView.Adapter<LessonAdapter.MyViewHolder>() {
 
     class MyViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
@@ -29,6 +33,7 @@ class LessonAdapter(private val myDataset: ArrayList<String>, private val path: 
         holder.textView.text = myDataset[position]
         holder.textView.setOnClickListener {
             val action = SubjectFragmentDirections.actionLesson(myDataset[position],position, path)
+                    .setSubType(subType)
             Navigation.findNavController(it).navigate(action)
         }
     }
